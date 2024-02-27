@@ -10,12 +10,17 @@
 <header></header>
 <main class="cont-main">
     <input class="quiz-id hidden" th:value="${quiz.id}" />
-    <form action="/quiz/post" method="post" class="quizForm" onsubmit="return false;" th:object="${quiz}">
+    <form action="/quiz/post" method="post" class="quizForm" onsubmit="return false;"
+          th:object="${quiz}">
+
+        <input class="user-id hidden" th:field="*{userId}"/>
+
         <div class="title-container">
             <textarea class="title" placeholder="퀴즈 제목을 작성해주세요." rows="1" onkeyup="autoResize(this)"
                       onkeydown="autoResize(this)" th:field="*{title}"></textarea>
             <div class="title-text-count">0/250</div>
         </div>
+
         <div class="tag-select-container">
             <h1>과목을 선택해주세요! 중복 선택 가능합니다.</h1>
             <div class="selected-tags-container">

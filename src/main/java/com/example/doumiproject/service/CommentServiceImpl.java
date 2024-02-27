@@ -22,6 +22,11 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public List<CommentDto> getAllComments(long postId) {
 
-        return commentRepository.getByQuizId(postId);
+        return commentRepository.getAllComment(postId);
+    }
+
+    @Override
+    public CommentDto getComment(long commentId) {
+        return commentRepository.getComment(commentId);
     }
 }

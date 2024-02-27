@@ -1,16 +1,16 @@
 package com.example.doumiproject.repository;
 
-import com.example.doumiproject.dto.CommentDto;
-import com.example.doumiproject.dto.ReCommentDto;
+import com.example.doumiproject.dto.*;
 import com.example.doumiproject.entity.Comment;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.util.List;
 
 public interface CommentRepository {
-    public List<CommentDto> getByQuizId(long postId);
-    public List<ReCommentDto> getByParentCommentId(long parentCommentId);
+    public List<CommentDto> getAllComment(long postId);
+    public List<ReCommentDto> getAllReComment(long parentCommentId);
     public void saveComment(Comment comment, long userId, String type);
+    public CommentDto getComment(long commentId);
 
     default RowMapper<CommentDto> commentRowMapper(){
         return (rs,rowNum)->{
@@ -22,6 +22,7 @@ public interface CommentRepository {
             commentDto.setLike(rs.getInt("like"));
             commentDto.setDisplay(rs.getInt("display"));
             commentDto.setCreatedAt(rs.getTimestamp("created_at"));
+            commentDto.setParentCommentId(rs.getLong("parent_comment_id"));
             return commentDto;
         };
     }

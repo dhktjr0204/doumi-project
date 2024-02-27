@@ -1,14 +1,10 @@
 package com.example.doumiproject.repository;
 
-import com.example.doumiproject.dto.CommentDto;
-import com.example.doumiproject.dto.ReCommentDto;
+import com.example.doumiproject.dto.*;
 import com.example.doumiproject.entity.Comment;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,8 +17,8 @@ public class JdbcTemplateCommentRepository implements CommentRepository {
     }
 
     @Override
-    public List<CommentDto> getByQuizId(long postId) {
-        String sql = "select c.id as comment_id ,u.id as user_id, u.user_id as author , c.contents, c.created_at, c.like, c.display " +
+    public List<CommentDto> getAllComment(long postId) {
+        String sql = "select c.id as comment_id ,u.id as user_id, u.user_id as author , c.contents, c.created_at, c.like, c.display, c.parent_comment_id " +
                 "from comment c " +
                 "inner join user u on u.id=c.user_id " +
                 "where c.post_id=? " +
@@ -32,7 +28,7 @@ public class JdbcTemplateCommentRepository implements CommentRepository {
         List<CommentDto> comments = jdbcTemplate.query(sql, commentRowMapper(), postId);
 
         for (CommentDto comment : comments) {
-            List<ReCommentDto> reComments = getByParentCommentId(comment.getId());
+            List<ReCommentDto> reComments = getAllReComment(comment.getId());
             comment.setReComments(reComments);
         }
 
@@ -41,7 +37,7 @@ public class JdbcTemplateCommentRepository implements CommentRepository {
 
 
     @Override
-    public List<ReCommentDto> getByParentCommentId(long parentCommentId) {
+    public List<ReCommentDto> getAllReComment(long parentCommentId) {
         // 1. 부모 댓글 ID에 해당하는 모든 대댓글 목록을 조회
         //대댓글 시간순 정렬
         String sql = "select c.id as re_comment_id ,u.id as user_id, u.user_id as author, c.contents, c.created_at, c.like, c.display " +
@@ -69,5 +65,15 @@ public class JdbcTemplateCommentRepository implements CommentRepository {
 
         jdbcTemplate.update(sql, userId, comment.getPostId(), type, comment.getContents(),
                 LocalDateTime.now(),LocalDateTime.now(),0,display,comment.getParentCommentId());
+    }
+
+    @Override
+    public CommentDto getComment(long commentId) {
+        String sql = "select c.id as comment_id ,u.id as user_id, u.user_id as author , c.contents, c.created_at, c.like, c.display, c.parent_comment_id " +
+                "from comment c " +
+                "inner join user u on u.id=c.user_id " +
+                "where c.id=? ";
+
+        return jdbcTemplate.queryForObject(sql, commentRowMapper(), commentId);
     }
 }

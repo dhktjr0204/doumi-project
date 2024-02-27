@@ -97,6 +97,7 @@ public class QuizController {
 
     @GetMapping("/post")
     public String createQuiz(Model model){
+        //로그인 하지 않은 유저가 요청하면 거절
 
         //타입별 태그 모두 불러오기
         List<TagDto> tags = quizService.getAllTags();
@@ -109,6 +110,7 @@ public class QuizController {
 
     @PostMapping("/post")
     public ResponseEntity<String> postQuiz(Quiz quiz) {
+        //로그인 하지 않은 유저가 요청하면 거절
 
         Long postId = quizService.saveQuiz(quiz, 1l);
 
@@ -117,10 +119,15 @@ public class QuizController {
 
     @GetMapping("/edit")
     public String editQuiz(@RequestParam("id") Long id, Model model){
+        long userId=1l;
 
         //로그인 생기면 현재 로그인된 유저의 nickname과 quizDetail의 userId가 일치한지 검증 필요
         QuizDto quiz=quizService.getQuiz(id);
         List<TagDto> tags = quizService.getAllTags();
+
+        if(quiz.getUserId()!=userId){
+            System.out.println("에러 처리");
+        }
 
         model.addAttribute("quiz",quiz);
         model.addAttribute("tags",tags);
@@ -130,9 +137,14 @@ public class QuizController {
 
     @PostMapping("/edit")
     public ResponseEntity<String> updateQuiz(@RequestParam("id") Long id, Quiz quiz){
+        long userId=1l;
+
+        if(quiz.getUserId()!=userId){
+            System.out.println("에러처리");
+        }
 
         //수정 권한있는 사용자인지 검증 로직 repository에 수정필요
-        quizService.updateQuiz(quiz, id, 1l);
+        quizService.updateQuiz(quiz, id, userId);
 
         return ResponseEntity.ok("/quiz/board?id="+id);
     }
