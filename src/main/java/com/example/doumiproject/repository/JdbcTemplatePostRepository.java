@@ -84,7 +84,7 @@ public class JdbcTemplatePostRepository implements PostRepository{
                 "inner join " +
                 "user u on p.user_id = u.id " +
                 "where " +
-                "(p.type = ?) " +
+                "(p.type = ?) and" +
                 "(p.title like ? or u.user_id like ? )" +
                 "order by " +
                 "p.id desc "+
@@ -143,7 +143,7 @@ public class JdbcTemplatePostRepository implements PostRepository{
                 "inner join " +
                 "user u on p.user_id = u.id " +
                 "where " +
-                "(p.type = ? )" +
+                "(p.type = ?) and " +
                 "(p.title like ? or u.user_id like ? )";
 
         return jdbcTemplate.queryForObject(sql, Integer.class, pageSize, type, param, param);
