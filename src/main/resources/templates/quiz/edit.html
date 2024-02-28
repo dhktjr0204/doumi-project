@@ -9,7 +9,7 @@
 <body>
 <header></header>
 <main class="cont-main">
-    <input class="quiz-id hidden" th:value="${quiz.id}" />
+    <input class="post-id hidden" th:value="${quiz.id}" />
     <form action="/quiz/post" method="post" class="quizForm" onsubmit="return false;"
           th:object="${quiz}">
 
@@ -18,7 +18,7 @@
         <div class="title-container">
             <textarea class="title" placeholder="퀴즈 제목을 작성해주세요." rows="1" onkeyup="autoResize(this)"
                       onkeydown="autoResize(this)" th:field="*{title}"></textarea>
-            <div class="title-text-count">0/250</div>
+            <div class="title-text-count"></div>
         </div>
 
         <div class="tag-select-container">
@@ -60,12 +60,12 @@
         <div class="input-container">
             <div class="quiz-container">
                 <h1>Quiz</h1>
-                <div class="quiz-text-count">0/3000</div>
+                <div class="quiz-text-count"></div>
                 <div class="quiz-content"></div>
             </div>
             <div class="answer-container">
                 <h1>Answer</h1>
-                <div class="answer-text-count">0/3000</div>
+                <div class="answer-text-count"></div>
                 <div class="answer-content"></div>
             </div>
         </div>
@@ -83,10 +83,10 @@
     let answerContent=[[${quiz.answer}]];
 </script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script th:src="@{/Js/wordCount.js}"></script>
 <script th:src="@{/Js/quiz/form.js}"></script>
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <script th:src="@{/Js/quiz/toastApi.js}"></script>
-<script th:src="@{/Js/wordCount.js}"></script>
 <script th:src="@{/Js/quiz/ajaxCreateUpdateRequest.js}"></script>
 </body>
 </html>

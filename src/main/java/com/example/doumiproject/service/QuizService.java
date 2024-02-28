@@ -14,7 +14,7 @@ public interface QuizService {
     public Long saveQuiz(Quiz quiz, Long userId);
     public int getTotalPages(int pageSize, String keyword);
     public List<PostDto> getSearchQuiz(String keyword, int page, int pageSize);
-    public void updateQuiz(Quiz quiz, Long postId, Long userId);
+    public void updateQuiz(Quiz quiz, Long postId);
     public void deleteQuiz(long postId);
     public int getTotalPagesForSelectedTag(int pageSize, String tag);
     public List<PostDto> getQuizForSelectedTag(String tag, int page, int pageSize);

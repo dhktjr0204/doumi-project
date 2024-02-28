@@ -143,8 +143,7 @@ public class QuizController {
             System.out.println("에러처리");
         }
 
-        //수정 권한있는 사용자인지 검증 로직 repository에 수정필요
-        quizService.updateQuiz(quiz, id, userId);
+        quizService.updateQuiz(quiz, id);
 
         return ResponseEntity.ok("/quiz/board?id="+id);
     }

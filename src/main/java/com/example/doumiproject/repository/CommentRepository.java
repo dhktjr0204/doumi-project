@@ -10,7 +10,8 @@ public interface CommentRepository {
     public List<CommentDto> getAllComment(long postId);
     public List<ReCommentDto> getAllReComment(long parentCommentId);
     public void saveComment(Comment comment, long userId, String type);
-    public CommentDto getComment(long commentId);
+    public void updateComment(Comment comment, long commentId);
+    public void deleteComment(long commentId);
 
     default RowMapper<CommentDto> commentRowMapper(){
         return (rs,rowNum)->{

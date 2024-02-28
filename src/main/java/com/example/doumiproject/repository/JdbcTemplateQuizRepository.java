@@ -82,14 +82,14 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
     }
 
     @Override
-    public void updateQuiz(Quiz quiz, long postId, long userId) {
+    public void updateQuiz(Quiz quiz, long postId) {
         //로그인 생기면 수정 권한 있는지 확인 로직 where에 추가
         String postSql="update post "+
                 "set title=?, contents=?, updated_at = ? "+
                 "where id = ?";
         jdbcTemplate.update(postSql,
                 quiz.getTitle(),quiz.getQuizContent(),LocalDateTime.now()
-                ,postId,userId);
+                ,postId);
 
         String answerSql="update answer "+
                 "set answer=? "+

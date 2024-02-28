@@ -70,9 +70,9 @@ public class QuizServiceImpl implements QuizService{
 
     @Transactional
     @Override
-    public void updateQuiz(Quiz quiz, Long postId, Long userId) {
+    public void updateQuiz(Quiz quiz, Long postId) {
 
-        quizRepository.updateQuiz(quiz, postId, userId);
+        quizRepository.updateQuiz(quiz, postId);
     }
 
     @Override

@@ -21,8 +21,10 @@ function switchEditReCommentForm(button){
 
 //서버로 보낼 데이터 정제
 function getCommentData(commentItemContainer, type) {
-    const postId = document.querySelector('.quiz-id').value;
-    const userId = commentItemContainer.querySelector('.comment-writer-name').value;
+    const postId = document.querySelector('.post-id').value;
+    //a 속성에는 value 속성이 적용 되지 않아 getAttribute로 가져왔다.
+    const userId = commentItemContainer.querySelector('.comment-writer-name').getAttribute('value');
+
     let commentContent;
     let parentCommentId;
 
@@ -35,9 +37,7 @@ function getCommentData(commentItemContainer, type) {
     }
 
     const contents = commentContent.textContent;
-    console.log(contents);
     const display = commentContent.classList.contains('hide-text');
-    console.log(display);
 
     return {
         userId: userId,
@@ -47,6 +47,63 @@ function getCommentData(commentItemContainer, type) {
         display: display,
     };
 }
+
+//취소 버튼을 누르면 원래 댓글 형태로 돌아간다.
+function clickCommentEditCancelButton(button){
+    //부모 요소중 .re-comment-item-container를 찾고, 없을 경우 .comment-item-container를 찾는다.
+    //recomment인지 comment인지 구별 필요
+    const commentItemContainer = button.closest('.re-comment-item-container') || button.closest('.comment-item-container');
+
+    editButtonHideControl(commentItemContainer);
+
+    let data;
+    if(commentItemContainer.classList.contains('re-comment-item-container')){
+        data=createCommentItemBody(commentItemContainer,"reComment");
+    }else{
+        data=createCommentItemBody(commentItemContainer,"comment");
+    }
+
+    $(commentItemContainer).children('.comment-form').replaceWith(data);
+}
+
+//댓글 div 생성
+function createCommentItemBody(commentItemContainer, type){
+    //comment-item-body div 생성
+    const commentItemBody= document.createElement('div');
+    commentItemBody.classList.add('comment-item-body');
+
+    //댓글 contents 가져오기
+    const textContent=commentItemContainer.querySelector('.answer-input').textContent;
+
+    if(type==="comment"){
+        //댓글에 경우 체크박스가 있다.
+        const checked= commentItemContainer.querySelector('.display-check').checked;
+
+        //comment-item div 생성
+        const commentItem= document.createElement('div');
+        commentItem.classList.add('comment-item');
+
+        //체크박스 여부로 비공개, 공개 상태 변경
+        if (checked){
+            commentItemBody.classList.add('hide-place');
+            commentItem.classList.add('hide-text');
+
+            commentItemBody.onclick= function() {
+                clickComment(commentItemBody);
+            };
+        }
+
+        commentItem.textContent=textContent;
+        commentItemBody.append(commentItem);
+
+    }else{
+        //대댓글일 때는 그냥 content만 body에 넣어주면 된다.
+        commentItemBody.textContent=textContent;
+    }
+
+    return commentItemBody;
+}
+
 
 //수정, 삭제 버튼 사라지게 함
 function editButtonHideControl(commentItemContainer){

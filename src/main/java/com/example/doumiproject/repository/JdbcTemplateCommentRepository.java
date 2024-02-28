@@ -56,7 +56,7 @@ public class JdbcTemplateCommentRepository implements CommentRepository {
                 "values (?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 
         //0이면 공개
-        int display=0;
+        int display = 0;
         //체크 박스 선택한 상태이면
         if (comment.isDisplay()) {
             //1로 바꿔줌(비공개 설정)
@@ -64,16 +64,29 @@ public class JdbcTemplateCommentRepository implements CommentRepository {
         }
 
         jdbcTemplate.update(sql, userId, comment.getPostId(), type, comment.getContents(),
-                LocalDateTime.now(),LocalDateTime.now(),0,display,comment.getParentCommentId());
+                LocalDateTime.now(), LocalDateTime.now(), 0, display, comment.getParentCommentId());
     }
 
     @Override
-    public CommentDto getComment(long commentId) {
-        String sql = "select c.id as comment_id ,u.id as user_id, u.user_id as author , c.contents, c.created_at, c.like, c.display " +
-                "from comment c " +
-                "inner join user u on u.id=c.user_id " +
-                "where c.id=? ";
+    public void updateComment(Comment comment, long commentId) {
+        String sql = "update comment " +
+                "set contents=?, display=?,updated_at = ? " +
+                "where id=?";
 
-        return jdbcTemplate.queryForObject(sql, commentRowMapper(), commentId);
+        int display = 0;
+        if (comment.isDisplay()) {
+            display = 1;
+        }
+
+        jdbcTemplate.update(sql, comment.getContents(), display,LocalDateTime.now(), commentId);
+    }
+
+    @Override
+    public void deleteComment(long commentId) {
+        String sql="delete " +
+                "from comment " +
+                "where id=?";
+
+        jdbcTemplate.update(sql, commentId);
     }
 }
