@@ -3,7 +3,7 @@ $(document).ready(function () {
             el: document.querySelector(".content-detail"),
             viewer: true,
             useScript: true,
-            initialValue: quizContent,
+            initialValue: coteContent,
         });
         const answer = toastui.Editor.factory({
             el: document.querySelector(".content-answer"),

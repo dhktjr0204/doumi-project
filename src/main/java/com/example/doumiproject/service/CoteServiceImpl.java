@@ -1,9 +1,14 @@
 package com.example.doumiproject.service;
 
-import com.example.doumiproject.dto.*;
+import com.example.doumiproject.dto.CommentDto;
+import com.example.doumiproject.dto.CoteDto;
+import com.example.doumiproject.dto.PostDto;
+import com.example.doumiproject.dto.TagDto;
 import com.example.doumiproject.entity.Cote;
-import com.example.doumiproject.entity.Quiz;
-import com.example.doumiproject.repository.*;
+import com.example.doumiproject.repository.CommentRepository;
+import com.example.doumiproject.repository.CoteRepository;
+import com.example.doumiproject.repository.PostRepository;
+import com.example.doumiproject.repository.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,20 +20,20 @@ import java.util.List;
 public class CoteServiceImpl implements CoteService{
 
     private final PostRepository postRepository;
-    private final CoteRepository quizRepository;
+    private final CoteRepository coteRepository;
     private final TagRepository tagRepository;
     private final CommentRepository commentRepository;
 
     @Override
-    public List<PostDto> getAllQuiz(int page, int pageSize) {
+    public List<PostDto> getAllCote(int page, int pageSize) {
 
-        return postRepository.findAllQuiz(page, pageSize);
+        return postRepository.findAllPostWithType(page, pageSize, "COTE");
     }
 
     @Override
-    public List<PostDto> getAllQuiz() {
+    public List<PostDto> getAllCote() {
 
-        return postRepository.findAllQuiz();
+        return postRepository.findAllPostWithType("COTE");
     }
 
     @Override
@@ -38,9 +43,9 @@ public class CoteServiceImpl implements CoteService{
     }
 
     @Override
-    public CoteDto getQuiz(long postId){
+    public CoteDto getCote(long postId){
 
-        return quizRepository.getByQuizId(postId);
+        return coteRepository.getByCoteId(postId);
     }
 
     @Override
@@ -58,9 +63,9 @@ public class CoteServiceImpl implements CoteService{
     //데이터 저장 도중 에러가 생길 경우 원 상태로 복귀
     @Transactional
     @Override
-    public Long saveQuiz(Cote quiz, Long userId) {
+    public Long saveCote(Cote cote, Long userId) {
 
-        return quizRepository.saveQuiz(quiz, userId);
+        return coteRepository.saveCote(cote, userId);
     }
 
     @Override
@@ -70,22 +75,22 @@ public class CoteServiceImpl implements CoteService{
     }
 
     @Override
-    public List<PostDto> getSearchQuiz(String keyword, int page, int pageSize) {
+    public List<PostDto> getSearchCote(String keyword, int page, int pageSize) {
 
         return postRepository.findByTitleOrAuthor(keyword, page, pageSize);
     }
 
     @Transactional
     @Override
-    public void updateQuiz(Cote quiz, Long postId, Long userId) {
+    public void updateCote(Cote quiz, Long postId, Long userId) {
 
-        quizRepository.updateQuiz(quiz, postId, userId);
+        coteRepository.updateCote(quiz, postId, userId);
     }
 
     @Override
-    public void deleteQuiz(long postId) {
+    public void deleteCote(long postId) {
         
-        quizRepository.deleteQuiz(postId);
+        coteRepository.deleteCote(postId);
     }
 
 }

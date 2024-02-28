@@ -148,4 +148,41 @@ public class JdbcTemplatePostRepository implements PostRepository{
 
         return jdbcTemplate.queryForObject(sql, Integer.class, pageSize, type, param, param);
     }
+
+    @Override
+    public List<PostDto> findAllPostWithType(int page, int pageSize, String type) {
+
+        int offset = (page - 1) * pageSize;
+
+        String sql = "select p.id," +
+                "u.user_id as author," +
+                "p.type, p.title, p.contents, p.created_at," +
+                "p.updated_at, p.like as like_count " +
+                "from post p " +
+                "inner join " +
+                "user u on p.user_id = u.id " +
+                "where type = ? " +
+                "order by " +
+                "p.id desc " +
+                "limit ? offset ?";
+
+        return jdbcTemplate.query(sql, postDtoRowMapper(), type, pageSize, offset);
+    }
+
+    @Override
+    public List<PostDto> findAllPostWithType(String type) {
+
+        String sql = "select p.id," +
+                "u.user_id as author," +
+                "p.type, p.title, p.contents, p.created_at," +
+                "p.updated_at, p.like as like_count " +
+                "from post p " +
+                "inner join " +
+                "user u on p.user_id = u.id " +
+                "where type = ? " +
+                "order by " +
+                "p.id desc ";
+
+        return jdbcTemplate.query(sql, postDtoRowMapper(), type);
+    }
 }

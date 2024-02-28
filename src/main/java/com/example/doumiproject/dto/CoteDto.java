@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 @Builder
 @NoArgsConstructor
@@ -18,9 +17,8 @@ public class CoteDto {
     private String title;
     private String contents;
     private  String answer;
-    private java.sql.Timestamp createdAt;
+    private Timestamp createdAt;
     private long like;
-    private List<TagDetailDto> tags;
 
     public long getId() {
         return id;
@@ -78,11 +76,4 @@ public class CoteDto {
         this.like = like;
     }
 
-    public List<TagDetailDto> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<TagDetailDto> tags) {
-        this.tags = tags;
-    }
 }

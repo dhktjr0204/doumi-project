@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class Cote {
     private String title; // 질문 제목
     private String tags; // 선택된 태그 목록
-    private String quizContent;
+    private String coteContent;
     private String answerContent;
 }
