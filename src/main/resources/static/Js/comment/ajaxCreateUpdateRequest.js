@@ -11,7 +11,6 @@ function clickReCommentSubmitButton(button){
 
 function submitCommentForm(commentForm) {
     const formData = new FormData(commentForm);
-    console.log(commentForm.action);
     $.ajax({
         url: commentForm.action,
         type: "POST",
@@ -20,6 +19,24 @@ function submitCommentForm(commentForm) {
         contentType: false,
         success: function (data) {
             $('.comment-container').html(data);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
+
+function requestEditCommentForm(commentItemContainer, comment){
+    $.ajax({
+        url: '/comment/editForm',
+        type: "POST",
+        data: JSON.stringify(comment),
+        processData: false,
+        contentType: 'application/json',
+        success: function (data) {
+            console.log(data);
+            $(commentItemContainer).children('.comment-item-body').replaceWith(data);
+            commentEditFormWordCount(commentItemContainer);
         },
         error: function (error) {
             console.log(error);

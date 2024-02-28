@@ -18,7 +18,7 @@ public class JdbcTemplateCommentRepository implements CommentRepository {
 
     @Override
     public List<CommentDto> getAllComment(long postId) {
-        String sql = "select c.id as comment_id ,u.id as user_id, u.user_id as author , c.contents, c.created_at, c.like, c.display, c.parent_comment_id " +
+        String sql = "select c.id as comment_id ,u.id as user_id, u.user_id as author , c.contents, c.created_at, c.like, c.display " +
                 "from comment c " +
                 "inner join user u on u.id=c.user_id " +
                 "where c.post_id=? " +
@@ -69,7 +69,7 @@ public class JdbcTemplateCommentRepository implements CommentRepository {
 
     @Override
     public CommentDto getComment(long commentId) {
-        String sql = "select c.id as comment_id ,u.id as user_id, u.user_id as author , c.contents, c.created_at, c.like, c.display, c.parent_comment_id " +
+        String sql = "select c.id as comment_id ,u.id as user_id, u.user_id as author , c.contents, c.created_at, c.like, c.display " +
                 "from comment c " +
                 "inner join user u on u.id=c.user_id " +
                 "where c.id=? ";

@@ -22,7 +22,6 @@ public interface CommentRepository {
             commentDto.setLike(rs.getInt("like"));
             commentDto.setDisplay(rs.getInt("display"));
             commentDto.setCreatedAt(rs.getTimestamp("created_at"));
-            commentDto.setParentCommentId(rs.getLong("parent_comment_id"));
             return commentDto;
         };
     }

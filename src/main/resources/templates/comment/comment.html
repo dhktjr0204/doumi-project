@@ -37,8 +37,8 @@
 
 <div th:fragment="comment-main" class="comment-main">
     <h2 class="a11y"> 댓글 목록 </h2>
-    <div class="comment-item-container" th:each="comment: ${comments}">
-        <input type="hidden" class="commentId" th:value="${comment.id}"/>
+    <div class="comment-item-container" th:each="comment: ${comments}" th:object="${newComment}">
+        <input type="hidden" class="comment-id" th:value="${comment.id}"/>
         <div class="comment-item-header">
             <div class="comment-info">
                 <a href="" class="comment-writer-name" th:value="${comment.userId}" th:text="${comment.author}"></a>
@@ -100,7 +100,7 @@
 
         <div class="re-comment-items-container">
             <div class="re-comment-item-container" th:each="reComment:${comment.reComments}">
-                <input type="hidden" class="commentId" th:value="${reComment.id}"/>
+                <input type="hidden" class="comment-id" th:value="${reComment.id}"/>
                 <div class="comment-item-header">
                     <div class="comment-info">
                         <a href="" class="comment-writer-name" th:value="${reComment.userId}"

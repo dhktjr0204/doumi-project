@@ -38,17 +38,17 @@ public class CommentController {
         return "comment/comment";
     }
 
-    @PostMapping("/getEditForm")
-    public String getEditForm(@RequestParam("postId") long postId,@RequestParam("commentId")long commentId,Model model){
-        //글의 상세 정보 가져오기
-        QuizDto quiz=quizService.getQuiz(postId);
-        CommentDto comment=commentService.getComment(commentId);
-        model.addAttribute("quiz",quiz);
+    @PostMapping("/editForm")
+    public String getEditForm(@RequestBody Comment comment, Model model){
+
         model.addAttribute("comment",comment);
         model.addAttribute("newComment",new Comment());
 
+        System.out.println(comment);
+
         return "comment/commentEditForm";
     }
+
     @PostMapping("/edit")
     public String editComment(@RequestParam("id") long commentId, Comment comment){
         return "comment/comment";

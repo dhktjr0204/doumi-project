@@ -16,6 +16,5 @@ public class CommentDto {
     private java.sql.Timestamp createdAt;
     private long like;
     private int display;
-    private long parentCommentId;
     private List<ReCommentDto> reComments;
 }
