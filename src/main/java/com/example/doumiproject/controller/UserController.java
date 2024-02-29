@@ -30,18 +30,14 @@ public class UserController {
     public ResponseEntity<?> save(@RequestBody Map<String, String> userData) {
         //SignUpDto를 사용하지 않고 직접 User객체로 값을 넣는다
         //UserService로 User를 회원가입시킨다
-        try {
-            userService.join(userData.get("id"), userData.get("password"));
-            Map<String, Object> successResponse = new HashMap<>();
-            successResponse.put("success", true);
-            successResponse.put("message", "회원가입 성공!");
-            return ResponseEntity.ok(successResponse);
-        } catch (IllegalStateException e) {
-            Map<String, Object> errorResponse = new HashMap<>();
-            errorResponse.put("success", false);
-            errorResponse.put("message", e.getMessage());
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
-        }
+        userService.join(userData.get("id"), userData.get("password"));
+
+        Map<String, Object> response = new HashMap<>(){{
+            put("success", true);
+            put("message", "회원가입 성공!");
+        }};
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/user/login")

@@ -7,9 +7,10 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class Comment {
-    long postId;
-    String contents;
-    long parentCommentId;
-    boolean display;
+    private long userId;
+    private long postId;
+    private String contents;
+    private long parentCommentId;
+    private boolean display;
 }
 

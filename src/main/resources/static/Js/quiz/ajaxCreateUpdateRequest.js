@@ -4,9 +4,10 @@ submitButton.addEventListener('click', () => {
     handleSubmit("/quiz/post");
 });
 
+//수정 버튼 클릭
 const editButton=document.querySelector('.edit-button');
 editButton.addEventListener('click',()=>{
-    let postId = document.querySelector('.quiz-id').value;
+    let postId = document.querySelector('.post-id').value;
     handleSubmit('/quiz/edit?id='+postId);
 });
 

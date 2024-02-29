@@ -124,7 +124,7 @@ h1{
     margin: 0;
 }
 
-.quiz_container_header{
+.cote_container_header{
     padding: 20px 30px;
     display: flex;
 }
@@ -145,7 +145,7 @@ h1{
     width: 20%;
 }
 
-.quiz_container{
+.cote_container{
     display: flex;
     padding: 20px 30px;
 }

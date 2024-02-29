@@ -3,23 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>퀴즈 작성</title>
-    <link href="../../static/css/quizForm.css" th:href="@{/css/quizForm.css}" rel="stylesheet" type="text/css"/>
+    <link href="../../static/css/codingtest/coteForm.css" th:href="@{/css/codingtest/coteForm.css}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/>
 </head>
 <body>
 <header></header>
 <main class="cont-main">
-    <form action="/quiz/post" method="post" class="quizForm" onsubmit="return false;" th:object="${quiz}">
+    <form action="/codingtest/post" method="post" class="coteForm" onsubmit="return false;" th:object="${cote}">
         <div class="title-container">
             <textarea class="title" placeholder="질문 제목을 작성해주세요." rows="1" onkeyup="autoResize(this)"
                       onkeydown="autoResize(this)" th:field="*{title}"></textarea>
             <div class="title-text-count"></div>
         </div>
+        <div class="tag-select-container">
+        </div>
         <div class="input-container">
-            <div class="quiz-container">
-                <h1>Quiz</h1>
-                <div class="quiz-text-count"></div>
-                <div class="quiz-content"></div>
+            <div class="cote-container">
+                <h1>질문</h1>
+                <div class="cote-text-count"></div>
+                <div class="cote-content"></div>
             </div>
             <div class="answer-container">
                 <h1>Answer</h1>
@@ -37,7 +39,7 @@
 <footer></footer>
 
 <script th:inline="javascript">
-    let quizContent="";
+    let coteContent="";
     let answerContent="";
 </script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

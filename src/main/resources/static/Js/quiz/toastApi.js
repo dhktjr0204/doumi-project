@@ -1,5 +1,5 @@
-const quizTextCount=document.querySelector('.quiz-text-count');
-const answerTextCount=document.querySelector('.answer-text-count');
+const quizTextCount = document.querySelector('.quiz-text-count');
+const answerTextCount = document.querySelector('.answer-text-count');
 const contentEditor = new toastui.Editor({
     el: document.querySelector('.quiz-content'), // 에디터를 적용할 요소 (컨테이너)
     height: '700px',                        // 에디터 영역의 높이 값 (OOOpx || auto)
@@ -18,13 +18,13 @@ const contentEditor = new toastui.Editor({
     hooks: {
 
         async addImageBlobHook(blob, callback) {
-            try{
+            try {
                 const formData = new FormData();
                 formData.append('file', blob);
 
                 const response = await fetch('/board/file', {
-                    method : 'POST',
-                    body : formData,
+                    method: 'POST',
+                    body: formData,
                 });
 
                 const fileName = await response.text();
@@ -77,3 +77,7 @@ const answerEditor = new toastui.Editor({
         }
     }
 });
+
+
+countBytes(contentEditor, quizTextCount, byteLimit);
+countBytes(answerEditor, answerTextCount, byteLimit);

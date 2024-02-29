@@ -1,10 +1,7 @@
 package com.example.doumiproject.repository;
 
 import com.example.doumiproject.dto.CoteDto;
-import com.example.doumiproject.dto.QuizDto;
-import com.example.doumiproject.dto.TagDetailDto;
 import com.example.doumiproject.entity.Cote;
-import com.example.doumiproject.entity.Quiz;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -13,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Repository
 public class JdbcTemplateCoteRepository implements CoteRepository {
@@ -24,7 +20,7 @@ public class JdbcTemplateCoteRepository implements CoteRepository {
     }
 
     @Override
-    public CoteDto getByQuizId(long id) {
+    public CoteDto getByCoteId(long id) {
         //post의 user_id(squence값)과 user의 user_id(nickname용)이 아주 헷갈린다;
         String sql = "select p.id as post_id, p.user_id, p.title, p.contents, p.created_at, p.like, a.answer, " +
                 "u.user_id as nickname " +
@@ -33,23 +29,14 @@ public class JdbcTemplateCoteRepository implements CoteRepository {
                 "inner join user u on p.user_id = u.id " +
                 "where p.id = ?";
         //퀴즈 내용 가져오기
-        CoteDto quizDto = jdbcTemplate.queryForObject(sql, quizDtoRowMapper(), id);
+        CoteDto coteDto = jdbcTemplate.queryForObject(sql, coteDtoRowMapper(), id);
         //퀴즈와 연결된 태그들 가져오기
-        List<TagDetailDto> tags = getTags(id);
-        quizDto.setTags(tags);
-        return quizDto;
+        return coteDto;
     }
 
-    @Override
-    public List<TagDetailDto> getTags(long id) {
-        String sql = "select t.id, t.name "+
-                "from tag t inner join quiztag qt on t.id = qt.tag_id "+
-                "where qt.post_id = ?";
-        return jdbcTemplate.query(sql, TagRowMapper(), id);
-    }
 
     @Override
-    public Long saveQuiz(Cote quiz, long userId) {
+    public Long saveCote(Cote cote, long userId) {
         //게시글 저장
         String postSql = "insert into post (user_id, type, title, contents, created_at, updated_at, `like`) " +
                 "values (?, ?, ?, ?, ?, ?, ?)";
@@ -59,9 +46,9 @@ public class JdbcTemplateCoteRepository implements CoteRepository {
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(postSql, new String[]{"id"}); // "id"는 자동 생성된 키의 컬럼명
             ps.setLong(1, userId);
-            ps.setString(2, "QUIZ");
-            ps.setString(3, quiz.getTitle());
-            ps.setString(4, quiz.getQuizContent());
+            ps.setString(2, "COTE");
+            ps.setString(3, cote.getTitle());
+            ps.setString(4, cote.getCoteContent());
             ps.setObject(5, LocalDateTime.now());
             ps.setObject(6, LocalDateTime.now());
             ps.setInt(7, 0);
@@ -74,54 +61,33 @@ public class JdbcTemplateCoteRepository implements CoteRepository {
         //퀴즈 답변 저장
         String answerSql = "insert into answer(post_id, answer) " +
                 "values (?,?)";
-        String answer = quiz.getAnswerContent();
+        String answer = cote.getAnswerContent();
 
         jdbcTemplate.update(answerSql, postId, answer);
 
-        //태그 저장
-        saveTags(quiz,postId);
         return postId;
     }
 
     @Override
-    public void updateQuiz(Cote quiz, long postId, long userId) {
+    public void updateCote(Cote cote, long postId, long userId) {
         //로그인 생기면 수정 권한 있는지 확인 로직 where에 추가
         String postSql="update post "+
                 "set title=?, contents=?, updated_at = ? "+
                 "where id = ?";
         jdbcTemplate.update(postSql,
-                quiz.getTitle(),quiz.getQuizContent(),LocalDateTime.now()
+                cote.getTitle(), cote.getCoteContent(),LocalDateTime.now()
                 ,postId,userId);
 
         String answerSql="update answer "+
                 "set answer=? "+
                 "where post_id=?";
-        jdbcTemplate.update(answerSql,quiz.getAnswerContent(),postId);
-
-        // 기존 태그 삭제 후 새로운 태그 추가
-        String deleteTagsSql = "delete from quiztag where post_id = ?";
-        jdbcTemplate.update(deleteTagsSql, postId);
-
-        saveTags(quiz,postId);
+        jdbcTemplate.update(answerSql, cote.getAnswerContent(),postId);
     }
 
     @Override
-    public void deleteQuiz(long postId) {
+    public void deleteCote(long postId) {
         String sql="delete from post where id=?";
         jdbcTemplate.update(sql, postId);
-    }
-
-    //태그 저장
-    public void saveTags(Cote quiz, long postId){
-        String tagSql = "insert into quiztag (post_id, tag_id) " +
-                "values (?,?)";
-        String tags = quiz.getTags();
-        if (!tags.isEmpty()) {
-            String[] tagStrings = quiz.getTags().split(",");
-            for (String tag : tagStrings) {
-                jdbcTemplate.update(tagSql, postId, Integer.parseInt(tag));
-            }
-        }
     }
 
 }

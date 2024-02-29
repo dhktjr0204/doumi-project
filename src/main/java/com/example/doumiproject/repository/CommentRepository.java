@@ -1,16 +1,17 @@
 package com.example.doumiproject.repository;
 
-import com.example.doumiproject.dto.CommentDto;
-import com.example.doumiproject.dto.ReCommentDto;
+import com.example.doumiproject.dto.*;
 import com.example.doumiproject.entity.Comment;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.util.List;
 
 public interface CommentRepository {
-    public List<CommentDto> getByQuizId(long postId);
-    public List<ReCommentDto> getByParentCommentId(long parentCommentId);
+    public List<CommentDto> getAllComment(long postId);
+    public List<ReCommentDto> getAllReComment(long parentCommentId);
     public void saveComment(Comment comment, long userId, String type);
+    public void updateComment(Comment comment, long commentId);
+    public void deleteComment(long commentId);
 
     default RowMapper<CommentDto> commentRowMapper(){
         return (rs,rowNum)->{

@@ -113,3 +113,5 @@ $(document).ready(function() {
         autoResize(this);
     });
 });
+const title= document.querySelector('.title');
+countBytes(title,titleTextCount,titleByteLimit);

@@ -1,3 +1,59 @@
+$(document).ready(function() {
+
+    const likeImage = document.querySelector('.like-img');
+    const postId = document.querySelector('.quiz-id').value;
+    const likeNumber = document.querySelector('.likes-number');
+
+    $.ajax({
+        type: "GET",
+        url: "/like",
+        data: {
+            user_id: 1,
+            post_id: postId
+        },
+        success: function(response) {
+
+            likeNumber.textContent = response.likeCount;
+
+            if (response.exists) {
+                likeImage.classList.toggle('liked');
+            }
+        },
+        error: function(error) {
+
+            console.error(error);
+        }
+    });
+});
+
+function clickLike(button) {
+
+    const likeImage = button.querySelector('img');
+    const likeNumber = button.querySelector('.likes-number');
+
+    likeImage.classList.toggle('liked');
+
+    let url = likeImage.classList.contains('liked') ? '/like/add' : '/like/cancel';
+    let postId = button.querySelector('.quiz-id').value;
+
+    $.ajax({
+        type: "GET",
+        url: url,
+        data: {
+            user_id: 1,
+            post_id: postId
+        },
+        success: function(response) {
+
+            likeNumber.textContent = response;
+        },
+        error: function(error) {
+
+            console.error(error);
+        }
+    });
+}
+
 // 대댓글 숨기기 기능
 function updateHideButton(reCommentItemsContainer, button) {
     //대댓글 div안에 있는 댓글들
@@ -32,7 +88,7 @@ answerContainer.addEventListener('click', () => {
     answer.classList.toggle('hide-text');
 });
 
-// 좋아요 개수 늘리기, 이미지 바꾸기 메서드
+/*// 좋아요 개수 늘리기, 이미지 바꾸기 메서드
 function likeControl(likeImage, likeNumber) {
     // 따봉 이미지 바꾸기
     likeImage.classList.toggle('liked');
@@ -49,7 +105,7 @@ function clickLike(button){
     const likeNumber = button.querySelector('.likes-number');
     const likeImage = button.querySelector('img');
     likeControl(likeImage, likeNumber);
-}
+}*/
 
 // 댓글 정답 보기
 function clickComment(commentContainer){
