@@ -1,9 +1,11 @@
 package com.example.doumiproject.repository;
 
+import com.example.doumiproject.dto.LikesDto;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.Optional;
 
 @Repository
 public class JdbcTemplateLikeRepository implements LikeRepository{
@@ -41,5 +43,15 @@ public class JdbcTemplateLikeRepository implements LikeRepository{
                 "where post_id = ?";
 
         return jdbcTemplate.queryForObject(sql, Long.class, post_id);
+    }
+
+    @Override
+    public boolean existsByUserIdAndPostId(long user_id, long post_id) {
+
+        String sql = "select count(*) " +
+                "from likes " +
+                "where user_id = ? and post_id = ?";
+
+        return jdbcTemplate.queryForObject(sql, Integer.class, user_id, post_id) > 0;
     }
 }

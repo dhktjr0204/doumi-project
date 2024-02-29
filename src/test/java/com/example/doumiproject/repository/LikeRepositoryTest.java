@@ -39,4 +39,14 @@ public class LikeRepositoryTest {
         long post_id = 1;
         System.out.println(likeRepository.countLike(post_id));
     }
+
+    @Test
+    @DisplayName("게시물에 유저가 좋아요 찍었는지 판별")
+    public void existsByUserIdAndPostIdTest() {
+
+        long post_id = 1;
+        long user_id = 1;
+
+        System.out.println(likeRepository.existsByUserIdAndPostId(user_id, post_id));
+    }
 }
