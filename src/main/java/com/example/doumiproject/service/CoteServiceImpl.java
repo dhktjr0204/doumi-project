@@ -51,7 +51,7 @@ public class CoteServiceImpl implements CoteService{
     @Override
     public List<CommentDto> getComments(long postId) {
 
-        return commentRepository.getByQuizId(postId);
+        return commentRepository.getAllComment(postId);
     }
 
     @Override

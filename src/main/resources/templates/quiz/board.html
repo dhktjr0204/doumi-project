@@ -9,7 +9,9 @@
 <body>
 <header></header>
 <main class="cont-main">
-    <input class="quiz-id hidden" th:value="${quiz.id}"/>
+
+    <input class="post-id hidden" th:value="${quiz.id}"/>
+
     <section class="content-header">
         <a class="back-button" href="/quiz">< 목록으로 </a>
         <h1 class="title" th:text="${quiz.title}"></h1>
@@ -18,6 +20,7 @@
             <p class="content-createdAt" th:text="${#dates.format(quiz.createdAt,'yyyy-MM-dd HH:mm')}"></p>
         </div>
     </section>
+
     <section class="content-main">
         <h2 class="a11y">퀴즈 게시판 본문 내용</h2>
         <div class="content-detail">
@@ -28,7 +31,8 @@
             </div>
         </div>
         <button class="likes-button content-likes" onclick="clickLike(this)">
-            <img th:src="@{/images/icon_like_normal.png}" alt="좋아요 버튼">
+            <input class="quiz-id hidden" th:value="${quiz.id}"/>
+            <img class="like-img" th:src="@{/images/icon_like_normal.png}" alt="좋아요 버튼">
             <p class="likes-number" th:text="${quiz.like}"></p>
         </button>
         <ul class="content-tags-container">
@@ -37,6 +41,7 @@
             </li>
         </ul>
     </section>
+
     <section class="comment-container">
         <div th:replace="~{comment/comment.html::comment-header}"></div>
         <div th:replace="~{comment/comment.html::comment-main}"></div>
@@ -53,5 +58,6 @@
 <script th:src="@{/Js/comment/ajaxCreateUpdateRequest.js}"></script>
 <script th:src="@{/Js/wordCount.js}"></script>
 <script th:src="@{/Js/comment/commentWordCountControl.js}"></script>
+<script th:src="@{/Js/comment/commentEdit.js}"></script>
 </body>
 </html>
