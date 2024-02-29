@@ -110,6 +110,7 @@ public class QuizController {
     @PostMapping("/post")
     public ResponseEntity<String> postQuiz(Quiz quiz) {
 
+        System.out.println(quiz.getQuizContent().length());
         Long postId = quizService.saveQuiz(quiz, 1l);
 
         return ResponseEntity.ok("/quiz/board?id="+postId);

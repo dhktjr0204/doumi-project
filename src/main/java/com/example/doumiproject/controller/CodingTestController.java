@@ -4,9 +4,7 @@ import com.example.doumiproject.dto.CommentDto;
 import com.example.doumiproject.dto.CoteDto;
 import com.example.doumiproject.dto.PostDto;
 import com.example.doumiproject.entity.Cote;
-import com.example.doumiproject.entity.Quiz;
 import com.example.doumiproject.service.CoteService;
-import com.example.doumiproject.service.QuizService;
 import com.example.doumiproject.util.PaginationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +22,7 @@ import java.util.List;
 public class CodingTestController {
 
     private final CoteService coteService;
-    private final QuizService quizService;
+
     private int pageSize = 10;
     @GetMapping("/doumiAlgorithm")
     public String index() {
@@ -45,7 +43,7 @@ public class CodingTestController {
     }
 
     @GetMapping("/codingtest/board")
-    public String getQuizDetail(@RequestParam("id") Long id, Model model){
+    public String getCoteDetail(@RequestParam("id") Long id, Model model){
 
         //글의 상세 정보 가져오기
         CoteDto cote = coteService.getCote(id);
@@ -80,9 +78,9 @@ public class CodingTestController {
     }
 
     @GetMapping("/edit")
-    public String editQuiz(@RequestParam("id") Long id, Model model){
+    public String editCote(@RequestParam("id") Long id, Model model){
 
-        //로그인 생기면 현재 로그인된 유저의 nickname과 quizDetail의 userId가 일치한지 검증 필요
+
         CoteDto cote=coteService.getCote(id);
 
         model.addAttribute("cote", cote);
@@ -91,7 +89,7 @@ public class CodingTestController {
     }
 
     @PostMapping("/edit")
-    public ResponseEntity<String> updateQuiz(@RequestParam("id") Long id, Cote cote){
+    public ResponseEntity<String> updateCote(@RequestParam("id") Long id, Cote cote){
 
         //수정 권한있는 사용자인지 검증 로직 repository에 수정필요
         coteService.updateCote(cote, id, 1l);
@@ -100,7 +98,7 @@ public class CodingTestController {
     }
 
     @DeleteMapping("/delete")
-    public String deleteQuiz(@RequestParam("id") long id){
+    public String deleteCote(@RequestParam("id") long id){
 
         coteService.deleteCote(id);
 
