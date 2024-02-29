@@ -17,10 +17,10 @@
         <form class="comment-form" th:action="@{/comment/add}" th:method="post" th:object="${newComment}">
             <input type="hidden" name="postId" th:value="${quiz.id}"/>
 
-            <input type="checkbox" class="display-check" th:field="${newComment.display}"> 비공개
+            <input type="checkbox" class="display-check" th:field="*{display}"> 비공개
 
             <textarea class="answer-input" placeholder="정답을 작성해보세요" rows="30"
-                      th:field="${newComment.contents}"
+                      th:field="*{contents}"
                       onchange="commentWordCount(this);"
                       oninput="commentWordCount(this);"></textarea>
 
@@ -37,21 +37,22 @@
 
 <div th:fragment="comment-main" class="comment-main">
     <h2 class="a11y"> 댓글 목록 </h2>
-    <div class="comment-item-container" th:each="comment: ${comments}" th:value="${comment.id}">
+    <div class="comment-item-container" th:each="comment: ${comments}">
+        <input type="hidden" class="comment-id" th:value="${comment.id}"/>
         <div class="comment-item-header">
             <div class="comment-info">
                 <a href="" class="comment-writer-name" th:value="${comment.userId}" th:text="${comment.author}"></a>
                 <p class="comment-createdAt" th:text="${#dates.format(comment.createdAt,'yyyy-MM-dd HH:mm')}"></p>
             </div>
             <div class="comment-edit-container">
-                <button>수정</button>
-                <button>삭제</button>
+                <button onclick="switchEditCommentForm(this)">수정</button>
+                <button onclick="clickDeleteButton(this)">삭제</button>
             </div>
         </div>
         <div th:if="${comment.display==0}" class="comment-item-body">
             <div class="comment-item" th:text="${comment.contents}"></div>
         </div>
-        <div th:unless="${comment.display==0}" class="hidden-comment-item-body hide-place"
+        <div th:unless="${comment.display==0}" class="comment-item-body hide-place"
              onclick="clickComment(this)">
             <div class="comment-item hide-text" th:text="${comment.contents}"></div>
         </div>
@@ -99,12 +100,17 @@
 
         <div class="re-comment-items-container">
             <div class="re-comment-item-container" th:each="reComment:${comment.reComments}">
+                <input type="hidden" class="comment-id" th:value="${reComment.id}"/>
                 <div class="comment-item-header">
                     <div class="comment-info">
                         <a href="" class="comment-writer-name" th:value="${reComment.userId}"
                            th:text="${reComment.author}"></a>
                         <p class="comment-createdAt"
                            th:text="${#dates.format(reComment.createdAt,'yyyy-MM-dd HH:mm')}"></p>
+                    </div>
+                    <div class="comment-edit-container">
+                        <button onclick="switchEditReCommentForm(this)">수정</button>
+                        <button onclick="clickDeleteButton(this)">삭제</button>
                     </div>
                 </div>
                 <div class="comment-item-body" th:text="${reComment.contents}">

@@ -1,13 +1,10 @@
 package com.example.doumiproject.controller;
 
-import com.example.doumiproject.dto.CommentDto;
-import com.example.doumiproject.dto.QuizDto;
+import com.example.doumiproject.dto.*;
 import com.example.doumiproject.entity.Comment;
 import com.example.doumiproject.service.CommentService;
 import com.example.doumiproject.service.QuizService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,4 +37,48 @@ public class CommentController {
 
         return "comment/comment";
     }
+
+    @PostMapping("/editForm")
+    public String getEditForm(@RequestBody Comment comment, Model model){
+
+        model.addAttribute("comment",comment);
+
+        return "comment/commentEditForm";
+    }
+
+    @PostMapping("/edit")
+    public String editComment(@RequestParam("id") long commentId, @ModelAttribute("comment") Comment comment,Model model){
+
+        //댓글 업데이트
+        commentService.updateComment(comment, commentId);
+
+        //글의 상세 정보 가져오기
+        QuizDto quiz=quizService.getQuiz(comment.getPostId());
+        //글에 연결된 댓글들 가져오기
+        List<CommentDto> comments=commentService.getAllComments(comment.getPostId());
+
+        model.addAttribute("quiz",quiz);
+        model.addAttribute("comments",comments);
+        model.addAttribute("newComment",new Comment());
+
+        return "comment/comment";
+    }
+
+    @DeleteMapping("/delete")
+    public String deleteComment(@RequestParam("postId") long postId, @RequestParam("commentId") long commentId,Model model){
+        commentService.deleteComment(commentId);
+
+        //글의 상세 정보 가져오기
+        QuizDto quiz=quizService.getQuiz(postId);
+        //글에 연결된 댓글들 가져오기
+        List<CommentDto> comments=commentService.getAllComments(postId);
+
+        model.addAttribute("quiz",quiz);
+        model.addAttribute("comments",comments);
+        model.addAttribute("newComment",new Comment());
+
+        return "comment/comment";
+
+    }
+
 }

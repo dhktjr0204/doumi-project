@@ -2,7 +2,6 @@ package com.example.doumiproject.service;
 
 import com.example.doumiproject.dto.*;
 import com.example.doumiproject.entity.Cote;
-import com.example.doumiproject.entity.Quiz;
 import com.example.doumiproject.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -46,7 +45,7 @@ public class CoteServiceImpl implements CoteService{
     @Override
     public List<CommentDto> getComments(long postId) {
 
-        return commentRepository.getByQuizId(postId);
+        return commentRepository.getAllComment(postId);
     }
 
     @Override
