@@ -10,7 +10,7 @@ import java.util.List;
 public interface QuizRepository {
     public QuizDto getByQuizId(long id);
     public Long saveQuiz(Quiz quiz, long userId);
-    void updateQuiz(Quiz quiz, long postId, long userId);
+    void updateQuiz(Quiz quiz, long postId);
     void deleteQuiz(long postId);
 
     List<TagDetailDto> getTags(long id);

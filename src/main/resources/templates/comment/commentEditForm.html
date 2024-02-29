@@ -1,0 +1,34 @@
+<form class="comment-form" th:action="@{/comment/edit}" th:method="post"
+      th:object="${comment}">
+
+    <input type="hidden" th:field="*{postId}"/>
+    <input type="hidden" th:field="*{userId}"/>
+
+    <!--  comment.parentCommentId가 0일 경우(댓글일 경우)-->
+    <div th:if="*{parentCommentId==0}">
+        <input type="checkbox" class="display-check"
+               th:field="*{display}"> 비공개
+    </div>
+
+    <!--  comment.parentCommentId가 0이 아닐 경우일 경우(대댓글일 경우)-->
+    <div th:unless="*{parentCommentId==0}">
+        <input type="hidden" th:field="*{parentCommentId}"/>
+        <input type="hidden" th:field="*{display}"/>
+    </div>
+
+    <textarea class="answer-input" placeholder="정답을 작성해보세요" rows="30"
+              name="contents"
+              onchange="commentWordCount(this);"
+              oninput="commentWordCount(this);"
+              th:field="*{contents}"
+    ></textarea>
+
+    <div class="comment-text-count">0/1500</div>
+
+    <div class="comment-editor-bottom">
+        <button class="cancel-button" type="button"
+                onclick="clickCommentEditCancelButton(this)">취소</button>
+        <button class="submit-button" type="button"
+                onclick="clickCommentEditButton(this)">등록</button>
+    </div>
+</form>
