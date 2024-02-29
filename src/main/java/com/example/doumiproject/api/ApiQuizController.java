@@ -1,16 +1,11 @@
 package com.example.doumiproject.api;
 
-import com.example.doumiproject.dto.CommentDto;
 import com.example.doumiproject.dto.PostDto;
-import com.example.doumiproject.dto.QuizDto;
-import com.example.doumiproject.dto.TagDto;
-import com.example.doumiproject.entity.Quiz;
-import com.example.doumiproject.exception.PageNegativeValueException;
+import com.example.doumiproject.exception.api.PageNegativeValueException;
 import com.example.doumiproject.service.QuizService;
 import com.example.doumiproject.util.PaginationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 

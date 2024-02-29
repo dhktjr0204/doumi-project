@@ -43,13 +43,12 @@ document.addEventListener('DOMContentLoaded', function () {
     .then(data => {
       console.log(data); //로그 출력
       if (data.success) {
-        alert(data.message);
+        alert(data[message]);
         window.location.href = '/';
       } else {
-        alert(data.message);
+        alert(data.errormsg);
       }
     })
     .catch(error => console.error('Error:', error));
-
   });
 });

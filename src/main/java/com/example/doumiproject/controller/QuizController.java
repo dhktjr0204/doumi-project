@@ -108,9 +108,8 @@ public class QuizController {
     }
 
     @PostMapping("/post")
-    public ResponseEntity<String> postQuiz(Quiz quiz) {
+    public ResponseEntity<String> postQuiz(QuizDto quiz) {
 
-        System.out.println(quiz.getQuizContent().length());
         Long postId = quizService.saveQuiz(quiz, 1l);
 
         return ResponseEntity.ok("/quiz/board?id="+postId);
@@ -130,7 +129,7 @@ public class QuizController {
     }
 
     @PostMapping("/edit")
-    public ResponseEntity<String> updateQuiz(@RequestParam("id") Long id, Quiz quiz){
+    public ResponseEntity<String> updateQuiz(@RequestParam("id") Long id, QuizDto quiz){
 
         //수정 권한있는 사용자인지 검증 로직 repository에 수정필요
         quizService.updateQuiz(quiz, id, 1l);
