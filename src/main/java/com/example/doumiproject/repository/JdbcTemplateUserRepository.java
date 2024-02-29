@@ -4,8 +4,6 @@ import com.example.doumiproject.entity.User;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
-import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -48,15 +46,18 @@ public class JdbcTemplateUserRepository implements UserRepository {
     }
 
     @Override
-    public boolean existsByUserId(String userId) {
-        String sql = "SELECT COUNT(*) FROM user WHERE user_id = ?";
-        Integer count = jdbcTemplate.query(sql, new Object[]{userId}, rs -> {
-            if (rs.next()) {
-                return rs.getInt(1); // 첫 번째 쿼리의 결과값을 정수로 가져온다
-            }
-            return 0; // 결과 집합이 비어있으면 0 반환
+    public User findByUserId(String userId) {
+        String sql = "SELECT user_id,password FROM user WHERE user_id = ?";
+
+        List<User> users = jdbcTemplate.query(sql, new Object[]{userId}, (rs, rowNum) -> {
+            User user = new User();
+            user.setUserId(rs.getString("user_Id"));
+            user.setPassword(rs.getString("password"));
+
+            return user;
         });
-        return count > 0;
+
+        return users.isEmpty() ? null : users.get(0);
     }
 
     @Override
