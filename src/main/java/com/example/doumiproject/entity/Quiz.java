@@ -9,25 +9,26 @@ import org.springframework.http.HttpStatus;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Quiz {
     private String title; // 퀴즈 제목
     private String tags; // 선택된 태그 목록
     private String quizContent;
     private String answerContent;
 
-    public Quiz(QuizDto quizDto) {
-        String quizTitle = quizDto.getTitle();
-        String quizContents = quizDto.getContents();
-        String quizAnswer = quizDto.getAnswer();
+    public Quiz(String title, String tags, String quizContent, String answerContent) {
 
-        if (quizTitle.length() == 0 || quizTitle.length() > 251) {
+        this.title = title;
+        this.tags = tags;
+        this.quizContent = quizContent;
+        this.answerContent = answerContent;
+
+        if (title.length() == 0 || title.length() > 250) {
             throw new QuizTitleLengthException();
         }
-        if (quizContents.length() == 0 || quizContents.length() > 3000) {
+        if (quizContent.length() == 0 || quizContent.length() > 3000) {
             throw new QuizContentsLengthException();
         }
-        if (quizAnswer.length() == 0 || quizAnswer.length() > 3000) {
+        if (answerContent.length() == 0 || answerContent.length() > 3000) {
             throw new QuizAnswerLengthException();
         }
 

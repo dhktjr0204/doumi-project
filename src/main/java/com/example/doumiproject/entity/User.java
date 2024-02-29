@@ -20,12 +20,6 @@ public class User {
         String ID_REGEXP = "^[a-zA-Z0-9]{5,}$";
         String PW_REGEXP = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$";
 
-        System.out.println(id);
-        System.out.println(Pattern.matches(ID_REGEXP, id));
-
-        System.out.println(password);
-        System.out.println(Pattern.matches(PW_REGEXP, password));
-
         if(!Pattern.matches(ID_REGEXP, id)) {
             throw new UserIdMismatchException();
         }
