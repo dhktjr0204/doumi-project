@@ -28,7 +28,8 @@
             </div>
         </div>
         <button class="likes-button content-likes" onclick="clickLike(this)">
-            <img th:src="@{/images/icon_like_normal.png}" alt="좋아요 버튼">
+            <input class="quiz-id hidden" th:value="${quiz.id}"/>
+            <img class="like-img" th:src="@{/images/icon_like_normal.png}" alt="좋아요 버튼">
             <p class="likes-number" th:text="${quiz.like}"></p>
         </button>
         <ul class="content-tags-container">

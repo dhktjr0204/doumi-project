@@ -25,8 +25,6 @@ public class FileController{
     @PostMapping("/board/file")
     public String fileWrite(@RequestBody MultipartFile file) throws IOException {
 
-        System.out.println(file.getOriginalFilename());
-
         FileDto fileDto = fileService.fileWrite(file);
 
         return fileDto.getFileName();
