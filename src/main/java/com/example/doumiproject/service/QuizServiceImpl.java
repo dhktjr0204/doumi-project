@@ -51,8 +51,8 @@ public class QuizServiceImpl implements QuizService{
     //데이터 저장 도중 에러가 생길 경우 원 상태로 복귀
     @Transactional
     @Override
-    public Long saveQuiz(Quiz quiz, Long userId) {
-
+    public Long saveQuiz(QuizDto quizDto, Long userId) {
+        Quiz quiz = new Quiz(quizDto);
         return quizRepository.saveQuiz(quiz, userId);
     }
 
@@ -70,9 +70,9 @@ public class QuizServiceImpl implements QuizService{
 
     @Transactional
     @Override
-    public void updateQuiz(Quiz quiz, Long postId) {
-
-        quizRepository.updateQuiz(quiz, postId);
+    public void updateQuiz(QuizDto quizDto, Long postId, Long userId) {
+        Quiz quiz = new Quiz(quizDto);
+        quizRepository.updateQuiz(quiz, postId, userId);
     }
 
     @Override

@@ -2,88 +2,113 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>DoumiQuizMain</title>
-    <link href="/static/css/quiz/index.css" th:href = "@{/css/quiz/index.css}" rel="stylesheet" type="text/css"/>
-    <script src="/static/Js/quiz/index.js"></script>
+    <title>Doumi</title>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/3.0.2/toastui-editor.min.css">
+    <link href="../../static/css/quizBoard.css" th:href="@{/css/quizBoard.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<header class="doumi_header">
-    <div class="box-header">
-        <h1><a href="#">Oreumi Doumi</a></h1>
-        <div class="navbar-menu">
-            <div class="navbar-left">
-                <div><a href="/doumiAlgorithm" class="move_to_algorithm">코딩테스트</a></div>
-                <div><a href="/quiz" class="move_to_quiz">퀴즈</a></div>
-            </div>
-            <div class="navbar-right">
-                <a href="#none" class="user_info"><strong th:text="${userName}"  >유저1</strong>님 안녕하세요!</a>
-                <div><button type="button" class="logout_btn">로그아웃</button></div>
+<header></header>
+<main class="cont-main">
+    <input class="quiz-id hidden" th:value="${cote.id}" />
+    <section class="content-header">
+        <a class="back-button" href="/codingtest/index">< 목록으로 </a>
+        <h1 class="title" th:text="${cote.title}"></h1>
+        <div class="content-info">
+            <a href="" class="board-writer-name" th:text="${cote.userId}"></a>
+            <p class="content-createdAt" th:text="${#dates.format(cote.createdAt,'yyyy-MM-dd HH:mm')}"></p>
+        </div>
+    </section>
+    <section class="content-main">
+        <h2 class="a11y">퀴즈 게시판 본문 내용</h2>
+        <div class="content-detail">
+        </div>
+        <h3>정답</h3>
+        <div class="content-answer-container hide-place">
+            <div class="content-answer hide-text">
             </div>
         </div>
-    </div>
-</header>
-<main class="doumi_main">
-
-    <!--        href 바꾸기-->
-    <a href="/codingtest/post" class="quiz_question">코딩테스트 질문하기 ➡</a>
-
-    <form class="form" action="/quiz/search">
-        <div class="search_form">
-                <span class="search_image">
-                    <img src="/images/search.png" width="17px">
-                </span>
-            <label for="search"></label>
-            <input class="input" type="text" required="" placeholder="제목,내용 검색하기" id="search" name="keyword">
+        <button class="btn likes-button content-likes">
+            <img th:src="@{/images/icon_like_normal.png}" alt="좋아요 버튼">
+            <p class="likes-number" th:text="${cote.like}"></p>
+        </button>
+    </section>
+    <section class="comment-header">
+        <h2 class="a11y"> 답변 입력창 </h2>
+        <div class="comment-info">
+            <h2>답변 <strong class="comment-number" th:text="${comments.size()}"></strong></h2>
+            <div class="comment-sort-selector">
+                <span class="recommend sorted">좋아요순</span>
+                <span class="recent">최신순</span>
+            </div>
         </div>
-    </form>
-
-    <div class="table_container">
-        <li class="quiz_container_header">
-            <div class="sequence">번호</div>
-            <div class="title">제목</div>
-            <div class="author">작성자</div>
-            <div class="create_time">작성일</div>
-        </li>
-        <!--            서버로 받은 post 컬렉션에 반복문을돌려 각 게시글에 정보를 테이블 행으로 생성한다-->
-        <ul th:each="quiz:${quizs}">
-            <li class="quiz_container">
-                <div class="sequence" th:text="${quiz.id}"></div>
-                <div class="title">
-                    <!--                    href에 무슨링크를 넣어야하지?-->
-                    <a th:href="@{'/quiz/board?id=' + ${quiz.id}}" th:text="${quiz.title}">게시글 제목</a>
+        <div class="comment-editor-opener">
+            <!-- 로그인 한 유저로 수정 필요-->
+            <p class="comment-editor-text" th:text="${cote.userId}+ '님 답변을 작성해보세요.'"></p>
+        </div>
+        <div class="comment-editor hidden">
+            <form action="" onsubmit="return false;">
+                <input type="checkbox" class="display-check"> 비공개
+                <textarea class="answer-input" placeholder="정답을 작성해보세요" rows="30"></textarea>
+                <div class="comment-editor-bottom">
+                    <button class="btn cancel-button">취소</button>
+                    <button class="btn submit-button">등록</button>
                 </div>
-                <div class="author" th:text="${quiz.userId}">작성자</div>
-                <div class="create_time" th:text="${#dates.format(quiz.createdAt, 'yyyy/MM/dd HH:mm')}">작성일</div>
-            </li>
-        </ul>
-    </div>
-    <!--        페이지 링크-->
-    <nav class="page">
-        <ul class="page_list" th:unless="${quizs.isEmpty()}">
-            <li class="page_link" th:unless="${startIdx == 1}">
-                <a th:href="@{/quiz?page=1}">처음</a>
-            </li>
-            <li class="page_link" th:unless="${startIdx == 1}">
-                <a th:href="@{/quiz(page = ${startIdx - 1})}"><<</a>
-            </li>
-            <li th:each="page : ${#numbers.sequence(startIdx, endIdx)}"
-                th:class="${page == currentPage} ? 'page_current' : 'page_link'">
-                <a th:href="@{/quiz(page = ${page})}" th:text="${page}"></a>
-            </li>
-            <li class="page_link" th:unless="${endIdx == totalPages}">
-                <a th:href="@{/quiz(page = ${endIdx + 1})}">>></a>
-            </li>
-            <li class="page_link" th:unless="${endIdx == totalPages}">
-                <a th:href="@{/quiz(page = ${totalPages})}">마지막</a>
-            </li>
-        </ul>
-    </nav>
+            </form>
+        </div>
+    </section>
+    <section class="comment-main">
+        <h2 class="a11y"> 댓글 목록 </h2>
+        <div class="comment-item-container" th:each="comment: ${comments}">
+            <div class="comment-item-header">
+                <a href="" class="comment-writer-name" th:text="${comment.userId}"></a>
+                <p class="comment-createdAt" th:text="${#dates.format(comment.createdAt,'yyyy-MM-dd HH:mm')}"></p>
+            </div>
+            <div th:class="${comment.display == 1} ? 'comment-item-body' : 'hidden-comment-item-body hide-place'">
+                <div class="comment-item" th:classappend="${comment.display==1? '': 'hide-text'}"
+                     th:text="${comment.contents}">
+                </div>
+            </div>
+            <div class="comment-item-bottom">
+                <div class="etc-button-container">
+                    <button class="btn comment-button re-comment-display-control">
+                        <img th:src="@{/images/icon_up_arrow.png}" alt="숨기기 버튼"> 숨기기
+                    </button>
+                    <button class="btn comment-button re-comment-editor-opener">
+                        <img th:src="@{/images/icon_recomment.png}" alt="답글달기 버튼">답글 달기
+                    </button>
+                </div>
+                <button class="btn likes-button comment-button comment-likes">
+                    <img th:src="@{/images/icon_like_normal.png}" alt="좋아요 버튼">
+                    <p class="likes-number" th:text="${comment.like}"></p>
+                </button>
+            </div>
+            <div class="re-comment-items-container">
+                <div class="re-comment-item-container" th:each="reComment:${comment.reComments}">
+                    <div class="comment-item-header">
+                        <a href="" class="comment-writer-name" th:text="${reComment.userId}"></a>
+                        <p class="comment-createdAt"
+                           th:text="${#dates.format(reComment.createdAt,'yyyy-MM-dd HH:mm')}"></p>
+                    </div>
+                    <div class="comment-item-body" th:text="${reComment.contents}">
+                    </div>
+                    <div class="comment-item-bottom">
+                        <button class="btn likes-button comment-button comment-likes">
+                            <img th:src="@{/images/icon_like_normal.png}" alt="좋아요 버튼">
+                            <p class="likes-number" th:text="${reComment.like}"></p>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
-<footer>
-
-</footer>
+<script src="https://uicdn.toast.com/editor/3.0.2/toastui-editor-all.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script th:src="@{/Js/quiz/board.js}"></script>
+<script th:inline="javascript">
+    let quizContent=[[${cote.contents}]];
+    let answerContent=[[${cote.answer}]];
+</script>
+<script th:inline="javascript" th:src="@{/Js/quiz/viewer.js}"></script>
 </body>
 </html>

@@ -1,6 +1,11 @@
 package com.example.doumiproject.entity;
 
+import com.example.doumiproject.exception.user.UserIdMismatchException;
+import com.example.doumiproject.exception.user.UserPwMismatchException;
 import lombok.*;
+import org.springframework.http.HttpStatus;
+
+import java.util.regex.Pattern;
 
 @Data
 public class User {
@@ -9,4 +14,27 @@ public class User {
     private String userId;
     private String password;
     private String role;
+
+    public User(String id, String password) {
+
+        String ID_REGEXP = "^[a-zA-Z0-9]{5,}$";
+        String PW_REGEXP = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$";
+
+        System.out.println(id);
+        System.out.println(Pattern.matches(ID_REGEXP, id));
+
+        System.out.println(password);
+        System.out.println(Pattern.matches(PW_REGEXP, password));
+
+        if(!Pattern.matches(ID_REGEXP, id)) {
+            throw new UserIdMismatchException();
+        }
+        if(!Pattern.matches(PW_REGEXP, password)) {
+            throw new UserPwMismatchException();
+        }
+
+        this.userId = id;
+        this.password = password;
+        this.role = "USER";
+    }
 }

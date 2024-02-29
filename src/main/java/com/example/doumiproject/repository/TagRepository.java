@@ -5,7 +5,8 @@ import com.example.doumiproject.dto.TagDetailDto;
 import com.example.doumiproject.dto.TagDto;
 import org.springframework.jdbc.core.RowMapper;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public interface TagRepository {
     List<TagDto> findAll();

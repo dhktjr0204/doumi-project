@@ -14,7 +14,8 @@ public interface PostRepository {
     public List<PostDto> findByTitleOrAuthor(String keyword, int page, int pageSize);
     public List<PostDto> findByTag(String tag, int page, int pageSize);
     public int getTotalPagesForTag(int pageSize, String tag);
-
+    List<PostDto> findAllPostWithType(int page, int pageSize, String type);
+    List<PostDto> findAllPostWithType(String type);
     default RowMapper<PostDto> postDtoRowMapper() {
         return ((rs, rowNum) -> {
             PostDto postDto = new PostDto();
@@ -23,8 +24,7 @@ public interface PostRepository {
             postDto.setTitle(rs.getString("title"));
             postDto.setContents(rs.getString("contents"));
             postDto.setCreatedAt(rs.getTimestamp("created_at"));
-
             return postDto;
         });
-    }
+    };
 }

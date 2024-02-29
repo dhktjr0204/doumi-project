@@ -1,10 +1,10 @@
 package com.example.doumiproject.repository;
 
-import com.example.doumiproject.dto.*;
+import com.example.doumiproject.dto.QuizDto;
+import com.example.doumiproject.dto.TagDetailDto;
 import com.example.doumiproject.entity.Quiz;
 import org.springframework.jdbc.core.RowMapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface QuizRepository {

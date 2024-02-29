@@ -46,10 +46,9 @@ document.addEventListener('DOMContentLoaded', function () {
         alert(data.message);
         window.location.href = '/';
       } else {
-        alert(data.message);
+        alert(data.errormsg);
       }
     })
     .catch(error => console.error('Error:', error));
-
   });
 });

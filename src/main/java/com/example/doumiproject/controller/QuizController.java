@@ -109,9 +109,10 @@ public class QuizController {
     }
 
     @PostMapping("/post")
-    public ResponseEntity<String> postQuiz(Quiz quiz) {
-        //로그인 하지 않은 유저가 요청하면 거절
 
+    public ResponseEntity<String> postQuiz(QuizDto quiz) {
+
+        //로그인 하지 않은 유저가 요청하면 거절
         Long postId = quizService.saveQuiz(quiz, 1l);
 
         return ResponseEntity.ok("/quiz/board?id="+postId);
@@ -136,7 +137,8 @@ public class QuizController {
     }
 
     @PostMapping("/edit")
-    public ResponseEntity<String> updateQuiz(@RequestParam("id") Long id, Quiz quiz){
+    public ResponseEntity<String> updateQuiz(@RequestParam("id") Long id, QuizDto quiz){
+
         long userId=1l;
 
         if(quiz.getUserId()!=userId){

@@ -1,9 +1,8 @@
 package com.example.doumiproject.repository;
 
 import com.example.doumiproject.entity.User;
-import java.lang.reflect.Member;
+
 import java.util.List;
-import java.util.Optional;
 
 public interface UserRepository {
 
