@@ -37,4 +37,15 @@ public class UserService {
             throw new IllegalStateException("이미 존재하는 아이디입니다.");
         }
     }
+
+    /*로그인*/
+    public User login(String userId, String password) {
+        User user = userRepository.findByUserId(userId);
+
+        if (user != null && BCrypt.checkpw(password, user.getPassword())) {
+            return user;
+        } else {
+            throw new IllegalArgumentException("아이디 또는 비밀번호가 일치하지 않습니다.");
+        }
+    }
 }

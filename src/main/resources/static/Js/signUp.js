@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .then(response => response.json())//서버에서 받은 객체를 json으로 변환한다
     .then(data => {
-      console.log(data); //로그 출력
       if (data.success) {
         alert(data.message);
         window.location.href = '/';
@@ -50,6 +49,5 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     })
     .catch(error => console.error('Error:', error));
-
   });
 });
