@@ -16,7 +16,6 @@ public class QuizServiceImpl implements QuizService{
     private final PostRepository postRepository;
     private final QuizRepository quizRepository;
     private final TagRepository tagRepository;
-    private final CommentRepository commentRepository;
 
     @Override
     public List<PostDto> getAllQuiz(int page, int pageSize) {
@@ -52,7 +51,7 @@ public class QuizServiceImpl implements QuizService{
     @Transactional
     @Override
     public Long saveQuiz(QuizDto quizDto, Long userId) {
-        Quiz quiz = new Quiz(quizDto);
+        Quiz quiz = new Quiz(quizDto.getTitle(), quizDto.getTitle(), quizDto.getContents(), quizDto.getAnswer());
         return quizRepository.saveQuiz(quiz, userId);
     }
 
@@ -70,9 +69,9 @@ public class QuizServiceImpl implements QuizService{
 
     @Transactional
     @Override
-    public void updateQuiz(QuizDto quizDto, Long postId, Long userId) {
-        Quiz quiz = new Quiz(quizDto);
-        quizRepository.updateQuiz(quiz, postId, userId);
+    public void updateQuiz(QuizDto quizDto, Long postId) {
+        Quiz quiz = new Quiz(quizDto.getTitle(), quizDto.getTitle(), quizDto.getContents(), quizDto.getAnswer());
+        quizRepository.updateQuiz(quiz, postId);
     }
 
     @Override

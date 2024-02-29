@@ -21,10 +21,10 @@ public class UserService {
         //비밀번호 암호화
         String encryptedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
-        User user = new User(usrId, encryptedPassword);
+        User user = new User(userId, encryptedPassword);
 
         //중복 회원 검증
-        validateDuplicateUser(user);
+//        validateDuplicateUser(user);
 
         //중복 회원이 아니면 userRepository에 저장한다
         userRepository.save(user);

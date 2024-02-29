@@ -50,9 +50,7 @@ public class JdbcTemplateUserRepository implements UserRepository {
         String sql = "SELECT user_id,password FROM user WHERE user_id = ?";
 
         List<User> users = jdbcTemplate.query(sql, new Object[]{userId}, (rs, rowNum) -> {
-            User user = new User();
-            user.setUserId(rs.getString("user_Id"));
-            user.setPassword(rs.getString("password"));
+            User user = new User(rs.getString("user_Id"), rs.getString("password"));
 
             return user;
         });
