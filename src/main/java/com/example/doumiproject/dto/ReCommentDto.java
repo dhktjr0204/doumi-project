@@ -12,6 +12,7 @@ public class ReCommentDto {
     private String author;
     private String contents;
     private java.sql.Timestamp createdAt;
-    private long like;
+    private long likeCount;
+    private boolean isLiked;
     private int display;
 }

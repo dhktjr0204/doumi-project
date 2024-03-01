@@ -26,7 +26,7 @@ public class JdbcTemplatePostRepository implements PostRepository{
         String sql = "select p.id," +
                 "u.user_id as author," +
                 "p.type, p.title, p.contents, p.created_at," +
-                "p.updated_at, p.like as like_count " +
+                "p.updated_at " +
                 "from post p " +
                 "inner join " +
                 "user u on p.user_id = u.id " +
@@ -46,7 +46,7 @@ public class JdbcTemplatePostRepository implements PostRepository{
         String sql = "select p.id," +
                 "u.user_id as author," +
                 "p.type, p.title, p.contents, p.created_at," +
-                "p.updated_at, p.like as like_count " +
+                "p.updated_at " +
                 "from post p " +
                 "inner join " +
                 "user u on p.user_id = u.id " +
@@ -79,7 +79,7 @@ public class JdbcTemplatePostRepository implements PostRepository{
         String sql = "select p.id," +
                 "u.user_id as author," +
                 "p.type, p.title, p.contents, p.created_at," +
-                "p.updated_at, p.like as like_count " +
+                "p.updated_at " +
                 "from post p " +
                 "inner join " +
                 "user u on p.user_id = u.id " +
@@ -157,7 +157,7 @@ public class JdbcTemplatePostRepository implements PostRepository{
         String sql = "select p.id," +
                 "u.user_id as author," +
                 "p.type, p.title, p.contents, p.created_at," +
-                "p.updated_at, p.like as like_count " +
+                "p.updated_at " +
                 "from post p " +
                 "inner join " +
                 "user u on p.user_id = u.id " +
