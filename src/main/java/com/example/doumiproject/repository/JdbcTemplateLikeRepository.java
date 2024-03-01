@@ -18,21 +18,21 @@ public class JdbcTemplateLikeRepository implements LikeRepository{
     }
 
     @Override
-    public void addLike(long user_id, long post_id) {
+    public void addLike(long user_id, long post_id, String type) {
 
-        String sql = "insert into likes(user_id, post_id) " +
-                "values (?, ?)";
+        String sql = "insert into likes(user_id, post_id, type) " +
+                "values (?, ?, ?)";
 
-        jdbcTemplate.update(sql, user_id, post_id);
+        jdbcTemplate.update(sql, user_id, post_id, type);
     }
 
     @Override
-    public void cancelLike(long user_id, long post_id) {
+    public void cancelLike(long user_id, long post_id, String type) {
 
         String sql = "delete from likes " +
-                "where user_id = ? and post_id = ?";
+                "where user_id = ? and post_id = ? and type = ?";
 
-        jdbcTemplate.update(sql, user_id, post_id);
+        jdbcTemplate.update(sql, user_id, post_id, type);
     }
 
     @Override

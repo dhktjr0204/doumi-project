@@ -41,10 +41,11 @@ public class LikeController {
     @ResponseBody
     @GetMapping("/add")
     public ResponseEntity<?> addLike(@RequestParam(value = "user_id") long user_id,
-                                  @RequestParam(value = "post_id") long post_id) {
+                                     @RequestParam(value = "post_id") long post_id,
+                                     @RequestParam(value = "type") String type) {
 
         try {
-            likeService.addLike(user_id, post_id);
+            likeService.addLike(user_id, post_id, type);
             long likeCount = likeService.getCountLike(post_id);
 
             return ResponseEntity.ok(likeCount);
@@ -57,10 +58,11 @@ public class LikeController {
     @ResponseBody
     @GetMapping("/cancel")
     public ResponseEntity<?> cancelLike(@RequestParam(value = "user_id") long user_id,
-                                     @RequestParam(value = "post_id") long post_id) {
+                                        @RequestParam(value = "post_id") long post_id,
+                                        @RequestParam(value = "type") String type) {
 
         try {
-            likeService.cancelLike(user_id, post_id);
+            likeService.cancelLike(user_id, post_id, type);
             long likeCount = likeService.getCountLike(post_id);
 
             return ResponseEntity.ok(likeCount);

@@ -15,10 +15,12 @@ public class LikeRepositoryTest {
     @DisplayName("좋아요 insert 테스트")
     public void addLikeTest() {
 
+        String type = "POST";
+
         for(int i=1; i<=10; i++) {
             for(int j=1; j<=10; j++) {
 
-                likeRepository.addLike(i, j);
+                likeRepository.addLike(i, j, type);
             }
         }
     }
@@ -27,9 +29,11 @@ public class LikeRepositoryTest {
     @DisplayName("좋아요 delete 테스트")
     public void cancelLikeTest() {
 
-        likeRepository.addLike(1,1);
-        likeRepository.addLike(1,2);
-        likeRepository.cancelLike(1,1);
+        String type = "POST";
+
+        likeRepository.addLike(1,1, type);
+        likeRepository.addLike(1,2, type);
+        likeRepository.cancelLike(1,1, type);
     }
 
     @Test
