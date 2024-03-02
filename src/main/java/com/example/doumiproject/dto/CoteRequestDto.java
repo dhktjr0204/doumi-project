@@ -1,4 +1,4 @@
-package com.example.doumiproject.entity;
+package com.example.doumiproject.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cote {
+public class CoteRequestDto {
     private String title; // 질문 제목
     private String tags; // 선택된 태그 목록
     private String coteContent;

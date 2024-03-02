@@ -20,9 +20,11 @@ public interface CommentRepository {
             commentDto.setUserId(rs.getLong("user_id"));
             commentDto.setAuthor(rs.getString("author"));
             commentDto.setContents(rs.getString("contents"));
-            commentDto.setLike(rs.getInt("like"));
             commentDto.setDisplay(rs.getInt("display"));
             commentDto.setCreatedAt(rs.getTimestamp("created_at"));
+            commentDto.setLikeCount(rs.getLong("like_count"));
+            commentDto.setLiked(rs.getString("is_liked").equals("Y") ? true : false);
+
             return commentDto;
         };
     }
@@ -34,9 +36,11 @@ public interface CommentRepository {
             reCommentDto.setUserId(rs.getLong("user_id"));
             reCommentDto.setAuthor(rs.getString("author"));
             reCommentDto.setContents(rs.getString("contents"));
-            reCommentDto.setLike(rs.getLong("like"));
             reCommentDto.setDisplay(rs.getInt("display"));
             reCommentDto.setCreatedAt(rs.getTimestamp("created_at"));
+            reCommentDto.setLikeCount(rs.getLong("like_count"));
+            reCommentDto.setLiked(rs.getString("is_liked").equals("Y") ? true : false);
+
             return reCommentDto;
         };
     }

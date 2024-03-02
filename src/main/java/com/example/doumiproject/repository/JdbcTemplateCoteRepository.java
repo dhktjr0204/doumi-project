@@ -1,7 +1,7 @@
 package com.example.doumiproject.repository;
 
 import com.example.doumiproject.dto.CoteDto;
-import com.example.doumiproject.entity.Cote;
+import com.example.doumiproject.dto.CoteRequestDto;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -36,7 +36,7 @@ public class JdbcTemplateCoteRepository implements CoteRepository {
 
 
     @Override
-    public Long saveCote(Cote cote, long userId) {
+    public Long saveCote(CoteRequestDto cote, long userId) {
         //게시글 저장
         String postSql = "insert into post (user_id, type, title, contents, created_at, updated_at, `like`) " +
                 "values (?, ?, ?, ?, ?, ?, ?)";
@@ -69,7 +69,7 @@ public class JdbcTemplateCoteRepository implements CoteRepository {
     }
 
     @Override
-    public void updateCote(Cote cote, long postId, long userId) {
+    public void updateCote(CoteRequestDto cote, long postId, long userId) {
         //로그인 생기면 수정 권한 있는지 확인 로직 where에 추가
         String postSql="update post "+
                 "set title=?, contents=?, updated_at = ? "+

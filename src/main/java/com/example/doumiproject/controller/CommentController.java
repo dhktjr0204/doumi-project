@@ -5,6 +5,7 @@ import com.example.doumiproject.entity.Comment;
 import com.example.doumiproject.service.CommentService;
 import com.example.doumiproject.service.QuizService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,19 +22,20 @@ public class CommentController {
     @PostMapping("/add")
     public String addComment(@ModelAttribute("newComment") Comment comment, Model model){
 
+        long post_id = comment.getPostId();
+
         //로그인 기능 생기면 userId 방식 수정해야함
-        commentService.saveComment(comment, 3, "QUIZ");
+        commentService.saveComment(comment, 1, "QUIZ");
 
         //글의 상세 정보 가져오기
-        QuizDto quiz=quizService.getQuiz(comment.getPostId());
+        //QuizDto quiz=quizService.getQuiz(comment.getPostId());
         //글에 연결된 댓글들 가져오기
-        List<CommentDto> comments=commentService.getAllComments(comment.getPostId());
+        List<CommentDto> comments = commentService.getAllComments(post_id);
 
         //저장한 댓글 가져오기
-        model.addAttribute("quiz",quiz);
+        model.addAttribute("postId", post_id);
         model.addAttribute("comments",comments);
         model.addAttribute("newComment",new Comment());
-
 
         return "comment/comment";
     }
@@ -53,11 +55,11 @@ public class CommentController {
         commentService.updateComment(comment, commentId);
 
         //글의 상세 정보 가져오기
-        QuizDto quiz=quizService.getQuiz(comment.getPostId());
+        //QuizDto quiz=quizService.getQuiz(comment.getPostId());
         //글에 연결된 댓글들 가져오기
         List<CommentDto> comments=commentService.getAllComments(comment.getPostId());
 
-        model.addAttribute("quiz",quiz);
+        //model.addAttribute("quiz",quiz);
         model.addAttribute("comments",comments);
         model.addAttribute("newComment",new Comment());
 

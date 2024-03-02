@@ -1,5 +1,6 @@
 package com.example.doumiproject.dto;
 
+import com.example.doumiproject.entity.Tag;
 import lombok.*;
 
 import java.util.List;
@@ -14,8 +15,11 @@ public class QuizDto {
     private String author;
     private String title;
     private String contents;
-    private  String answer;
+    private String answer;
+    private String postType;
     private java.sql.Timestamp createdAt;
-    private long like;
-    private List<TagDetailDto> tags;
+    private java.sql.Timestamp updatedAt;
+    private List<Tag> tags;
+    private long likeCount;
+    private boolean isLiked;
 }

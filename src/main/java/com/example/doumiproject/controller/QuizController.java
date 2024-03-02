@@ -2,7 +2,7 @@ package com.example.doumiproject.controller;
 
 import com.example.doumiproject.dto.*;
 import com.example.doumiproject.entity.Comment;
-import com.example.doumiproject.entity.Quiz;
+import com.example.doumiproject.dto.QuizRequestDto;
 import com.example.doumiproject.service.CommentService;
 import com.example.doumiproject.service.QuizService;
 import com.example.doumiproject.util.PaginationUtil;
@@ -83,12 +83,14 @@ public class QuizController {
     @GetMapping("/board")
     public String getQuizDetail(@RequestParam("id") Long id, Model model){
 
+        long userId = 1;
         //글의 상세 정보 가져오기
-        QuizDto quiz=quizService.getQuiz(id);
+        QuizDto quiz = quizService.getQuiz(id, userId);
         //글에 연결된 댓글들 가져오기
-        List<CommentDto> comments=commentService.getAllComments(id);
+        List<CommentDto> comments = commentService.getAllComments(id);
 
         model.addAttribute("quiz",quiz);
+        model.addAttribute("postId", quiz.getId());
         model.addAttribute("comments",comments);
         model.addAttribute("newComment",new Comment());
 
@@ -103,14 +105,14 @@ public class QuizController {
         List<TagDto> tags = quizService.getAllTags();
 
         model.addAttribute("tags",tags);
-        model.addAttribute("quiz",new Quiz());
+        model.addAttribute("quiz",new QuizRequestDto());
 
         return "quiz/form";
     }
 
     @PostMapping("/post")
 
-    public ResponseEntity<String> postQuiz(QuizDto quiz) {
+    public ResponseEntity<String> postQuiz(QuizRequestDto quiz) {
 
         //로그인 하지 않은 유저가 요청하면 거절
         Long postId = quizService.saveQuiz(quiz, 1l);
@@ -123,7 +125,7 @@ public class QuizController {
         long userId=1l;
 
         //로그인 생기면 현재 로그인된 유저의 nickname과 quizDetail의 userId가 일치한지 검증 필요
-        QuizDto quiz=quizService.getQuiz(id);
+        QuizDto quiz=quizService.getQuiz(id, userId);
         List<TagDto> tags = quizService.getAllTags();
 
         if(quiz.getUserId()!=userId){
@@ -137,7 +139,7 @@ public class QuizController {
     }
 
     @PostMapping("/edit")
-    public ResponseEntity<String> updateQuiz(@RequestParam("id") Long id, QuizDto quiz){
+    public ResponseEntity<String> updateQuiz(@RequestParam("id") Long id, QuizRequestDto quiz){
 
         long userId=1l;
 

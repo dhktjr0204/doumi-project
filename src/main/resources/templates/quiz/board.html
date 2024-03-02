@@ -10,7 +10,7 @@
 <header></header>
 <main class="cont-main">
 
-    <input class="post-id hidden" th:value="${quiz.id}"/>
+    <input class="post-id hidden" th:value="${postId}"/>
 
     <section class="content-header">
         <a class="back-button" href="/quiz">< 목록으로 </a>
@@ -30,14 +30,14 @@
             <div class="content-answer hide-text">
             </div>
         </div>
-        <button class="likes-button content-likes" onclick="clickLike(this)">
-            <input class="quiz-id hidden" th:value="${quiz.id}"/>
-            <img class="like-img" th:src="@{/images/icon_like_normal.png}" alt="좋아요 버튼">
-            <p class="likes-number" th:text="${quiz.like}"></p>
+        <button class="likes-button content-likes" onclick="clickLike(this, 'POST')">
+            <input class="post-id hidden" th:value="${postId}"/>
+            <img th:class="${quiz.liked} ? 'liked' : 'like-img'" th:src="@{/images/icon_like_normal.png}" alt="좋아요 버튼">
+            <p class="likes-number" th:text="${quiz.likeCount}"></p>
         </button>
         <ul class="content-tags-container">
             <li class="content-detail-tag" th:each="tag:${quiz.tags}">
-                <a th:href="@{/quiz/tag(name = ${tag.name})}" th:text="${tag.name}"></a>
+                <a th:href="@{/quiz/tag(name = ${tag})}" th:text="${tag}"></a>
             </li>
         </ul>
     </section>

@@ -18,14 +18,18 @@ public class JdbcTemplateCommentRepository implements CommentRepository {
 
     @Override
     public List<CommentDto> getAllComment(long postId) {
-        String sql = "select c.id as comment_id ,u.id as user_id, u.user_id as author , c.contents, c.created_at, c.like, c.display " +
+        String sql = "select c.id as comment_id ,u.id as user_id, u.user_id as author , c.contents, c.created_at, c.display, " +
+                "(select count(*) from likes l where post_id = c.id and l.type = 'COMMENT') as like_count, " +
+                "case when exists (select 1 from likes l where post_id = c.id and user_id = ? and l.type = 'COMMENT') then 'Y' else 'N' end as is_liked " +
                 "from comment c " +
-                "inner join user u on u.id=c.user_id " +
-                "where c.post_id=? " +
-                "and c.parent_comment_id=0 " +
+                "inner join user u on u.id = c.user_id " +
+                "where c.post_id = ? " +
+                "and c.parent_comment_id = 0 " +
                 "order by c.created_at DESC ";
 
-        List<CommentDto> comments = jdbcTemplate.query(sql, commentRowMapper(), postId);
+        long userId = 1;
+
+        List<CommentDto> comments = jdbcTemplate.query(sql, commentRowMapper(), userId, postId);
 
         for (CommentDto comment : comments) {
             List<ReCommentDto> reComments = getAllReComment(comment.getId());
@@ -40,20 +44,24 @@ public class JdbcTemplateCommentRepository implements CommentRepository {
     public List<ReCommentDto> getAllReComment(long parentCommentId) {
         // 1. 부모 댓글 ID에 해당하는 모든 대댓글 목록을 조회
         //대댓글 시간순 정렬
-        String sql = "select c.id as re_comment_id ,u.id as user_id, u.user_id as author, c.contents, c.created_at, c.like, c.display " +
+        String sql = "select c.id as re_comment_id ,u.id as user_id, u.user_id as author, c.contents, c.created_at, c.display, " +
+                "(select count(*) from likes l where post_id = c.id and l.type = 'COMMENT') as like_count, " +
+                "case when exists (select 1 from likes l where post_id = c.id and user_id = ? and l.type = 'COMMENT') then 'Y' else 'N' end as is_liked " +
                 "from comment c " +
-                "inner join user u on u.id=c.user_id " +
-                "where c.parent_comment_id=? " +
+                "inner join user u on u.id = c.user_id " +
+                "where c.parent_comment_id = ? " +
                 "order by c.created_at ASC";
 
-        return jdbcTemplate.query(sql, reCommentRowMapper(), parentCommentId);
+        long userId = 1;
+
+        return jdbcTemplate.query(sql, reCommentRowMapper(), userId, parentCommentId);
     }
 
     @Override
     public void saveComment(Comment comment, long userId, String type) {
 
-        String sql = "insert into comment(user_id, post_id, type, contents, created_at, updated_at, `like`, display, parent_comment_id) " +
-                "values (?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+        String sql = "insert into comment(user_id, post_id, type, contents, created_at, updated_at, display, parent_comment_id) " +
+                "values (?, ?, ?, ?, ?, ?, ?, ?) ";
 
         //0이면 공개
         int display = 0;
@@ -64,7 +72,7 @@ public class JdbcTemplateCommentRepository implements CommentRepository {
         }
 
         jdbcTemplate.update(sql, userId, comment.getPostId(), type, comment.getContents(),
-                LocalDateTime.now(), LocalDateTime.now(), 0, display, comment.getParentCommentId());
+                LocalDateTime.now(), LocalDateTime.now(), display, comment.getParentCommentId());
     }
 
     @Override

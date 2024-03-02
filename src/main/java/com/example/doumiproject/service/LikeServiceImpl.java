@@ -11,15 +11,15 @@ public class LikeServiceImpl implements LikeService{
     private final LikeRepository likeRepository;
 
     @Override
-    public void addLike(long user_id, long post_id) {
+    public void addLike(long user_id, long post_id, String type) {
 
-        likeRepository.addLike(user_id, post_id);
+        likeRepository.addLike(user_id, post_id, type);
     }
 
     @Override
-    public void cancelLike(long user_id, long post_id) {
+    public void cancelLike(long user_id, long post_id, String type) {
 
-        likeRepository.cancelLike(user_id, post_id);
+        likeRepository.cancelLike(user_id, post_id, type);
     }
 
     @Override

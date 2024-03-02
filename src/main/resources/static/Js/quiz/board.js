@@ -1,32 +1,4 @@
-$(document).ready(function() {
-
-    const likeImage = document.querySelector('.like-img');
-    const postId = document.querySelector('.quiz-id').value;
-    const likeNumber = document.querySelector('.likes-number');
-
-    $.ajax({
-        type: "GET",
-        url: "/like",
-        data: {
-            user_id: 1,
-            post_id: postId
-        },
-        success: function(response) {
-
-            likeNumber.textContent = response.likeCount;
-
-            if (response.exists) {
-                likeImage.classList.toggle('liked');
-            }
-        },
-        error: function(error) {
-
-            console.error(error);
-        }
-    });
-});
-
-function clickLike(button) {
+function clickLike(button, type) {
 
     const likeImage = button.querySelector('img');
     const likeNumber = button.querySelector('.likes-number');
@@ -34,14 +6,15 @@ function clickLike(button) {
     likeImage.classList.toggle('liked');
 
     let url = likeImage.classList.contains('liked') ? '/like/add' : '/like/cancel';
-    let postId = button.querySelector('.quiz-id').value;
+    let postId = button.querySelector('.post-id').value;
 
     $.ajax({
         type: "GET",
         url: url,
         data: {
             user_id: 1,
-            post_id: postId
+            post_id: postId,
+            type: type
         },
         success: function(response) {
 

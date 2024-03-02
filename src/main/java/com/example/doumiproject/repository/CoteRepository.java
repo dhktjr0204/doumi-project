@@ -2,13 +2,13 @@ package com.example.doumiproject.repository;
 
 import com.example.doumiproject.dto.CoteDto;
 import com.example.doumiproject.dto.TagDetailDto;
-import com.example.doumiproject.entity.Cote;
+import com.example.doumiproject.dto.CoteRequestDto;
 import org.springframework.jdbc.core.RowMapper;
 
 public interface CoteRepository {
     public CoteDto getByCoteId(long id);
-    public Long saveCote(Cote cote, long userId);
-    void updateCote(Cote cote, long postId, long userId);
+    public Long saveCote(CoteRequestDto cote, long userId);
+    void updateCote(CoteRequestDto cote, long postId, long userId);
     void deleteCote(long postId);
 
 
