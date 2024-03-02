@@ -1,11 +1,11 @@
 package com.example.doumiproject.entity;
 
-import lombok.*;
+import com.example.doumiproject.exception.comment.CommentContentsLengthException;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Comment {
     private long id;
     private long userId;
@@ -19,6 +19,19 @@ public class Comment {
 
     public Comment(String type) {
         this.type = type;
+    }
+
+    public Comment(long userId, long postId, String type, String contents, boolean display, long parentCommentId) {
+        if (contents.length() == 0 || contents.length() > 250) {
+            throw new CommentContentsLengthException();
+        }
+
+        this.userId = userId;
+        this.postId = postId;
+        this.type = type;
+        this.contents = contents;
+        this.display = display;
+        this.parentCommentId = parentCommentId;
     }
 }
 

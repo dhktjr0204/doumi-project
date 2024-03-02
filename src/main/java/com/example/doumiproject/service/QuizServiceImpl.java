@@ -63,11 +63,19 @@ public class QuizServiceImpl implements QuizService {
     @Transactional
     @Override
     public Long saveQuiz(QuizRequestDto quiz, Long userId) {
+        QuizRequestDto quizDto=new QuizRequestDto(
+                quiz.getUserId(),
+                quiz.getTitle(),
+                quiz.getTags(),
+                quiz.getQuizContent(),
+                quiz.getAnswerContent());
 
-        Long postId = quizRepository.saveQuiz(quiz, userId);
-        quizRepository.saveAnswer(quiz, postId, userId);
-        if (!quiz.getTags().isEmpty()) {
-            String[] tags = quiz.getTags().split(",");
+        Long postId = quizRepository.saveQuiz(quizDto, userId);
+
+        quizRepository.saveAnswer(quizDto, postId, userId);
+
+        if (!quizDto.getTags().isEmpty()) {
+            String[] tags = quizDto.getTags().split(",");
             tagRepository.saveTags(tags, postId);
         }
 
@@ -89,14 +97,20 @@ public class QuizServiceImpl implements QuizService {
     @Transactional
     @Override
     public void updateQuiz(QuizRequestDto quiz, Long postId) {
+        QuizRequestDto quizDto=new QuizRequestDto(
+                quiz.getUserId(),
+                quiz.getTitle(),
+                quiz.getTags(),
+                quiz.getQuizContent(),
+                quiz.getAnswerContent());
 
-        quizRepository.updateQuiz(quiz, postId);
-        quizRepository.updateAnswer(quiz, postId);
+        quizRepository.updateQuiz(quizDto, postId);
+        quizRepository.updateAnswer(quizDto, postId);
 
         //기존 태그 삭제 후 다시 저장
         tagRepository.deleteTags(postId);
-        if (!quiz.getTags().isEmpty()) {
-            String[] tags = quiz.getTags().split(",");
+        if (!quizDto.getTags().isEmpty()) {
+            String[] tags = quizDto.getTags().split(",");
             tagRepository.saveTags(tags, postId);
         }
     }

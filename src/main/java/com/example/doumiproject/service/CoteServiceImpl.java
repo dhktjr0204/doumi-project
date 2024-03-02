@@ -64,8 +64,9 @@ public class CoteServiceImpl implements CoteService {
     @Transactional
     @Override
     public Long saveCote(CoteRequestDto cote, Long userId) {
+        CoteRequestDto coteRequestDto = new CoteRequestDto(cote.getTitle(), cote.getCoteContent());
 
-        return coteRepository.saveCote(cote, userId);
+        return coteRepository.saveCote(coteRequestDto, userId);
     }
 
     @Override
@@ -82,9 +83,10 @@ public class CoteServiceImpl implements CoteService {
 
     @Transactional
     @Override
-    public void updateCote(CoteRequestDto quiz, Long postId) {
+    public void updateCote(CoteRequestDto cote, Long postId) {
+        CoteRequestDto coteRequestDto = new CoteRequestDto(cote.getTitle(), cote.getCoteContent());
 
-        coteRepository.updateCote(quiz, postId);
+        coteRepository.updateCote(coteRequestDto, postId);
     }
 
     @Override

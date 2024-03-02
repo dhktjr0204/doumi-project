@@ -33,8 +33,9 @@ function  clickDeleteButton(button){
 //좋아요 순
 function clickOrderByLikeCount(){
     const postId = document.querySelector('.post-id').value;
+    const type=document.querySelector('.type').value;
     $.ajax({
-        url: "/comment/orderlike?id="+postId,
+        url: "/comment/orderlike?id="+postId+"&type="+type,
         type: "POST",
         processData: false,
         contentType: false,
@@ -50,8 +51,9 @@ function clickOrderByLikeCount(){
 //최신순
 function clickOrderByCreatedAt(){
     const postId = document.querySelector('.post-id').value;
+    const type=document.querySelector('.type').value;
     $.ajax({
-        url: "/comment/ordertime?id="+postId,
+        url: "/comment/ordertime?id="+postId+"&type="+type,
         type: "POST",
         processData: false,
         contentType: false,

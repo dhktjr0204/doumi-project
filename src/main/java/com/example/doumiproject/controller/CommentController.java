@@ -22,14 +22,14 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/ordertime")
-    public String orderCommentByCreateAt(@RequestParam("id") long postId, Model model) {
+    public String orderCommentByCreateAt(@RequestParam("id") long postId, @RequestParam("type") String type, Model model) {
         long userId = 1;
 
         List<CommentDto> comments = commentService.getAllComments(postId, userId);
 
         model.addAttribute("comments", comments);
         model.addAttribute("postId", postId);
-        if (comments.get(0).getType().equals("QUIZ")) {
+        if (type.equals("QUIZ")) {
             model.addAttribute("newComment", new Comment("QUIZ"));
         }else{
             model.addAttribute("newComment", new Comment("POST"));
@@ -39,14 +39,14 @@ public class CommentController {
     }
 
     @PostMapping("/orderlike")
-    public String orderCommentByLikeCount(@RequestParam("id") long postId, Model model) {
+    public String orderCommentByLikeCount(@RequestParam("id") long postId, @RequestParam("type") String type, Model model) {
         long userId = 1;
 
         List<CommentDto> comments = commentService.getAllCommentsOrderByLikeCount(postId, userId);
 
         model.addAttribute("comments", comments);
         model.addAttribute("postId", postId);
-        if (comments.get(0).getType().equals("QUIZ")) {
+        if (type.equals("QUIZ")) {
             model.addAttribute("newComment", new Comment("QUIZ"));
         }else{
             model.addAttribute("newComment", new Comment("POST"));

@@ -10,6 +10,8 @@
 <header></header>
 <main class="cont-main">
     <input class="post-id hidden" th:value="${cote.id}" />
+    <input class="type hidden" th:value="${cote.postType}"/>
+
     <section class="content-header">
         <a class="back-button" href="/codingtest/index">< 목록으로 </a>
         <h1 class="title" th:text="${cote.title}"></h1>
