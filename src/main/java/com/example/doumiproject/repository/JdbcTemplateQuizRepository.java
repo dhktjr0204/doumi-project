@@ -2,7 +2,7 @@ package com.example.doumiproject.repository;
 
 import com.example.doumiproject.dto.QuizDto;
 import com.example.doumiproject.dto.TagDetailDto;
-import com.example.doumiproject.entity.Quiz;
+import com.example.doumiproject.dto.QuizRequestDto;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -34,7 +34,8 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
                 "p.type as post_type, " +
                 "u.user_id as author, " +
                 "a.answer, " +
-                "(select group_concat(t.name) from quiztag qt left join tag t on qt.tag_id = t.id where qt.post_id = p.id) as tag_names, " +
+                "(select group_concat(t.id) from quiztag qt left join tag t on qt.tag_id = t.id where qt.post_id = p.id order by t.id) as tag_ids," +
+                "(select group_concat(t.name) from quiztag qt left join tag t on qt.tag_id = t.id where qt.post_id = p.id order by t.id) as tag_names, " +
                 "(select count(*) from likes where post_id = p.id and type = 'POST') as like_count, " +
                 "case when exists (select 1 from likes where post_id = p.id and user_id = ? and type = 'POST') then 'Y' else 'N' end as is_liked " +
                 "from " +
@@ -76,7 +77,7 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
     }
 
     @Override
-    public Long saveQuiz(Quiz quiz, long userId) {
+    public Long saveQuiz(QuizRequestDto quiz, long userId) {
         //게시글 저장
         String postSql = "insert into post (user_id, type, title, contents, created_at, updated_at) " +
                 "values (?, ?, ?, ?, ?, ?)";
@@ -110,7 +111,7 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
     }
 
     @Override
-    public void updateQuiz(Quiz quiz, long postId) {
+    public void updateQuiz(QuizRequestDto quiz, long postId) {
         //로그인 생기면 수정 권한 있는지 확인 로직 where에 추가
         String postSql="update post "+
                 "set title=?, contents=?, updated_at = ? "+
@@ -138,7 +139,7 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
     }
 
     //태그 저장
-    public void saveTags(Quiz quiz, long postId){
+    public void saveTags(QuizRequestDto quiz, long postId){
         String tagSql = "insert into quiztag (post_id, tag_id) " +
                 "values (?,?)";
         String tags = quiz.getTags();

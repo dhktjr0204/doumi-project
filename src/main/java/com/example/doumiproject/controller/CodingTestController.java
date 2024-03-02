@@ -3,7 +3,7 @@ package com.example.doumiproject.controller;
 import com.example.doumiproject.dto.CommentDto;
 import com.example.doumiproject.dto.CoteDto;
 import com.example.doumiproject.dto.PostDto;
-import com.example.doumiproject.entity.Cote;
+import com.example.doumiproject.dto.CoteRequestDto;
 import com.example.doumiproject.service.CoteService;
 import com.example.doumiproject.util.PaginationUtil;
 import lombok.RequiredArgsConstructor;
@@ -65,12 +65,12 @@ public class CodingTestController {
     @GetMapping("/codingtest/post")
     public String createCote(Model model){
 
-        model.addAttribute("cote",new Cote());
+        model.addAttribute("cote",new CoteRequestDto());
 
         return "codingtest/form";
     }
     @PostMapping("/codingtest/post")
-    public ResponseEntity<String> postCote(Cote cote) {
+    public ResponseEntity<String> postCote(CoteRequestDto cote) {
 
         Long postId = coteService.saveCote(cote, 1l);
 
@@ -89,7 +89,7 @@ public class CodingTestController {
     }
 
     @PostMapping("/edit")
-    public ResponseEntity<String> updateCote(@RequestParam("id") Long id, Cote cote){
+    public ResponseEntity<String> updateCote(@RequestParam("id") Long id, CoteRequestDto cote){
 
         //수정 권한있는 사용자인지 검증 로직 repository에 수정필요
         coteService.updateCote(cote, id, 1l);

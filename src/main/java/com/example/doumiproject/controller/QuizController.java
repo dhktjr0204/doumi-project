@@ -2,7 +2,7 @@ package com.example.doumiproject.controller;
 
 import com.example.doumiproject.dto.*;
 import com.example.doumiproject.entity.Comment;
-import com.example.doumiproject.entity.Quiz;
+import com.example.doumiproject.dto.QuizRequestDto;
 import com.example.doumiproject.service.CommentService;
 import com.example.doumiproject.service.QuizService;
 import com.example.doumiproject.util.PaginationUtil;
@@ -105,14 +105,14 @@ public class QuizController {
         List<TagDto> tags = quizService.getAllTags();
 
         model.addAttribute("tags",tags);
-        model.addAttribute("quiz",new Quiz());
+        model.addAttribute("quiz",new QuizRequestDto());
 
         return "quiz/form";
     }
 
     @PostMapping("/post")
 
-    public ResponseEntity<String> postQuiz(Quiz quiz) {
+    public ResponseEntity<String> postQuiz(QuizRequestDto quiz) {
 
         //로그인 하지 않은 유저가 요청하면 거절
         Long postId = quizService.saveQuiz(quiz, 1l);
@@ -139,7 +139,7 @@ public class QuizController {
     }
 
     @PostMapping("/edit")
-    public ResponseEntity<String> updateQuiz(@RequestParam("id") Long id, Quiz quiz){
+    public ResponseEntity<String> updateQuiz(@RequestParam("id") Long id, QuizRequestDto quiz){
 
         long userId=1l;
 

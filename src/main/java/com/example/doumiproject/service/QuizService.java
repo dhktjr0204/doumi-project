@@ -1,7 +1,7 @@
 package com.example.doumiproject.service;
 
 import com.example.doumiproject.dto.*;
-import com.example.doumiproject.entity.Quiz;
+import com.example.doumiproject.dto.QuizRequestDto;
 
 import java.util.List;
 
@@ -12,10 +12,10 @@ public interface QuizService {
     public QuizDto getQuiz(long postId);
     public QuizDto getQuiz(long postId, long userId);
     public List<TagDto> getAllTags();
-    public Long saveQuiz(Quiz quiz, Long userId);
+    public Long saveQuiz(QuizRequestDto quiz, Long userId);
     public int getTotalPages(int pageSize, String keyword);
     public List<PostDto> getSearchQuiz(String keyword, int page, int pageSize);
-    public void updateQuiz(Quiz quiz, Long postId);
+    public void updateQuiz(QuizRequestDto quiz, Long postId);
     public void deleteQuiz(long postId);
     public int getTotalPagesForSelectedTag(int pageSize, String tag);
     public List<PostDto> getQuizForSelectedTag(String tag, int page, int pageSize);

@@ -4,7 +4,7 @@ import com.example.doumiproject.dto.CommentDto;
 import com.example.doumiproject.dto.CoteDto;
 import com.example.doumiproject.dto.PostDto;
 import com.example.doumiproject.dto.TagDto;
-import com.example.doumiproject.entity.Cote;
+import com.example.doumiproject.dto.CoteRequestDto;
 import com.example.doumiproject.repository.CommentRepository;
 import com.example.doumiproject.repository.CoteRepository;
 import com.example.doumiproject.repository.PostRepository;
@@ -63,7 +63,7 @@ public class CoteServiceImpl implements CoteService{
     //데이터 저장 도중 에러가 생길 경우 원 상태로 복귀
     @Transactional
     @Override
-    public Long saveCote(Cote cote, Long userId) {
+    public Long saveCote(CoteRequestDto cote, Long userId) {
 
         return coteRepository.saveCote(cote, userId);
     }
@@ -82,7 +82,7 @@ public class CoteServiceImpl implements CoteService{
 
     @Transactional
     @Override
-    public void updateCote(Cote quiz, Long postId, Long userId) {
+    public void updateCote(CoteRequestDto quiz, Long postId, Long userId) {
 
         coteRepository.updateCote(quiz, postId, userId);
     }

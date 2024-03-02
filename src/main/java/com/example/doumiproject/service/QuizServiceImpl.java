@@ -1,7 +1,7 @@
 package com.example.doumiproject.service;
 
 import com.example.doumiproject.dto.*;
-import com.example.doumiproject.entity.Quiz;
+import com.example.doumiproject.dto.QuizRequestDto;
 import com.example.doumiproject.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -56,7 +56,7 @@ public class QuizServiceImpl implements QuizService{
     //데이터 저장 도중 에러가 생길 경우 원 상태로 복귀
     @Transactional
     @Override
-    public Long saveQuiz(Quiz quiz, Long userId) {
+    public Long saveQuiz(QuizRequestDto quiz, Long userId) {
 
         return quizRepository.saveQuiz(quiz, userId);
     }
@@ -75,7 +75,7 @@ public class QuizServiceImpl implements QuizService{
 
     @Transactional
     @Override
-    public void updateQuiz(Quiz quiz, Long postId) {
+    public void updateQuiz(QuizRequestDto quiz, Long postId) {
 
         quizRepository.updateQuiz(quiz, postId);
     }
