@@ -43,6 +43,7 @@ public interface QuizRepository {
                 Tag tag = new Tag();
                 tag.setId(Long.parseLong(tagIds[i]));
                 tag.setName(tagNames[i]);
+                tags.add(tag);
             }
 
             quizDto.setTags(tags);

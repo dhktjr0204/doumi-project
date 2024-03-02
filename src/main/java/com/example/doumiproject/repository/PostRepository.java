@@ -24,6 +24,7 @@ public interface PostRepository {
             postDto.setTitle(rs.getString("title"));
             postDto.setContents(rs.getString("contents"));
             postDto.setCreatedAt(rs.getTimestamp("created_at"));
+            postDto.setLikeCount(rs.getLong("like_count"));
             return postDto;
         });
     };

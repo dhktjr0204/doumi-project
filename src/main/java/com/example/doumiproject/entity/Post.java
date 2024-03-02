@@ -16,5 +16,4 @@ public class Post {
     private String contents;
     private java.sql.Timestamp createdAt;
     private java.sql.Timestamp updatedAt;
-    private long like;
 }

@@ -147,7 +147,7 @@ h1{
 }
 
 .title{
-    width: 50%;
+    width: 40%;
     margin-right:10px;
     white-space: nowrap;
     overflow: hidden;
@@ -160,6 +160,10 @@ h1{
 
 .create_time{
     width: 20%;
+}
+
+.like{
+    width: 10%;
 }
 
 .quiz_container{
