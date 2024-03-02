@@ -17,7 +17,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CoteServiceImpl implements CoteService{
+public class CoteServiceImpl implements CoteService {
 
     private final PostRepository postRepository;
     private final CoteRepository coteRepository;
@@ -43,15 +43,15 @@ public class CoteServiceImpl implements CoteService{
     }
 
     @Override
-    public CoteDto getCote(long postId){
+    public CoteDto getCote(long postId, long userId) {
 
-        return coteRepository.getByCoteId(postId);
+        return coteRepository.getByCoteId(postId, userId);
     }
 
     @Override
-    public List<CommentDto> getComments(long postId) {
+    public List<CommentDto> getComments(long postId, long userId) {
 
-        return commentRepository.getAllComment(postId);
+        return commentRepository.getAllComment(postId, userId);
     }
 
     @Override
@@ -82,14 +82,14 @@ public class CoteServiceImpl implements CoteService{
 
     @Transactional
     @Override
-    public void updateCote(CoteRequestDto quiz, Long postId, Long userId) {
+    public void updateCote(CoteRequestDto quiz, Long postId) {
 
-        coteRepository.updateCote(quiz, postId, userId);
+        coteRepository.updateCote(quiz, postId);
     }
 
     @Override
     public void deleteCote(long postId) {
-        
+
         coteRepository.deleteCote(postId);
     }
 

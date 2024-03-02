@@ -4,111 +4,50 @@
     <meta charset="UTF-8">
     <title>Doumi</title>
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/3.0.2/toastui-editor.min.css">
-    <link href="../../static/css/quizBoard.css" th:href="@{/css/quizBoard.css}" rel="stylesheet" type="text/css"/>
+    <link href="../../static/css/board.css" th:href="@{/css/board.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <header></header>
 <main class="cont-main">
-    <input class="quiz-id hidden" th:value="${cote.id}" />
+    <input class="post-id hidden" th:value="${cote.id}" />
     <section class="content-header">
         <a class="back-button" href="/codingtest/index">< 목록으로 </a>
         <h1 class="title" th:text="${cote.title}"></h1>
-        <div class="content-info">
-            <a href="" class="board-writer-name" th:text="${cote.userId}"></a>
-            <p class="content-createdAt" th:text="${#dates.format(cote.createdAt,'yyyy-MM-dd HH:mm')}"></p>
+        <div class="content-info-container">
+            <div class="content-info">
+                <a href="" class="board-writer-name" th:value="${cote.userId}" th:text="${cote.author}"></a>
+                <p class="content-createdAt" th:text="${#dates.format(cote.createdAt,'yyyy-MM-dd HH:mm')}"></p>
+            </div>
+            <div class="content-edit-container">
+                <button onclick="editContent()">수정</button>
+                <button onclick="deleteContent()">삭제</button>
+            </div>
         </div>
     </section>
     <section class="content-main">
         <h2 class="a11y">퀴즈 게시판 본문 내용</h2>
-        <div class="content-detail">
-        </div>
-        <h3>정답</h3>
-        <div class="content-answer-container hide-place">
-            <div class="content-answer hide-text">
-            </div>
-        </div>
-        <button class="btn likes-button content-likes">
-            <img th:src="@{/images/icon_like_normal.png}" alt="좋아요 버튼">
-            <p class="likes-number" th:text="${cote.like}"></p>
+        <div class="content-detail"></div>
+        <button class="likes-button content-likes" onclick="clickLike(this, 'POST')">
+            <input class="post-id hidden" th:value="${postId}"/>
+            <img th:class="${cote.liked} ? 'liked' : 'like-img'" th:src="@{/images/icon_like_normal.png}" alt="좋아요 버튼">
+            <p class="likes-number" th:text="${cote.likeCount}"></p>
         </button>
     </section>
-    <section class="comment-header">
-        <h2 class="a11y"> 답변 입력창 </h2>
-        <div class="comment-info">
-            <h2>답변 <strong class="comment-number" th:text="${comments.size()}"></strong></h2>
-            <div class="comment-sort-selector">
-                <span class="recommend sorted">좋아요순</span>
-                <span class="recent">최신순</span>
-            </div>
-        </div>
-        <div class="comment-editor-opener">
-            <!-- 로그인 한 유저로 수정 필요-->
-            <p class="comment-editor-text" th:text="${cote.userId}+ '님 답변을 작성해보세요.'"></p>
-        </div>
-        <div class="comment-editor hidden">
-            <form action="" onsubmit="return false;">
-                <input type="checkbox" class="display-check"> 비공개
-                <textarea class="answer-input" placeholder="정답을 작성해보세요" rows="30"></textarea>
-                <div class="comment-editor-bottom">
-                    <button class="btn cancel-button">취소</button>
-                    <button class="btn submit-button">등록</button>
-                </div>
-            </form>
-        </div>
-    </section>
-    <section class="comment-main">
-        <h2 class="a11y"> 댓글 목록 </h2>
-        <div class="comment-item-container" th:each="comment: ${comments}">
-            <div class="comment-item-header">
-                <a href="" class="comment-writer-name" th:text="${comment.userId}"></a>
-                <p class="comment-createdAt" th:text="${#dates.format(comment.createdAt,'yyyy-MM-dd HH:mm')}"></p>
-            </div>
-            <div th:class="${comment.display == 1} ? 'comment-item-body' : 'hidden-comment-item-body hide-place'">
-                <div class="comment-item" th:classappend="${comment.display==1? '': 'hide-text'}"
-                     th:text="${comment.contents}">
-                </div>
-            </div>
-            <div class="comment-item-bottom">
-                <div class="etc-button-container">
-                    <button class="btn comment-button re-comment-display-control">
-                        <img th:src="@{/images/icon_up_arrow.png}" alt="숨기기 버튼"> 숨기기
-                    </button>
-                    <button class="btn comment-button re-comment-editor-opener">
-                        <img th:src="@{/images/icon_recomment.png}" alt="답글달기 버튼">답글 달기
-                    </button>
-                </div>
-                <button class="btn likes-button comment-button comment-likes">
-                    <img th:src="@{/images/icon_like_normal.png}" alt="좋아요 버튼">
-                    <p class="likes-number" th:text="${comment.like}"></p>
-                </button>
-            </div>
-            <div class="re-comment-items-container">
-                <div class="re-comment-item-container" th:each="reComment:${comment.reComments}">
-                    <div class="comment-item-header">
-                        <a href="" class="comment-writer-name" th:text="${reComment.userId}"></a>
-                        <p class="comment-createdAt"
-                           th:text="${#dates.format(reComment.createdAt,'yyyy-MM-dd HH:mm')}"></p>
-                    </div>
-                    <div class="comment-item-body" th:text="${reComment.contents}">
-                    </div>
-                    <div class="comment-item-bottom">
-                        <button class="btn likes-button comment-button comment-likes">
-                            <img th:src="@{/images/icon_like_normal.png}" alt="좋아요 버튼">
-                            <p class="likes-number" th:text="${reComment.like}"></p>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section class="comment-container">
+        <div th:replace="~{comment/comment.html::comment-header}"></div>
+        <div th:replace="~{comment/comment.html::comment-main}"></div>
     </section>
 </main>
 <script src="https://uicdn.toast.com/editor/3.0.2/toastui-editor-all.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script th:src="@{/Js/quiz/board.js}"></script>
+<script th:src="@{/Js/cote/board.js}"></script>
 <script th:inline="javascript">
-    let quizContent=[[${cote.contents}]];
-    let answerContent=[[${cote.answer}]];
+    let coteContent=[[${cote.contents}]];
 </script>
-<script th:inline="javascript" th:src="@{/Js/quiz/viewer.js}"></script>
+<script th:src="@{/Js/wordCount.js}"></script>
+<script th:inline="javascript" th:src="@{/Js/cote/viewer.js}"></script>
+<script th:src="@{/Js/comment/ajaxCreateUpdateRequest.js}"></script>
+<script th:src="@{/Js/comment/commentWordCountControl.js}"></script>
+<script th:src="@{/Js/comment/commentEdit.js}"></script>
 </body>
 </html>

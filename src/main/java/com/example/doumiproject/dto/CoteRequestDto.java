@@ -9,7 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CoteRequestDto {
     private String title; // 질문 제목
-    private String tags; // 선택된 태그 목록
     private String coteContent;
-    private String answerContent;
 }

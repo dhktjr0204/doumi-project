@@ -2,8 +2,10 @@ package com.example.doumiproject.controller;
 
 import com.example.doumiproject.dto.CommentDto;
 import com.example.doumiproject.dto.CoteDto;
-import com.example.doumiproject.dto.PostDto;
 import com.example.doumiproject.dto.CoteRequestDto;
+import com.example.doumiproject.dto.PostDto;
+import com.example.doumiproject.dto.QuizDto;
+import com.example.doumiproject.entity.Comment;
 import com.example.doumiproject.service.CoteService;
 import com.example.doumiproject.util.PaginationUtil;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,7 @@ public class CodingTestController {
     private final CoteService coteService;
 
     private int pageSize = 10;
+
     @GetMapping("/doumiAlgorithm")
     public String index() {
 
@@ -43,15 +46,18 @@ public class CodingTestController {
     }
 
     @GetMapping("/codingtest/board")
-    public String getCoteDetail(@RequestParam("id") Long id, Model model){
+    public String getCoteDetail(@RequestParam("id") Long id, Model model) {
+        long userId = 1;
 
         //글의 상세 정보 가져오기
-        CoteDto cote = coteService.getCote(id);
+        CoteDto cote = coteService.getCote(id, userId);
         //글에 연결된 댓글들 가져오기
-        List<CommentDto> comments = coteService.getComments(id);
+        List<CommentDto> comments = coteService.getComments(id, userId);
 
-        model.addAttribute("cote",cote);
-        model.addAttribute("comments",comments);
+        model.addAttribute("cote", cote);
+        model.addAttribute("postId", cote.getId());
+        model.addAttribute("comments", comments);
+        model.addAttribute("newComment", new Comment("COTE"));
 
         return "codingtest/board";
     }
@@ -63,47 +69,50 @@ public class CodingTestController {
     }
 
     @GetMapping("/codingtest/post")
-    public String createCote(Model model){
+    public String createCote(Model model) {
 
-        model.addAttribute("cote",new CoteRequestDto());
+        model.addAttribute("cote", new CoteRequestDto());
 
         return "codingtest/form";
     }
+
     @PostMapping("/codingtest/post")
     public ResponseEntity<String> postCote(CoteRequestDto cote) {
+        long userId=1;
 
-        Long postId = coteService.saveCote(cote, 1l);
+        Long postId = coteService.saveCote(cote, userId);
 
-        return ResponseEntity.ok("/codingtest/board?id="+postId);
+        return ResponseEntity.ok("/codingtest/board?id=" + postId);
     }
 
-    @GetMapping("/edit")
-    public String editCote(@RequestParam("id") Long id, Model model){
+    @GetMapping("/codingtest/edit")
+    public String editCote(@RequestParam("id") Long id, Model model) {
+        long userId = 1;
 
-
-        CoteDto cote=coteService.getCote(id);
+        CoteDto cote = coteService.getCote(id, userId);
 
         model.addAttribute("cote", cote);
 
         return "codingtest/edit";
     }
 
-    @PostMapping("/edit")
-    public ResponseEntity<String> updateCote(@RequestParam("id") Long id, CoteRequestDto cote){
+    @PostMapping("/codingtest/edit")
+    public ResponseEntity<String> updateCote(@RequestParam("id") Long id, CoteRequestDto cote) {
 
         //수정 권한있는 사용자인지 검증 로직 repository에 수정필요
-        coteService.updateCote(cote, id, 1l);
+        coteService.updateCote(cote, id);
 
-        return ResponseEntity.ok("/codingtest/board?id="+id);
+        return ResponseEntity.ok("/codingtest/board?id=" + id);
     }
 
-    @DeleteMapping("/delete")
-    public String deleteCote(@RequestParam("id") long id){
+    @DeleteMapping("/codingtest/delete")
+    public ResponseEntity<String> deleteCote(@RequestParam("id") long id) {
 
         coteService.deleteCote(id);
 
-        return "redirect:/doumiAlgorithm";
+        return ResponseEntity.ok("/quiz");
     }
+
     private void setPaginationAttributes(Model model, int page, int totalPages, List<PostDto> cotes) {
 
         int startIdx = PaginationUtil.calculateStartIndex(page);

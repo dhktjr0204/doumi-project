@@ -17,7 +17,6 @@ function clickCommentEditButton(button){
 
 //삭제 버튼
 function  clickDeleteButton(button){
-
     const confirmed= window.confirm("정말 삭제하시겠습니까?");
 
     if(confirmed) {
@@ -30,6 +29,41 @@ function  clickDeleteButton(button){
     }
 
 }
+
+//좋아요 순
+function clickOrderByLikeCount(){
+    const postId = document.querySelector('.post-id').value;
+    $.ajax({
+        url: "/comment/orderlike?id="+postId,
+        type: "POST",
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            $('.comment-main').html(data);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
+
+//최신순
+function clickOrderByCreatedAt(){
+    const postId = document.querySelector('.post-id').value;
+    $.ajax({
+        url: "/comment/ordertime?id="+postId,
+        type: "POST",
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            $('.comment-main').html(data);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
+
 
 function submitCommentForm(commentForm) {
     const formData = new FormData(commentForm);
