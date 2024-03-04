@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // 여기에서 서버로의 폼 제출 로직을 구현할 수 있음
-    fetch('http://localhost:8080/user/signup', {//url을 어떻게 해야할지?...
+    fetch('/user/signup', {
       method: 'POST', //HTTP 요청 메서드
       headers: {
         "Content-Type": "application/json",
@@ -39,13 +39,18 @@ document.addEventListener('DOMContentLoaded', function () {
         password: password,
       })
     })
-    .then(response => response.json())//서버에서 받은 객체를 json으로 변환한다
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })//서버에서 받은 객체를 json으로 변환한다
     .then(data => {
       if (data.success) {
         alert(data.message);
         window.location.href = '/';
       } else {
-        alert(data.errormsg);
+        alert(data.message);
       }
     })
     .catch(error => console.error('Error:', error));

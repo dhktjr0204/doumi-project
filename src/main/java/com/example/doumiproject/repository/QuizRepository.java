@@ -44,6 +44,7 @@ public interface QuizRepository {
             String tagNames = rs.getString("tag_names");
 
             List<Tag> tags = new ArrayList<>();
+
             if (tagNames != null) {
                 String[] tagNamesArray = tagNames.split(",");
                 String[] tagIds = rs.getString("tag_ids").split(",");
