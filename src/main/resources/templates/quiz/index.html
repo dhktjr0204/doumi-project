@@ -54,6 +54,7 @@
       <div class="title">제목</div>
       <div class="author">작성자</div>
       <div class="create_time">작성일</div>
+      <div class="like">추천</div>
     </li>
     <!--            서버로 받은 post 컬렉션에 반복문을돌려 각 게시글에 정보를 테이블 행으로 생성한다-->
     <ul th:each="quiz:${quizs}">
@@ -67,6 +68,7 @@
         <div class="create_time" th:text="${#dates.format(quiz.createdAt, 'yyyy/MM/dd HH:mm')}">
           작성일
         </div>
+        <div class="likes" th:text="${quiz.likeCount}"></div>
       </li>
 
     </ul>
