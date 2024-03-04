@@ -1,73 +1,80 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>DoumiCoteMain</title>
-    <link href="../../static/css/codingtest/index.css" th:href = "@{/css/codingtest/index.css}" rel="stylesheet" type="text/css"/>
-<!--    <script src="/static/Js/quiz/index.js"></script>-->
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>DoumiCoteMain</title>
+  <link href="../../static/css/codingtest/index.css" th:href="@{/css/codingtest/index.css}"
+        rel="stylesheet" type="text/css"/>
+  <!--    <script src="/static/Js/quiz/index.js"></script>-->
 </head>
 <body>
 <header class="doumi_header">
-    <div class="box-header">
-        <h1><a href="#">Bend Doumi</a></h1>
-        <div class="navbar-menu">
-            <div class="navbar-left">
-                <div><a href="/doumiAlgorithm" class="move_to_algorithm">코딩테스트</a></div>
-                <div><a href="/quiz" class="move_to_quiz">퀴즈</a></div>
-            </div>
-            <div class="navbar-right">
-                <a href="#none" class="user_info"><strong th:text="${userName}"  >유저1</strong>님 안녕하세요!</a>
-                <div><button type="button" class="logout_btn">로그아웃</button></div>
-            </div>
+  <div class="box-header">
+    <h1><a href="#">Bend Doumi</a></h1>
+    <div class="navbar-menu">
+      <div class="navbar-left">
+        <div><a href="/doumiAlgorithm" class="move_to_algorithm">코딩테스트</a></div>
+        <div><a href="/quiz" class="move_to_quiz">퀴즈</a></div>
+      </div>
+      <div class="navbar-right">
+        <div th:if="${loginUser != null}" class="user_info">
+          <div><a href="#none"><strong th:text="${loginUser.userId}">유저
+            이름</strong>님
+            안녕하세요!</a></div>
+          <div><a href="/user/logout" class="logout_btn">로그아웃</a></div>
         </div>
+      </div>
     </div>
+  </div>
 </header>
 <main class="doumi_main">
-    <a href="/codingtest/post" class="cote_question">코딩테스트 질문하기 ➡</a>
-    <div class="table_container">
-        <li class="cote_container_header">
-            <div class="sequence">번호</div>
-            <div class="title">제목</div>
-            <div class="author">작성자</div>
-            <div class="create_time">작성일</div>
-        </li>
-        <!--            서버로 받은 post 컬렉션에 반복문을돌려 각 게시글에 정보를 테이블 행으로 생성한다-->
-        <ul th:each="cote:${cotes}">
-            <li class="cote_container">
-                <div class="sequence" th:text="${cote.id}"></div>
-                <div class="title">
-                    <!--                    href에 무슨링크를 넣어야하지?-->
-                    <a th:href="@{'/codingtest/board?id=' + ${cote.id}}" th:text="${cote.title}">게시글 제목</a>
-                </div>
-                <div class="author" th:text="${cote.userId}">작성자</div>
-                <div class="create_time" th:text="${#dates.format(cote.createdAt, 'yyyy/MM/dd HH:mm')}">작성일</div>
-            </li>
-        </ul>
-    </div>
-    <!--        페이지 링크-->
-    <nav class="page">
-        <ul class="page_list" th:unless="${cotes.isEmpty()}">
-            <li class="page_link" th:unless="${startIdx == 1}">
-                <a th:href="@{/codingtest/index?page=1}">처음</a>
-            </li>
-            <li class="page_link" th:unless="${startIdx == 1}">
-                <a th:href="@{/codingtest/index(page = ${startIdx - 1})}"><<</a>
-            </li>
-            <li th:each="page : ${#numbers.sequence(startIdx, endIdx)}"
-                th:class="${page == currentPage} ? 'page_current' : 'page_link'">
-                <a th:href="@{/codingtest/index(page = ${page})}" th:text="${page}"></a>
-            </li>
-            <li class="page_link" th:unless="${endIdx == totalPages}">
-                <a th:href="@{/codingtest/index(page = ${endIdx + 1})}">>></a>
-            </li>
-            <li class="page_link" th:unless="${endIdx == totalPages}">
-                <a th:href="@{/codingtest/index(page = ${totalPages})}">마지막</a>
-            </li>
-        </ul>
-    </nav>
+  <a href="/codingtest/post" class="cote_question">코딩테스트 질문하기 ➡</a>
+  <div class="table_container">
+    <li class="cote_container_header">
+      <div class="sequence">번호</div>
+      <div class="title">제목</div>
+      <div class="author">작성자</div>
+      <div class="create_time">작성일</div>
+    </li>
+    <!--            서버로 받은 post 컬렉션에 반복문을돌려 각 게시글에 정보를 테이블 행으로 생성한다-->
+    <ul th:each="cote:${cotes}">
+      <li class="cote_container">
+        <div class="sequence" th:text="${cote.id}"></div>
+        <div class="title">
+          <!--                    href에 무슨링크를 넣어야하지?-->
+          <a th:href="@{'/codingtest/board?id=' + ${cote.id}}" th:text="${cote.title}">게시글 제목</a>
+        </div>
+        <div class="author" th:text="${cote.userId}">작성자</div>
+        <div class="create_time" th:text="${#dates.format(cote.createdAt, 'yyyy/MM/dd HH:mm')}">
+          작성일
+        </div>
+      </li>
+    </ul>
+  </div>
+  <!--        페이지 링크-->
+  <nav class="page">
+    <ul class="page_list" th:unless="${cotes.isEmpty()}">
+      <li class="page_link" th:unless="${startIdx == 1}">
+        <a th:href="@{/codingtest/index?page=1}">처음</a>
+      </li>
+      <li class="page_link" th:unless="${startIdx == 1}">
+        <a th:href="@{/codingtest/index(page = ${startIdx - 1})}"><<</a>
+      </li>
+      <li th:each="page : ${#numbers.sequence(startIdx, endIdx)}"
+          th:class="${page == currentPage} ? 'page_current' : 'page_link'">
+        <a th:href="@{/codingtest/index(page = ${page})}" th:text="${page}"></a>
+      </li>
+      <li class="page_link" th:unless="${endIdx == totalPages}">
+        <a th:href="@{/codingtest/index(page = ${endIdx + 1})}">>></a>
+      </li>
+      <li class="page_link" th:unless="${endIdx == totalPages}">
+        <a th:href="@{/codingtest/index(page = ${totalPages})}">마지막</a>
+      </li>
+    </ul>
+  </nav>
 </main>
 <footer>
 
