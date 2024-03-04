@@ -19,36 +19,36 @@ public class UserService {
 
     public void join(String userId, String password) {
         //비밀번호 암호화
-        String encryptedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        String encryptedPassword = BCrypt.hashpw(password, BCrypt.gensalt(10));
 
-        User user = new User(userId, encryptedPassword);
+//        User user = new User(userId, encryptedPassword);
+        User user = new User();
+        user.setUserId(userId);
+        user.setPassword(encryptedPassword);
 
         //중복 회원 검증
-//        validateDuplicateUser(user);
+        validateDuplicateUser(user);
 
         //중복 회원이 아니면 userRepository에 저장한다
         userRepository.save(user);
     }
 
     /*중복 회원 검증*/
-//     private void validateDuplicateUser(User user) {
-// <<<<<<< develop
-//         User result = userRepository.findByUserId(user.getUserId());
-//         if (result != null) {//사용자를 찾았다면, 즉 중복 아이디가 있다면
-//             throw new IllegalStateException("이미 존재하는 아이디입니다.");
-// =======
-//         boolean exists;
-//         try {
-//             exists = userRepository.existsByUserId(user.getUserId());
-//         }
-//         catch (Exception ex) {
-//             throw new UserDuplicateException();
-//         }
-//         if (exists) {
-//             throw new UserDuplicateException();
-// >>>>>>> develop
-//         }
-//     }
+    private void validateDuplicateUser(User user) {
+        User result;
+        try {
+            result = userRepository.findByUserId(user.getUserId());
+        } catch (Exception ex) {
+            throw new UserDuplicateException();
+        }
+        if (result != null) {
+            throw new UserDuplicateException();
+        }
+//        User result = userRepository.findByUserId(user.getUserId());
+//        if (result != null) {//사용자를 찾았다면, 즉 중복 아이디가 있다면
+//            throw new IllegalStateException("이미 존재하는 아이디입니다.");
+//        }
+    }
 
     /*로그인*/
     public User login(String userId, String password) {
