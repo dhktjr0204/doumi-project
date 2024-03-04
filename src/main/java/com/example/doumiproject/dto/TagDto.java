@@ -1,8 +1,12 @@
 package com.example.doumiproject.dto;
-import lombok.*;
+
+import com.example.doumiproject.entity.Tag;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Map;
 
 @Builder
 @NoArgsConstructor
@@ -10,5 +14,5 @@ import java.util.Map;
 @Data
 public class TagDto {
     String type;
-    List<TagDetailDto> detailTags;
+    List<Tag> detailTags;
 }

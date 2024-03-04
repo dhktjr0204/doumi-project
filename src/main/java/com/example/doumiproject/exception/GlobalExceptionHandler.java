@@ -1,6 +1,7 @@
 package com.example.doumiproject.exception;
 
 import com.example.doumiproject.exception.api.PageNegativeValueException;
+import com.example.doumiproject.exception.comment.CommentContentsLengthException;
 import com.example.doumiproject.exception.quiz.QuizAnswerLengthException;
 import com.example.doumiproject.exception.quiz.QuizContentsLengthException;
 import com.example.doumiproject.exception.quiz.QuizTitleLengthException;
@@ -60,5 +61,10 @@ public class GlobalExceptionHandler {
     }
     // Quiz 관련 예외 끝
 
+    //comment 예외
+    @ExceptionHandler(CommentContentsLengthException.class)
+    public ErrorForm CommentContentsLengthException(CommentContentsLengthException ex){
+        return new ErrorForm("댓글 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST.value());
+    }
    
 }

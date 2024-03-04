@@ -1,8 +1,8 @@
 package com.example.doumiproject.repository;
 
 import com.example.doumiproject.dto.QuizDto;
-import com.example.doumiproject.dto.TagDetailDto;
 import com.example.doumiproject.dto.QuizRequestDto;
+import com.example.doumiproject.entity.Tag;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -63,13 +63,13 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
         //퀴즈 내용 가져오기
         QuizDto quizDto = jdbcTemplate.queryForObject(sql, quizDtoRowMapper(), id);
         //퀴즈와 연결된 태그들 가져오기
-        List<TagDetailDto> tags = getTags(id);
+        List<Tag> tags = getTags(id);
         //quizDto.setTags(tags);
         return quizDto;
     }
 
     @Override
-    public List<TagDetailDto> getTags(long id) {
+    public List<Tag> getTags(long id) {
         String sql = "select t.id, t.name "+
                 "from tag t inner join quiztag qt on t.id = qt.tag_id "+
                 "where qt.post_id = ?";
@@ -95,19 +95,19 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
             return ps;
         }, keyHolder);
 
-        //게시글을 저장한 후 생성된 postId 가져오기
         Long postId = keyHolder.getKey().longValue();
 
+        return postId;
+    }
+
+    @Override
+    public void saveAnswer(QuizRequestDto quiz, long postId, long userId){
         //퀴즈 답변 저장
         String answerSql = "insert into answer(post_id, answer) " +
                 "values (?,?)";
         String answer = quiz.getAnswerContent();
 
         jdbcTemplate.update(answerSql, postId, answer);
-
-        //태그 저장
-        saveTags(quiz,postId);
-        return postId;
     }
 
     @Override
@@ -119,36 +119,20 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
         jdbcTemplate.update(postSql,
                 quiz.getTitle(),quiz.getQuizContent(),LocalDateTime.now()
                 ,postId);
+    }
 
+    @Override
+    public void updateAnswer(QuizRequestDto quiz, long postId) {
         String answerSql="update answer "+
                 "set answer=? "+
                 "where post_id=?";
         jdbcTemplate.update(answerSql,quiz.getAnswerContent(),postId);
-
-        // 기존 태그 삭제 후 새로운 태그 추가
-        String deleteTagsSql = "delete from quiztag where post_id = ?";
-        jdbcTemplate.update(deleteTagsSql, postId);
-
-        saveTags(quiz,postId);
     }
 
     @Override
     public void deleteQuiz(long postId) {
         String sql="delete from post where id=?";
         jdbcTemplate.update(sql, postId);
-    }
-
-    //태그 저장
-    public void saveTags(QuizRequestDto quiz, long postId){
-        String tagSql = "insert into quiztag (post_id, tag_id) " +
-                "values (?,?)";
-        String tags = quiz.getTags();
-        if (!tags.isEmpty()) {
-            String[] tagStrings = quiz.getTags().split(",");
-            for (String tag : tagStrings) {
-                jdbcTemplate.update(tagSql, postId, Integer.parseInt(tag));
-            }
-        }
     }
 
 }
