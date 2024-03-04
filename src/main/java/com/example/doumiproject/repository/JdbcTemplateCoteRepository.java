@@ -20,16 +20,27 @@ public class JdbcTemplateCoteRepository implements CoteRepository {
     }
 
     @Override
-    public CoteDto getByCoteId(long id) {
+    public CoteDto getByCoteId(long post_id, long user_id) {
         //post의 user_id(squence값)과 user의 user_id(nickname용)이 아주 헷갈린다;
-        String sql = "select p.id as post_id, p.user_id, p.title, p.contents, p.created_at, p.like, a.answer, " +
-                "u.user_id as nickname " +
-                "from post p " +
-                "inner join answer a on p.id = a.post_id " +
-                "inner join user u on p.user_id = u.id " +
-                "where p.id = ?";
+        String sql = "select " +
+                "p.id as post_id, " +
+                "p.user_id, " +
+                "p.title, " +
+                "p.contents , " +
+                "p.created_at , " +
+                "p.updated_at , " +
+                "p.type as post_type, " +
+                "u.user_id as author, " +
+                "(select count(*) from likes where post_id = p.id and type = 'POST') as like_count, " +
+                "case when exists (select 1 from likes where post_id = p.id and user_id = ? and type = 'POST') then 'Y' else 'N' end as is_liked " +
+                "from " +
+                "post p " +
+                "left join user u on p.user_id = u.id " +
+                "left join likes l on p.id = l.post_id " +
+                "where " +
+                "p.id = ? ";
         //퀴즈 내용 가져오기
-        CoteDto coteDto = jdbcTemplate.queryForObject(sql, coteDtoRowMapper(), id);
+        CoteDto coteDto = jdbcTemplate.queryForObject(sql, coteDtoRowMapper(), user_id, post_id);
         //퀴즈와 연결된 태그들 가져오기
         return coteDto;
     }
@@ -38,8 +49,8 @@ public class JdbcTemplateCoteRepository implements CoteRepository {
     @Override
     public Long saveCote(CoteRequestDto cote, long userId) {
         //게시글 저장
-        String postSql = "insert into post (user_id, type, title, contents, created_at, updated_at, `like`) " +
-                "values (?, ?, ?, ?, ?, ?, ?)";
+        String postSql = "insert into post (user_id, type, title, contents, created_at, updated_at) " +
+                "values (?, ?, ?, ?, ?, ?)";
 
         //생성된 키 값 받아오기
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -51,37 +62,23 @@ public class JdbcTemplateCoteRepository implements CoteRepository {
             ps.setString(4, cote.getCoteContent());
             ps.setObject(5, LocalDateTime.now());
             ps.setObject(6, LocalDateTime.now());
-            ps.setInt(7, 0);
             return ps;
         }, keyHolder);
 
-        //게시글을 저장한 후 생성된 postId 가져오기
-        Long postId = keyHolder.getKey().longValue();
-
-        //퀴즈 답변 저장
-        String answerSql = "insert into answer(post_id, answer) " +
-                "values (?,?)";
-        String answer = cote.getAnswerContent();
-
-        jdbcTemplate.update(answerSql, postId, answer);
+        Long postId=keyHolder.getKey().longValue();
 
         return postId;
     }
 
     @Override
-    public void updateCote(CoteRequestDto cote, long postId, long userId) {
+    public void updateCote(CoteRequestDto cote, long postId) {
         //로그인 생기면 수정 권한 있는지 확인 로직 where에 추가
         String postSql="update post "+
                 "set title=?, contents=?, updated_at = ? "+
                 "where id = ?";
         jdbcTemplate.update(postSql,
                 cote.getTitle(), cote.getCoteContent(),LocalDateTime.now()
-                ,postId,userId);
-
-        String answerSql="update answer "+
-                "set answer=? "+
-                "where post_id=?";
-        jdbcTemplate.update(answerSql, cote.getAnswerContent(),postId);
+                ,postId);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.example.doumiproject.service;
 
 import com.example.doumiproject.dto.CommentDto;
+import com.example.doumiproject.dto.ReCommentDto;
 import com.example.doumiproject.entity.Comment;
 import com.example.doumiproject.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,21 +15,49 @@ public class CommentServiceImpl implements CommentService{
     private final CommentRepository commentRepository;
 
     @Override
-    public void saveComment(Comment comment, long userId, String type) {
+    public void saveComment(Comment comment, long userId) {
+        Comment newComment = new Comment(
+                comment.getUserId(),
+                comment.getPostId(),
+                comment.getType(),
+                comment.getContents(),
+                comment.isDisplay(),
+                comment.getParentCommentId());
 
-        commentRepository.saveComment(comment, userId, type);
+        commentRepository.saveComment(newComment, userId);
     }
 
     @Override
-    public List<CommentDto> getAllComments(long postId) {
+    public List<CommentDto> getAllComments(long postId,long userId) {
+        List<CommentDto> comments = commentRepository.getAllComment(postId, userId);
+        for (CommentDto comment : comments) {
+            List<ReCommentDto> reComments = commentRepository.getAllReComment(comment.getId(),userId);
+            comment.setReComments(reComments);
+        }
+        return comments;
+    }
 
-        return commentRepository.getAllComment(postId);
+    @Override
+    public List<CommentDto> getAllCommentsOrderByLikeCount(long postId, long userId) {
+        List<CommentDto> comments = commentRepository.getAllCommentOrderByLikeCount(postId, userId);
+        for (CommentDto comment : comments) {
+            List<ReCommentDto> reComments = commentRepository.getAllReComment(comment.getId(),userId);
+            comment.setReComments(reComments);
+        }
+        return comments;
     }
 
     @Override
     public void updateComment(Comment comment, long commentId) {
+        Comment newComment = new Comment(
+                comment.getUserId(),
+                comment.getPostId(),
+                comment.getType(),
+                comment.getContents(),
+                comment.isDisplay(),
+                comment.getParentCommentId());
 
-        commentRepository.updateComment(comment,commentId);
+        commentRepository.updateComment(newComment,commentId);
 
     }
 

@@ -7,11 +7,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class QuizServiceImpl implements QuizService{
+public class QuizServiceImpl implements QuizService {
 
     private final PostRepository postRepository;
     private final QuizRepository quizRepository;
@@ -42,23 +44,42 @@ public class QuizServiceImpl implements QuizService{
     }
 
     @Override
-    public QuizDto getQuiz(long postId, long userId){
+    public QuizDto getQuiz(long postId, long userId) {
 
         return quizRepository.getQuizDetails(postId, userId);
     }
 
     @Override
     public List<TagDto> getAllTags() {
+        List<TagDto> tags = tagRepository.findAll();
+        List<String> order = Arrays.asList("Java", "Spring", "DB", "AWS", "FrontEnd");
+        //order로 정의한 순으로 정렬
+        tags.sort(Comparator.comparingInt(tagDto -> order.indexOf(tagDto.getType())));
 
-        return tagRepository.findAll();
+        return tags;
     }
 
     //데이터 저장 도중 에러가 생길 경우 원 상태로 복귀
     @Transactional
     @Override
     public Long saveQuiz(QuizRequestDto quiz, Long userId) {
+        QuizRequestDto quizDto=new QuizRequestDto(
+                quiz.getUserId(),
+                quiz.getTitle(),
+                quiz.getTags(),
+                quiz.getQuizContent(),
+                quiz.getAnswerContent());
 
-        return quizRepository.saveQuiz(quiz, userId);
+        Long postId = quizRepository.saveQuiz(quizDto, userId);
+
+        quizRepository.saveAnswer(quizDto, postId, userId);
+
+        if (!quizDto.getTags().isEmpty()) {
+            String[] tags = quizDto.getTags().split(",");
+            tagRepository.saveTags(tags, postId);
+        }
+
+        return postId;
     }
 
     @Override
@@ -76,13 +97,27 @@ public class QuizServiceImpl implements QuizService{
     @Transactional
     @Override
     public void updateQuiz(QuizRequestDto quiz, Long postId) {
+        QuizRequestDto quizDto=new QuizRequestDto(
+                quiz.getUserId(),
+                quiz.getTitle(),
+                quiz.getTags(),
+                quiz.getQuizContent(),
+                quiz.getAnswerContent());
 
-        quizRepository.updateQuiz(quiz, postId);
+        quizRepository.updateQuiz(quizDto, postId);
+        quizRepository.updateAnswer(quizDto, postId);
+
+        //기존 태그 삭제 후 다시 저장
+        tagRepository.deleteTags(postId);
+        if (!quizDto.getTags().isEmpty()) {
+            String[] tags = quizDto.getTags().split(",");
+            tagRepository.saveTags(tags, postId);
+        }
     }
 
     @Override
     public void deleteQuiz(long postId) {
-        
+
         quizRepository.deleteQuiz(postId);
     }
 

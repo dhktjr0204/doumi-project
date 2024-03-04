@@ -6,7 +6,7 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>DoumiQuizMain</title>
-  <link href="/static/css/quiz/index.css" th:href="@{/css/quiz/index.css}" rel="stylesheet"
+  <link href="../../static/css/quiz/index.css" th:href="@{/css/quiz/index.css}" rel="stylesheet"
         type="text/css"/>
 </head>
 <body>
@@ -19,11 +19,15 @@
         <div><a href="/quiz" class="move_to_quiz">퀴즈</a></div>
       </div>
       <div class="navbar-right">
-        <a href="#none" class="user_info"><strong th:text="${userName}">유저1</strong>님 안녕하세요!</a>
-        <div>
-          <button type="button" class="logout_btn" onclick="location.href='/user/logout'">로그아웃
-          </button>
+        <div th:if="${loginUser != null}" class="user_info">
+          <div><a href="#none"><strong th:text="${loginUser.userId}">유저
+            이름</strong>님
+            안녕하세요!</a></div>
+          <div><a href="/user/logout" class="logout_btn">로그아웃</a></div>
         </div>
+        <!--          <a href="#none" class="user_info"><strong th:text="${userName}">유저1</strong>님 안녕하세요!</a>-->
+        <!--          <button type="button" class="logout_btn" onclick="location.href='/user/logout'">로그아웃-->
+        <!--          </button>-->
       </div>
     </div>
   </div>

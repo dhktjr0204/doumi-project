@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>퀴즈 작성</title>
-    <link href="../../static/css/codingtest/coteForm.css" th:href="@{/css/codingtest/coteForm.css}" rel="stylesheet" type="text/css"/>
+    <link href="../../static/css/codingtest/coteForm.css" th:href="@{/css/form.css}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/>
 </head>
 <body>
@@ -15,18 +15,10 @@
                       onkeydown="autoResize(this)" th:field="*{title}"></textarea>
             <div class="title-text-count"></div>
         </div>
-        <div class="tag-select-container">
-        </div>
         <div class="input-container">
             <div class="cote-container">
-                <h1>질문</h1>
-                <div class="cote-text-count"></div>
+                <div class="quiz-text-count"></div>
                 <div class="cote-content"></div>
-            </div>
-            <div class="answer-container">
-                <h1>Answer</h1>
-                <div class="answer-text-count"></div>
-                <div class="answer-content"></div>
             </div>
         </div>
         <div class="button-container">
@@ -40,13 +32,12 @@
 
 <script th:inline="javascript">
     let coteContent="";
-    let answerContent="";
 </script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script th:src="@{/Js/cote/form.js}"></script>
+<script th:src="@{/Js/wordCount.js}"></script>
+<script th:src="@{/Js/form.js}"></script>
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <script th:src="@{/Js/cote/toastApi.js}"></script>
-<script th:src="@{/Js/cote/wordCount.js}"></script>
 <script th:src="@{/Js/cote/ajaxCreateUpdateRequest.js}"></script>
 </body>
 </html>

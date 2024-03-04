@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,12 +33,24 @@ public class UserController {
         //UserService로 User를 회원가입시킨다
         userService.join(userData.get("id"), userData.get("password"));
 
-        Map<String, Object> response = new HashMap<>(){{
+        Map<String, Object> response = new HashMap<>() {{
             put("success", true);
             put("message", "회원가입 성공!");
         }};
 
         return ResponseEntity.ok(response);
+//        try {
+//            userService.join(userData.get("id"), userData.get("password"));
+//            Map<String, Object> response = new HashMap<>();
+//            response.put("success", true);
+//            response.put("message", "회원가입 성공!");
+//            return ResponseEntity.ok(response);
+//        } catch (IllegalStateException e) {
+//            Map<String, Object> errorResponse = new HashMap<>();
+//            errorResponse.put("success", false);
+//            errorResponse.put("message", e.getMessage());
+//            return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+//        }
     }
 
     @PostMapping("/user/login")
@@ -65,7 +78,8 @@ public class UserController {
             Map<String, Object> errorResponse = new HashMap<>();
             errorResponse.put("success", false);
             errorResponse.put("message", e.getMessage());
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+            return ResponseEntity.status(HttpStatusCode.valueOf(409))
+                .body(errorResponse);//custom error 72
         }
     }
 

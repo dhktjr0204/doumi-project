@@ -12,6 +12,7 @@ public class CommentDto {
     private long id;
     private long userId;
     private String author;
+    private String type;
     private String contents;
     private java.sql.Timestamp createdAt;
     private long likeCount;

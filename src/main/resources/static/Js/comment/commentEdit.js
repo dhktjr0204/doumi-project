@@ -24,6 +24,7 @@ function getCommentData(commentItemContainer, type) {
     const postId = document.querySelector('.post-id').value;
     //a 속성에는 value 속성이 적용 되지 않아 getAttribute로 가져왔다.
     const userId = commentItemContainer.querySelector('.comment-writer-name').getAttribute('value');
+    const commentType =commentItemContainer.querySelector('.type').value;
 
     let commentContent;
     let parentCommentId;
@@ -42,6 +43,7 @@ function getCommentData(commentItemContainer, type) {
     return {
         userId: userId,
         postId: postId,
+        type: commentType,
         contents: contents,
         parentCommentId: parentCommentId,
         display: display,
