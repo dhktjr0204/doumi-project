@@ -19,22 +19,18 @@ public class QuizServiceImpl implements QuizService {
     private final QuizRepository quizRepository;
     private final TagRepository tagRepository;
 
+    private String type = "QUIZ";
+
     @Override
     public List<PostDto> getAllQuiz(int page, int pageSize) {
 
-        return postRepository.findAllQuiz(page, pageSize);
-    }
-
-    @Override
-    public List<PostDto> getAllQuiz() {
-
-        return postRepository.findAllQuiz();
+        return postRepository.findAllPost(page, pageSize, type);
     }
 
     @Override
     public int getTotalPages(int pageSize) {
 
-        return postRepository.getTotalPages(pageSize);
+        return postRepository.getTotalPages(pageSize, type);
     }
 
     @Override
@@ -83,9 +79,9 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public int getTotalPages(int pageSize, String keyword) {
+    public int getTotalPagesForSearch(int pageSize, String keyword) {
 
-        return postRepository.getTotalPages(pageSize, keyword);
+        return postRepository.getTotalPagesForSearch(pageSize, keyword, type);
     }
 
     @Override
