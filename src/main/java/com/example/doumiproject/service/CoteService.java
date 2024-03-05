@@ -10,7 +10,6 @@ import java.util.List;
 
 public interface CoteService {
     public List<PostDto> getAllCote(int page, int pageSize);
-    public List<PostDto> getAllCote();
     public int getTotalPages(int pageSize);
     public CoteDto getCote(long postId,long userId);
     public List<CommentDto> getComments(long postId, long userId);

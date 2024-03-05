@@ -27,19 +27,17 @@ public class CoteServiceImpl implements CoteService {
     @Override
     public List<PostDto> getAllCote(int page, int pageSize) {
 
-        return postRepository.findAllPostWithType(page, pageSize, "COTE");
-    }
+        String type = "COTE";
 
-    @Override
-    public List<PostDto> getAllCote() {
-
-        return postRepository.findAllPostWithType("COTE");
+        return postRepository.findAllPost(page, pageSize, type);
     }
 
     @Override
     public int getTotalPages(int pageSize) {
 
-        return postRepository.getTotalPages(pageSize);
+        String type = "COTE";
+
+        return postRepository.getTotalPages(pageSize, type);
     }
 
     @Override

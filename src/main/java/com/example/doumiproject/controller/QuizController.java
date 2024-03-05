@@ -46,7 +46,7 @@ public class QuizController {
         }
 
         setPaginationAttributes(model, page,
-                quizService.getTotalPages(pageSize, keyword), quizService.getSearchQuiz(keyword, page, pageSize));
+                quizService.getTotalPagesForSearch(pageSize, keyword), quizService.getSearchQuiz(keyword, page, pageSize));
         model.addAttribute("keyword", keyword);
 
         return "quiz/search";
