@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -99,6 +100,8 @@ public class JdbcTemplatePostRepository implements PostRepository{
     public List<PostDto> findByTag(String tag, int page, int pageSize) {
 
         String type = "QUIZ";
+        String sqlSelector = isTagType(tag) ? "t.type = ? " : "t.name = ? ";
+
         int offset = (page - 1) * pageSize;
 
         String sql = "select p.id, p.title, p.user_id as author, p.contents, p.created_at, " +
@@ -109,8 +112,7 @@ public class JdbcTemplatePostRepository implements PostRepository{
                 "left join " +
                 "tag t on qt.tag_id = t.id " +
                 "where " +
-                "p.type = ? AND " +
-                "t.name = ? " +
+                "p.type = ? AND " + sqlSelector +
                 "order by p.id desc " +
                 "limit ? offset ?";
 
@@ -121,6 +123,7 @@ public class JdbcTemplatePostRepository implements PostRepository{
     public int getTotalPagesForTag(int pageSize, String tag) {
 
         String type = "QUIZ";
+        String sqlSelector = isTagType(tag) ? "t.type = ? " : "t.name = ? ";
 
         String sql = "select ceil(count(*) / ?) " +
                 "from post p " +
@@ -130,9 +133,15 @@ public class JdbcTemplatePostRepository implements PostRepository{
                 "tag t on qt.tag_id = t.id " +
                 "where " +
                 "p.type = ? AND " +
-                "t.name = ? ";
+                sqlSelector;
 
         return jdbcTemplate.queryForObject(sql, Integer.class, pageSize, type, tag);
+    }
+
+    private boolean isTagType(String tag) {
+
+        List<String> tagList = Arrays.asList("Java", "Spring", "DB", "AWS", "FrontEnd");
+        return tagList.contains(tag);
     }
 
     @Override
