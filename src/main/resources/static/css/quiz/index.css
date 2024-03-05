@@ -151,12 +151,12 @@ h1 {
   width: 10%;
 }
 
-.title {
-  width: 50%;
-  margin-right: 10px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.title{
+    width: 40%;
+    margin-right:10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .author {
@@ -167,9 +167,13 @@ h1 {
   width: 20%;
 }
 
-.quiz_container {
-  display: flex;
-  padding: 20px 30px;
+.like{
+    width: 10%;
+}
+
+.quiz_container{
+    display: flex;
+    padding: 20px 30px;
 }
 
 /*페이지 이동 바*/

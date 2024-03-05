@@ -4,17 +4,18 @@
     <input type="hidden" th:field="*{postId}"/>
     <input type="hidden" th:field="*{userId}"/>
 
-    <!--  comment.parentCommentId가 0일 경우(댓글일 경우)-->
-    <div th:if="*{parentCommentId==0}">
-        <input type="checkbox" class="display-check"
-               th:field="*{display}"> 비공개
-    </div>
-
     <!--  comment.parentCommentId가 0이 아닐 경우일 경우(대댓글일 경우)-->
-    <div th:unless="*{parentCommentId==0}">
+    <div th:if="*{parentCommentId!=0 or type!='QUIZ' }">
         <input type="hidden" th:field="*{parentCommentId}"/>
         <input type="hidden" th:field="*{display}"/>
     </div>
+
+    <!--  comment.parentCommentId가 0일 경우(댓글일 경우)-->
+    <label th:if="*{parentCommentId==0 and type=='QUIZ'}">
+        <input type="checkbox" class="display-check"
+               th:field="*{display}"> 비공개
+    </label>
+
 
     <textarea class="answer-input" placeholder="정답을 작성해보세요" rows="30"
               name="contents"

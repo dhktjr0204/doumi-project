@@ -87,12 +87,12 @@ public class QuizController {
         //글의 상세 정보 가져오기
         QuizDto quiz = quizService.getQuiz(id, userId);
         //글에 연결된 댓글들 가져오기
-        List<CommentDto> comments = commentService.getAllComments(id);
+        List<CommentDto> comments = commentService.getAllComments(id, userId);
 
         model.addAttribute("quiz",quiz);
         model.addAttribute("postId", quiz.getId());
         model.addAttribute("comments",comments);
-        model.addAttribute("newComment",new Comment());
+        model.addAttribute("newComment",new Comment("QUIZ"));
 
         return "quiz/board";
     }
@@ -133,6 +133,7 @@ public class QuizController {
         }
 
         model.addAttribute("quiz",quiz);
+        model.addAttribute("postId", quiz.getId());
         model.addAttribute("tags",tags);
 
         return "quiz/edit";
@@ -153,10 +154,10 @@ public class QuizController {
     }
 
     @DeleteMapping("/delete")
-    public String deleteQuiz(@RequestParam("id") long id){
+    public ResponseEntity<String> deleteQuiz(@RequestParam("id") long id){
 
         quizService.deleteQuiz(id);
 
-        return "redirect:/quiz";
+        return ResponseEntity.ok("/quiz");
     }
 }

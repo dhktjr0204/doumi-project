@@ -4,20 +4,27 @@
     <meta charset="UTF-8">
     <title>Doumi</title>
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/3.0.2/toastui-editor.min.css">
-    <link href="../../static/css/quizBoard.css" th:href="@{/css/quizBoard.css}" rel="stylesheet" type="text/css"/>
+    <link href="../../static/css/quizBoard.css" th:href="@{/css/board.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <header></header>
 <main class="cont-main">
 
     <input class="post-id hidden" th:value="${postId}"/>
+    <input class="type hidden" th:value="${quiz.postType}"/>
 
     <section class="content-header">
         <a class="back-button" href="/quiz">< 목록으로 </a>
         <h1 class="title" th:text="${quiz.title}"></h1>
-        <div class="content-info">
-            <a href="" class="board-writer-name" th:value="${quiz.userId}" th:text="${quiz.author}"></a>
-            <p class="content-createdAt" th:text="${#dates.format(quiz.createdAt,'yyyy-MM-dd HH:mm')}"></p>
+        <div class="content-info-container">
+            <div class="content-info">
+                <a href="" class="board-writer-name" th:value="${quiz.userId}" th:text="${quiz.author}"></a>
+                <p class="content-createdAt" th:text="${#dates.format(quiz.createdAt,'yyyy-MM-dd HH:mm')}"></p>
+            </div>
+            <div class="content-edit-container">
+                <button onclick="editContent()">수정</button>
+                <button onclick="deleteContent()">삭제</button>
+            </div>
         </div>
     </section>
 
@@ -37,7 +44,7 @@
         </button>
         <ul class="content-tags-container">
             <li class="content-detail-tag" th:each="tag:${quiz.tags}">
-                <a th:href="@{/quiz/tag(name = ${tag})}" th:text="${tag}"></a>
+                <a th:href="@{/quiz/tag(name = ${tag.name})}" th:value="${tag.id}" th:text="${tag.name}"></a>
             </li>
         </ul>
     </section>

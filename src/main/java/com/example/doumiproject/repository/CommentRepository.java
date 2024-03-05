@@ -7,9 +7,10 @@ import org.springframework.jdbc.core.RowMapper;
 import java.util.List;
 
 public interface CommentRepository {
-    public List<CommentDto> getAllComment(long postId);
-    public List<ReCommentDto> getAllReComment(long parentCommentId);
-    public void saveComment(Comment comment, long userId, String type);
+    public List<CommentDto> getAllComment(long postId, long userId);
+    public List<CommentDto> getAllCommentOrderByLikeCount(long postId, long userId);
+    public List<ReCommentDto> getAllReComment(long parentCommentId, long userId);
+    public void saveComment(Comment comment, long userId);
     public void updateComment(Comment comment, long commentId);
     public void deleteComment(long commentId);
 
@@ -19,6 +20,7 @@ public interface CommentRepository {
             commentDto.setId(rs.getLong("comment_id"));
             commentDto.setUserId(rs.getLong("user_id"));
             commentDto.setAuthor(rs.getString("author"));
+            commentDto.setType(rs.getString("type"));
             commentDto.setContents(rs.getString("contents"));
             commentDto.setDisplay(rs.getInt("display"));
             commentDto.setCreatedAt(rs.getTimestamp("created_at"));
@@ -35,6 +37,7 @@ public interface CommentRepository {
             reCommentDto.setId(rs.getLong("re_comment_id"));
             reCommentDto.setUserId(rs.getLong("user_id"));
             reCommentDto.setAuthor(rs.getString("author"));
+            reCommentDto.setType(rs.getString("type"));
             reCommentDto.setContents(rs.getString("contents"));
             reCommentDto.setDisplay(rs.getInt("display"));
             reCommentDto.setCreatedAt(rs.getTimestamp("created_at"));

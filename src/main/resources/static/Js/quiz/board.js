@@ -129,3 +129,29 @@ recent.addEventListener('click', () => {
     recent.classList.toggle('sorted');
     recommend.classList.toggle('sorted');
 })
+
+function deleteContent(){
+    const confirmed= window.confirm("정말 삭제하시겠습니까?");
+    let postId = document.querySelector(".post-id").value;
+    if(confirmed) {
+        $.ajax({
+            type: 'DELETE',
+            url: "/quiz/delete?id="+postId,
+            contentType: false,
+            processData: false,
+            success: function (redirectUrl) {
+                location.href = redirectUrl;
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
+    }else{
+        alert("삭제가 취소 되었습니다.");
+    }
+}
+
+function editContent(){
+    let postId = document.querySelector(".post-id").value;
+    location.href="/quiz/edit?id="+postId;
+}
