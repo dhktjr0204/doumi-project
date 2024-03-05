@@ -48,15 +48,21 @@ button:hover, .content-edit-button:hover {
 .hide-place{
     cursor:pointer;
     background-color: #F2F2F2;
+    position: relative;
 }
 .content-main > .hide-place:after {
+    content: "클릭하여 정답 확인";
+    position: absolute; /* 추가 */
+    top: 50%; /* 추가 */
+    left: 50%; /* 추가 */
+    transform: translate(-50%, -50%); /* 추가 */
     display: flex;
     justify-content: center;
-    text-align: center;
-    color:#8A8A8A;
+    align-items: center;
+    color: #8A8A8A;
     font-size: 27px;
     font-weight: 900;
-    content: "클릭하여 정답 확인";
+    z-index: 1;
 }
 
 .a11y{

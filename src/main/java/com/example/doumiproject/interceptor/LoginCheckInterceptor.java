@@ -22,13 +22,14 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         }
 
         //세션에서 회원 정보를 조회
-        HttpSession session = request.getSession(false);
-        if (session != null && session.getAttribute("userId") != null) {
-            return true; //세션에 로그인 정보가 있으면 요청을 계속 진행시킨다
-        } else {
-            response.sendRedirect("/user/login"); //세션정보가 없다면 로그인 페이지로 리다이렉트
-            return false; //요청 처리를 중단한다.
-        }
+//        HttpSession session = request.getSession(false);
+//        if (session != null && session.getAttribute("userId") != null) {
+//            return true; //세션에 로그인 정보가 있으면 요청을 계속 진행시킨다
+//        } else {
+//            response.sendRedirect("/user/login"); //세션정보가 없다면 로그인 페이지로 리다이렉트
+//            return false; //요청 처리를 중단한다.
+//        }
+        return true;
     }
 
     @Override //뷰에 "유저이름"님 환영합니다를 쓰기 위해 작성

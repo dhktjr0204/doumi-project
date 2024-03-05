@@ -20,7 +20,7 @@
                 <a href="" class="board-writer-name" th:value="${cote.userId}" th:text="${cote.author}"></a>
                 <p class="content-createdAt" th:text="${#dates.format(cote.createdAt,'yyyy-MM-dd HH:mm')}"></p>
             </div>
-            <th:block th:if="${loginUser.userId} eq ${cote.author}">
+            <th:block th:if="${userName} eq ${cote.author}">
                 <div class="content-edit-container">
                     <button onclick="editContent()">수정</button>
                     <button onclick="deleteContent()">삭제</button>

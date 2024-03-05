@@ -43,8 +43,15 @@ function handleSubmit(url){
         success: function (redirectUrl) {
             location.href = redirectUrl;
         },
-        error: function (error) {
-            console.error(error);
+        error:function (error) {
+            if (error.status === 400) {
+                alert("Bad Request: "+ error.responseText);
+            }else if(error.status===401){
+                alert("Unauthorized: "+error.responseText);
+                location.href="/quiz";
+            }else{
+                alert("error: "+error.responseText);
+            } // 에러 응답 본문을 alert 창에 표시
         }
     });
 }

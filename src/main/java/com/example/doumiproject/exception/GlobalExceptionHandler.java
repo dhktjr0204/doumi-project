@@ -6,6 +6,7 @@ import com.example.doumiproject.exception.quiz.QuizAnswerLengthException;
 import com.example.doumiproject.exception.post.ContentsLengthException;
 import com.example.doumiproject.exception.post.NoContentException;
 import com.example.doumiproject.exception.post.TitleLengthException;
+import com.example.doumiproject.exception.user.NotValidateUserException;
 import com.example.doumiproject.exception.user.UserDuplicateException;
 import com.example.doumiproject.exception.user.UserIdMismatchException;
 import com.example.doumiproject.exception.user.UserPwMismatchException;
@@ -46,22 +47,32 @@ public class GlobalExceptionHandler {
         return new ErrorForm("비밀번호는 최소 8자 이상 최대 20자 이하, 하나 이상의 대문자, " +
                 "하나의 소문자, 하나의 숫자, 하나의 특수 문자를 포함해야 합니다.", HttpStatus.BAD_REQUEST.value());
     }
+
+    @ExceptionHandler(NotValidateUserException.class)
+    public ResponseEntity<String> NotValidateUserException(NotValidateUserException ex){
+//        return new ErrorForm("인증되지 않은 사용자입니다.", HttpStatus.UNAUTHORIZED.value());
+        return new ResponseEntity<>("인증되지 않은 사용자입니다.",HttpStatus.UNAUTHORIZED);
+    }
+
     // User 관련 예외 끝
     
     // Quiz 관련 예외 시작
     @ExceptionHandler(TitleLengthException.class)
-    public ErrorForm QuizTitleLengthException(TitleLengthException ex) {
-        return new ErrorForm("퀴즈 타이틀 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST.value());
+    public ResponseEntity<String> QuizTitleLengthException(TitleLengthException ex) {
+//        ErrorForm errorForm= new ErrorForm("퀴즈 제목 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<>("제목 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ContentsLengthException.class)
-    public ErrorForm QuizContentsLengthException(ContentsLengthException ex) {
-        return new ErrorForm("퀴즈 내용 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST.value());
+    public ResponseEntity<String> QuizContentsLengthException(ContentsLengthException ex) {
+//        return new ErrorForm("퀴즈 내용 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<>("내용 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(QuizAnswerLengthException.class)
-    public ErrorForm QuizAnswerLengthException(QuizAnswerLengthException ex) {
-        return new ErrorForm("퀴즈 정답 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST.value());
+    public ResponseEntity<String> QuizAnswerLengthException(QuizAnswerLengthException ex) {
+//        return new ErrorForm("퀴즈 정답 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<>("정답 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(NoContentException.class)
@@ -72,8 +83,9 @@ public class GlobalExceptionHandler {
 
     //comment 예외
     @ExceptionHandler(CommentContentsLengthException.class)
-    public ErrorForm CommentContentsLengthException(CommentContentsLengthException ex){
-        return new ErrorForm("댓글 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST.value());
+    public ResponseEntity<String> CommentContentsLengthException(CommentContentsLengthException ex){
+//        return new ErrorForm("댓글 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<>("댓글 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST);
     }
    
 }
