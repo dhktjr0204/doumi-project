@@ -1,47 +1,54 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>DoumiCoteMain</title>
-    <link href="../../css/codingtest/doumiAlgorithm.css" th:href = "@{/css/codingtest/doumiAlgorithm.css}" rel="stylesheet" type="text/css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>DoumiCoteMain</title>
+  <link href="../../css/codingtest/doumiAlgorithm.css"
+        th:href="@{/css/codingtest/doumiAlgorithm.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <header class="doumi_header">
-    <div class="box-header">
-        <h1><a href="/doumiAlgorithm">Oreumi Doumi</a></h1>
-        <div class="navbar-menu">
-            <div class="navbar-left">
-                <div><a href="/doumiAlgorithm" class="move_to_algorithm">코딩테스트</a></div>
-                <div><a href="/quiz" class="move_to_quiz">퀴즈</a></div>
-            </div>
-            <div class="navbar-right">
-                <a href="#none" class="user_info"><strong th:text="${userName}" >유저1</strong>님 안녕하세요!</a>
-                <div><button type="button" class="logout_btn">로그아웃</button></div>
-            </div>
+  <div class="box-header">
+    <h1><a href="/doumiAlgorithm">Oreumi Doumi</a></h1>
+    <div class="navbar-menu">
+      <div class="navbar-left">
+        <div><a href="/doumiAlgorithm" class="move_to_algorithm">코딩테스트</a></div>
+        <div><a href="/quiz" class="move_to_quiz">퀴즈</a></div>
+      </div>
+      <div class="navbar-right">
+        <div th:if="${userId != null}" class="user_info">
+          <div><a href="#none"><strong th:text="${userId}">유저
+            이름</strong>님
+            안녕하세요!</a></div>
+          <div><a href="/user/logout" class="logout_btn">로그아웃</a></div>
         </div>
+      </div>
     </div>
+  </div>
 </header>
 <main class="doumi_main">
-    <a href="/codingtest/index"><button type="button" class="logout_btn" style="margin-bottom:40px">질문게시판</button></a>
-    <div class="table_container">
-        <li class="cote_container_header">
-            <div class="sequence">번호</div>
-            <div class="title">제목</div>
-            <div class="author">작성자</div>
-            <div class="create_time">작성일</div>
-        </li>
-        <li class="cote_container_header">
-            <div class="sequence">1</div>
-            <div class="title">
-                <a href="/codingtest/timecomplexity">시간 복잡도</a>
-            </div>
-            <div class="author">도우미</div>
-            <div class="create_time">2024-02-25</div>
-        </li>
-    </div>
+  <a href="/codingtest/index">
+    <button type="button" class="logout_btn" style="margin-bottom:40px">질문게시판</button>
+  </a>
+  <div class="table_container">
+    <li class="cote_container_header">
+      <div class="sequence">번호</div>
+      <div class="title">제목</div>
+      <div class="author">작성자</div>
+      <div class="create_time">작성일</div>
+    </li>
+    <li class="cote_container_header">
+      <div class="sequence">1</div>
+      <div class="title">
+        <a href="/codingtest/timecomplexity">시간 복잡도</a>
+      </div>
+      <div class="author">도우미</div>
+      <div class="create_time">2024-02-25</div>
+    </li>
+  </div>
 </main>
 <footer>
 

@@ -23,7 +23,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
         //세션에서 회원 정보를 조회
         HttpSession session = request.getSession(false);
-        if (session != null && session.getAttribute("loginUser") != null) {
+        if (session != null && session.getAttribute("userId") != null) {
             return true; //세션에 로그인 정보가 있으면 요청을 계속 진행시킨다
         } else {
             response.sendRedirect("/user/login"); //세션정보가 없다면 로그인 페이지로 리다이렉트
@@ -38,9 +38,11 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         // 요청 처리 후, 뷰가 렌더링 되기 전 실행한다
         if (modelAndView != null && request.getSession(false) != null) {
             HttpSession session = request.getSession();
-            if (session.getAttribute("loginUser") != null) {//세션이 있다면
+            if (session.getAttribute("userId") != null) {//세션이 있다면
                 // 모델에 로그인 사용자 정보를 추가한다 , view에 전달할 값을 설정한다.
-                modelAndView.addObject("loginUser", session.getAttribute("loginUser"));
+                modelAndView.addObject("userId", session.getAttribute("userId"));
+                //userId만 보낼지 userName까지 보낼지 몰라서 일단 두개 다 보냅니다!
+                modelAndView.addObject("userName", session.getAttribute("userName"));
             }
         }
     }

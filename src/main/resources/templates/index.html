@@ -15,14 +15,14 @@
 <body>
 <header>
   <div class="nav-bar">
-    <div th:if="${loginUser == null}">
+    <div th:if="${userId == null}">
       <a href="/user/login" class="login">로그인</a>
       <a href="/user/signup" class="join">회원가입</a>
     </div>
-    <div th:if="${loginUser != null}" class="user_info">
-      <a href="#none"><strong th:text="${loginUser.userId}">유저 이름</strong>님
+    <div th:if="${userId != null}" class="user_info">
+      <a href="#none"><strong th:text="${userId}">유저 이름</strong>님
         안녕하세요!</a>
-      <div><a href="/logout" class="logout_btn">로그아웃</a></div>
+      <div><a href="/user/logout" class="logout_btn">로그아웃</a></div>
     </div>
   </div>
 </header>

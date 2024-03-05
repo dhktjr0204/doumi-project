@@ -19,15 +19,12 @@
         <div><a href="/quiz" class="move_to_quiz">퀴즈</a></div>
       </div>
       <div class="navbar-right">
-        <div th:if="${loginUser != null}" class="user_info">
-          <div><a href="#none"><strong th:text="${loginUser.userId}">유저
+        <div th:if="${userId != null}" class="user_info">
+          <div><a href="#none"><strong th:text="${userId}">유저
             이름</strong>님
             안녕하세요!</a></div>
           <div><a href="/user/logout" class="logout_btn">로그아웃</a></div>
         </div>
-        <!--          <a href="#none" class="user_info"><strong th:text="${userName}">유저1</strong>님 안녕하세요!</a>-->
-        <!--          <button type="button" class="logout_btn" onclick="location.href='/user/logout'">로그아웃-->
-        <!--          </button>-->
       </div>
     </div>
   </div>
