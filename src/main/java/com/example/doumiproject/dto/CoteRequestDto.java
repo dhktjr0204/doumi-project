@@ -1,8 +1,7 @@
 package com.example.doumiproject.dto;
 
-import com.example.doumiproject.exception.quiz.QuizContentsLengthException;
-import com.example.doumiproject.exception.quiz.QuizTitleLengthException;
-import lombok.AllArgsConstructor;
+import com.example.doumiproject.exception.post.ContentsLengthException;
+import com.example.doumiproject.exception.post.TitleLengthException;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,10 +13,10 @@ public class CoteRequestDto {
 
     public CoteRequestDto(String title, String coteContent) {
         if (title.length() == 0 || title.length() > 250) {
-            throw new QuizTitleLengthException();
+            throw new TitleLengthException();
         }
         if (coteContent.length() == 0 || coteContent.length() > 3000) {
-            throw new QuizContentsLengthException();
+            throw new ContentsLengthException();
         }
 
         this.title = title;

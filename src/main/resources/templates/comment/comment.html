@@ -8,8 +8,7 @@
         </div>
     </div>
     <div class="comment-editor-opener" onclick="clickCommentEditorOpener(this)">
-        <!-- 로그인 한 유저로 수정 필요-->
-        <p class="comment-editor-text">
+        <p class="comment-editor-text" th:text="${userName} + '님, 답변을 작성해주세요.'">
             답변을 작성해주세요.
         </p>
     </div>
@@ -54,10 +53,12 @@
                 <a href="" class="comment-writer-name" th:value="${comment.userId}" th:text="${comment.author}"></a>
                 <p class="comment-createdAt" th:text="${#dates.format(comment.createdAt,'yyyy-MM-dd HH:mm')}"></p>
             </div>
-            <div class="comment-edit-container">
-                <button onclick="switchEditCommentForm(this)">수정</button>
-                <button onclick="clickDeleteButton(this)">삭제</button>
-            </div>
+            <th:block th:if="${userName} eq ${comment.author}">
+                <div class="comment-edit-container">
+                    <button onclick="switchEditCommentForm(this)">수정</button>
+                    <button onclick="clickDeleteButton(this)">삭제</button>
+                </div>
+            </th:block>
         </div>
         <div th:if="${comment.display==0}" class="comment-item-body">
             <div class="comment-item" th:text="${comment.contents}"></div>
@@ -78,7 +79,8 @@
             </div>
             <button class="likes-button comment-button comment-likes" onclick="clickLike(this, 'COMMENT')">
                 <input class="post-id hidden" name="postId" th:value="${comment.id}"/>
-                <img th:class="${comment.liked} ? 'liked' : 'like-img'" th:src="@{/images/icon_like_normal.png}" alt="좋아요 버튼">
+                <img th:class="${comment.liked} ? 'liked' : 'like-img'" th:src="@{/images/icon_like_normal.png}"
+                     alt="좋아요 버튼">
                 <p class="likes-number" th:text="${comment.likeCount}"></p>
             </button>
         </div>
@@ -120,17 +122,20 @@
                         <p class="comment-createdAt"
                            th:text="${#dates.format(reComment.createdAt,'yyyy-MM-dd HH:mm')}"></p>
                     </div>
-                    <div class="comment-edit-container">
-                        <button onclick="switchEditReCommentForm(this)">수정</button>
-                        <button onclick="clickDeleteButton(this)">삭제</button>
-                    </div>
+<!--                    <th:block th:if="${userName} eq ${reComment.author}">-->
+<!--                        <div class="comment-edit-container">-->
+<!--                            <button onclick="switchEditReCommentForm(this)">수정</button>-->
+<!--                            <button onclick="clickDeleteButton(this)">삭제</button>-->
+<!--                        </div>-->
+<!--                    </th:block>-->
                 </div>
                 <div class="comment-item-body" th:text="${reComment.contents}">
                 </div>
                 <div class="comment-item-bottom">
                     <button class="likes-button comment-button comment-likes" onclick="clickLike(this, 'COMMENT')">
                         <input class="post-id hidden" name="postId" th:value="${reComment.id}"/>
-                        <img th:class="${reComment.liked} ? 'liked' : 'like-img'" th:src="@{/images/icon_like_normal.png}" alt="좋아요 버튼">
+                        <img th:class="${reComment.liked} ? 'liked' : 'like-img'"
+                             th:src="@{/images/icon_like_normal.png}" alt="좋아요 버튼">
                         <p class="likes-number" th:text="${reComment.likeCount}"></p>
                     </button>
                 </div>

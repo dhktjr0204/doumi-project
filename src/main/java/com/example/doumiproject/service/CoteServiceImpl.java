@@ -5,6 +5,7 @@ import com.example.doumiproject.dto.CoteDto;
 import com.example.doumiproject.dto.PostDto;
 import com.example.doumiproject.dto.TagDto;
 import com.example.doumiproject.dto.CoteRequestDto;
+import com.example.doumiproject.exception.post.NoContentException;
 import com.example.doumiproject.repository.CommentRepository;
 import com.example.doumiproject.repository.CoteRepository;
 import com.example.doumiproject.repository.PostRepository;
@@ -45,7 +46,8 @@ public class CoteServiceImpl implements CoteService {
     @Override
     public CoteDto getCote(long postId, long userId) {
 
-        return coteRepository.getByCoteId(postId, userId);
+        return coteRepository.getByCoteId(postId, userId)
+                .orElseThrow(NoContentException::new);
     }
 
     @Override

@@ -3,12 +3,16 @@ package com.example.doumiproject.exception;
 import com.example.doumiproject.exception.api.PageNegativeValueException;
 import com.example.doumiproject.exception.comment.CommentContentsLengthException;
 import com.example.doumiproject.exception.quiz.QuizAnswerLengthException;
-import com.example.doumiproject.exception.quiz.QuizContentsLengthException;
-import com.example.doumiproject.exception.quiz.QuizTitleLengthException;
+import com.example.doumiproject.exception.post.ContentsLengthException;
+import com.example.doumiproject.exception.post.NoContentException;
+import com.example.doumiproject.exception.post.TitleLengthException;
 import com.example.doumiproject.exception.user.UserDuplicateException;
 import com.example.doumiproject.exception.user.UserIdMismatchException;
 import com.example.doumiproject.exception.user.UserPwMismatchException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -45,19 +49,24 @@ public class GlobalExceptionHandler {
     // User 관련 예외 끝
     
     // Quiz 관련 예외 시작
-    @ExceptionHandler(QuizTitleLengthException.class)
-    public ErrorForm QuizTitleLengthException(QuizTitleLengthException ex) {
+    @ExceptionHandler(TitleLengthException.class)
+    public ErrorForm QuizTitleLengthException(TitleLengthException ex) {
         return new ErrorForm("퀴즈 타이틀 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST.value());
     }
 
-    @ExceptionHandler(QuizContentsLengthException.class)
-    public ErrorForm QuizContentsLengthException(QuizContentsLengthException ex) {
+    @ExceptionHandler(ContentsLengthException.class)
+    public ErrorForm QuizContentsLengthException(ContentsLengthException ex) {
         return new ErrorForm("퀴즈 내용 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST.value());
     }
 
     @ExceptionHandler(QuizAnswerLengthException.class)
     public ErrorForm QuizAnswerLengthException(QuizAnswerLengthException ex) {
         return new ErrorForm("퀴즈 정답 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST.value());
+    }
+
+    @ExceptionHandler(NoContentException.class)
+    public ResponseEntity<String> QuizNoContentException(NoContentException ex, Model model){
+        return ResponseEntity.notFound().build();
     }
     // Quiz 관련 예외 끝
 

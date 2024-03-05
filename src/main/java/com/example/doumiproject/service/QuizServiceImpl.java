@@ -2,6 +2,7 @@ package com.example.doumiproject.service;
 
 import com.example.doumiproject.dto.*;
 import com.example.doumiproject.dto.QuizRequestDto;
+import com.example.doumiproject.exception.post.NoContentException;
 import com.example.doumiproject.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -46,7 +47,8 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public QuizDto getQuiz(long postId, long userId) {
 
-        return quizRepository.getQuizDetails(postId, userId);
+        return quizRepository.getQuizDetails(postId, userId)
+                .orElseThrow(NoContentException::new);
     }
 
     @Override

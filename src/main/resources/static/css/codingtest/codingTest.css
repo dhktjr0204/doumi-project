@@ -2,7 +2,7 @@
     box-sizing: border-box;
     margin:0;
     padding:0;
-    line-height:1.4;
+    line-height:23px;
 }
 a{
     display: inline-block;
@@ -20,7 +20,6 @@ button{
     border-radius: 5px;
 }
 img{
-    width: 100%;
     vertical-align: top;
 }
 p{
@@ -28,9 +27,9 @@ p{
     line-height: 200%;
 }
 
-div{
-    font-size: 16px;
-    line-height: 200%;
+
+.hidden{
+    display: none;
 }
 
 .liked{
@@ -38,7 +37,7 @@ div{
 }
 
 
-button:hover, .content-edit-button:hover {
+.btn:hover {
     filter: brightness(90%); // 10% 어둡게
 }
 
@@ -46,18 +45,9 @@ button:hover, .content-edit-button:hover {
     visibility: hidden;
 }
 .hide-place{
-    cursor:pointer;
     background-color: #F2F2F2;
 }
-.content-main > .hide-place:after {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    color:#8A8A8A;
-    font-size: 27px;
-    font-weight: 900;
-    content: "클릭하여 정답 확인";
-}
+
 
 .a11y{
     display: inline-block;
@@ -68,11 +58,20 @@ button:hover, .content-edit-button:hover {
     border:none;
     clip-path:inset(50%);
 }
+.board-writer-name, .comment-writer-name{
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.content-createdAt, .comment-createdAt{
+    font-size: 12px;
+    color: #C4C4C4;
+}
 
 
-/*main 게시글 본문 내용 파트*/
+/*main 게시글 정보 파트*/
 .cont-main{
-    max-width: 1100px;
+    max-width: 900px;
     margin:0 auto;
     border-left: 1px solid #C4C4C4;
     border-right: 1px solid #C4C4C4;
@@ -98,27 +97,6 @@ button:hover, .content-edit-button:hover {
     font-weight: 700;
 }
 
-.content-info-container{
-    display: flex;
-    justify-content: space-between;
-}
-.board-writer-name, .comment-writer-name{
-    font-size: 16px;
-    font-weight: 700;
-}
-
-.content-createdAt, .comment-createdAt{
-    font-size: 12px;
-    color: #C4C4C4;
-}
-.content-edit-button{
-    font-size: 13.3333px;
-    padding: 7px 10px;
-    background-color: white;
-    border: 1px solid #C4C4C4;
-    border-radius: 5px;
-}
-
 /*main 게시글 파트*/
 .content-main{
     padding:20px 10px;
@@ -127,13 +105,10 @@ button:hover, .content-edit-button:hover {
 .content-detail{
     min-height: 250px;
 }
-
-.content-main > h3{
-    font-size: 25px;
-    font-weight: 700;
-    margin: 100px 0 20px 0;
+.content-main h3{
+    font-size: 20px;
+    margin: 50px 0 20px 0;
 }
-
 .content-answer-container{
     padding: 8px 8px;
     border-radius: 7px;
@@ -183,14 +158,13 @@ button:hover, .content-edit-button:hover {
 .comment-editor-bottom{
     display: flex;
     justify-content: flex-end;
-    gap:10px;
-    margin-bottom: 20px;
+    gap:10px
 }
-.cancel-button,.submit-button, .re-comment-cancel-button, .re-comment-submit-button{
+.cancel-button,.submit-button{
     padding: 10px 20px;
     font-size: 16px;
 }
-.submit-button, .re-comment-submit-button{
+.submit-button{
     background-color: #04B45F;
     color: white;
     border: none;
@@ -198,7 +172,7 @@ button:hover, .content-edit-button:hover {
 
 /*main 댓글 입력창 파트*/
 .comment-header{
-    margin: 40px 0;
+    margin-top: 40px;
 }
 .comment-header h2{
     font-size: 23px;
@@ -222,7 +196,7 @@ button:hover, .content-edit-button:hover {
 }
 
 .comment-editor-opener{
-    margin-top:25px;
+    margin:25px 0;
     padding: 12px 16px;
     border-radius: 5px;
     border: 1px solid #C4C4C4;
@@ -238,16 +212,8 @@ button:hover, .content-edit-button:hover {
 .comment-item-header{
     margin-bottom: 15px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-}
-.comment-info{
-    display: flex;
-    gap: 10px;
-}
-.comment-edit-container{
-    display: flex;
-    gap: 5px;
+    gap: 20px;
 }
 .comment-item-body, .hidden-comment-item-body{
     border-radius: 7px;
@@ -256,7 +222,6 @@ button:hover, .content-edit-button:hover {
 .comment-item-bottom{
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
 }
 .etc-button-container{
     display: flex;
@@ -290,8 +255,4 @@ button:hover, .content-edit-button:hover {
 }
 .re-comment-item-container:last-child{
     margin-bottom: 0;
-}
-
-.hidden{
-    display: none;
 }

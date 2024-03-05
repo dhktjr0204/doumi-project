@@ -98,7 +98,7 @@ public class QuizController {
     }
 
     @GetMapping("/post")
-    public String createQuiz(Model model){
+    public String getPostQuizForm(Model model){
         //로그인 하지 않은 유저가 요청하면 거절
 
         //타입별 태그 모두 불러오기
@@ -111,7 +111,6 @@ public class QuizController {
     }
 
     @PostMapping("/post")
-
     public ResponseEntity<String> postQuiz(QuizRequestDto quiz) {
 
         //로그인 하지 않은 유저가 요청하면 거절
@@ -121,7 +120,7 @@ public class QuizController {
     }
 
     @GetMapping("/edit")
-    public String editQuiz(@RequestParam("id") Long id, Model model){
+    public String getEditQuizForm(@RequestParam("id") Long id, Model model){
         long userId=1l;
 
         //로그인 생기면 현재 로그인된 유저의 nickname과 quizDetail의 userId가 일치한지 검증 필요

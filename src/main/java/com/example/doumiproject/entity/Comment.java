@@ -22,7 +22,7 @@ public class Comment {
     }
 
     public Comment(long userId, long postId, String type, String contents, boolean display, long parentCommentId) {
-        if (contents.length() == 0 || contents.length() > 250) {
+        if (contents.length() == 0 || contents.length() > 1500) {
             throw new CommentContentsLengthException();
         }
 
