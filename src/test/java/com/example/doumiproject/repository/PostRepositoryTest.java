@@ -16,21 +16,12 @@ class PostRepositoryTest {
     PostRepository postRepository;
 
     @Test
-    @DisplayName("모든 퀴즈 목록 출력하기")
-    public void findAllQuizTest() {
-
-        List<PostDto> quizs = postRepository.findAllQuiz();
-
-        for(PostDto postDto : quizs) {
-            System.out.println(postDto.getId()+" "+postDto.getTitle()+" "+postDto.getContents());
-        }
-    }
-
-    @Test
     @DisplayName("모든 퀴즈 목록 페이징 적용해서 출력하기")
     public void findAllQuizWithPaginationTest() {
 
-        List<PostDto> quizs = postRepository.findAllQuiz(2, 10);
+        String type = "QUIZ";
+
+        List<PostDto> quizs = postRepository.findAllPost(2, 10, type);
 
         for(PostDto postDto : quizs) {
             System.out.println(postDto.getId()+" "+postDto.getTitle()+" "+postDto.getContents());
@@ -41,9 +32,11 @@ class PostRepositoryTest {
     @DisplayName("총 페이지 수 출력하기")
     public void getTotalPagesTest() {
 
-        System.out.println(postRepository.getTotalPages(10));
+        String type = "QUIZ";
 
-        Assertions.assertEquals(8, postRepository.getTotalPages(10));
+        System.out.println(postRepository.getTotalPages(10, type));
+
+        Assertions.assertEquals(8, postRepository.getTotalPages(10, type));
     }
 
     @Test

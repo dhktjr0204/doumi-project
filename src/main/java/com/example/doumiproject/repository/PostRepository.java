@@ -7,15 +7,13 @@ import java.util.List;
 
 public interface PostRepository {
 
-    public List<PostDto> findAllQuiz(int page, int pageSize);
-    public List<PostDto> findAllQuiz();
-    public int getTotalPages(int pageSize);
-    public int getTotalPages(int pageSize, String keyword);
+    public List<PostDto> findAllPost(int page, int pageSize, String type);
+    public int getTotalPages(int pageSize, String type);
+    public int getTotalPagesForSearch(int pageSize, String keyword, String type);
     public List<PostDto> findByTitleOrAuthor(String keyword, int page, int pageSize);
     public List<PostDto> findByTag(String tag, int page, int pageSize);
     public int getTotalPagesForTag(int pageSize, String tag);
-    List<PostDto> findAllPostWithType(int page, int pageSize, String type);
-    List<PostDto> findAllPostWithType(String type);
+
     default RowMapper<PostDto> postDtoRowMapper() {
         return ((rs, rowNum) -> {
             PostDto postDto = new PostDto();
