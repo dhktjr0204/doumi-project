@@ -64,8 +64,10 @@ public class UserController {
             //2. 세션에 회원 정보를 저장 & 세션 유지 시간 설정
             //request에 세션이 있으면 세션을 반환하고, 없으면 신규 세션을 생성해 session에 담는다.
             HttpSession session = request.getSession();
-            session.setAttribute("loginUser",
-                user); //session에 loginUser라는 이름의 user 객체를 담는다 (로그인 회원 정보 보관)
+            session.setAttribute("userId", user.getId());
+            session.setAttribute("userName", user.getUserId());
+//            session.setAttribute("loginUser",
+//                user); //session에 loginUser라는 이름의 user 객체를 담는다 (로그인 회원 정보 보관)
             session.setMaxInactiveInterval(1800);
 
             //3. 로그인 성공 응답 반환
