@@ -107,7 +107,7 @@ public class CodingTestController {
         CoteDto cote = coteService.getCote(id, userId);
 
         if(userId!=cote.getUserId()){
-            throw new NotValidateUserException();
+            return "error/404";
         }
 
         model.addAttribute("cote", cote);

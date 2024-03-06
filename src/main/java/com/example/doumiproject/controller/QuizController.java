@@ -136,7 +136,7 @@ public class QuizController {
 
         //현재 로그인 된 유저가 글쓴 유저가 아닐 경우 예외처리
         if(userId!=quiz.getUserId()){
-            throw new NotValidateUserException();
+            return "error/404";
         }
 
         model.addAttribute("quiz", quiz);
