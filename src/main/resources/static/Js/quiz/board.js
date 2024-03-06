@@ -12,7 +12,7 @@ function clickLike(button, type) {
         type: "GET",
         url: url,
         data: {
-            post_id: postId,
+            postId: postId,
             type: type
         },
         success: function(response) {
