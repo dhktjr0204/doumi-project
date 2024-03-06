@@ -2,6 +2,8 @@ package com.example.doumiproject.controller;
 
 import com.example.doumiproject.dto.LikesDto;
 import com.example.doumiproject.service.LikeService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +22,13 @@ public class LikeController {
 
     @ResponseBody
     @GetMapping("")
-    public ResponseEntity<?> getLikeInfo(@RequestParam(value = "user_id") long user_id,
-                                         @RequestParam(value = "post_id") long post_id) {
+    public ResponseEntity<?> getLikeInfo(HttpServletRequest request, @RequestParam(value = "post_id") long post_id) {
 
         try {
+
+            HttpSession session = request.getSession();
+            long user_id = (long) session.getAttribute("userId");
+
             boolean exists = likeService.existsByUserIdAndPostId(user_id, post_id);
             long likeCount = likeService.getCountLike(post_id);
 
@@ -40,11 +45,14 @@ public class LikeController {
 
     @ResponseBody
     @GetMapping("/add")
-    public ResponseEntity<?> addLike(@RequestParam(value = "user_id") long user_id,
+    public ResponseEntity<?> addLike(HttpServletRequest request,
                                      @RequestParam(value = "post_id") long post_id,
                                      @RequestParam(value = "type") String type) {
 
         try {
+            HttpSession session = request.getSession();
+            long user_id = (long) session.getAttribute("userId");
+
             likeService.addLike(user_id, post_id, type);
             long likeCount = likeService.getCountLike(post_id);
 
@@ -57,11 +65,14 @@ public class LikeController {
 
     @ResponseBody
     @GetMapping("/cancel")
-    public ResponseEntity<?> cancelLike(@RequestParam(value = "user_id") long user_id,
+    public ResponseEntity<?> cancelLike(HttpServletRequest request,
                                         @RequestParam(value = "post_id") long post_id,
                                         @RequestParam(value = "type") String type) {
 
         try {
+            HttpSession session = request.getSession();
+            long user_id = (long) session.getAttribute("userId");
+
             likeService.cancelLike(user_id, post_id, type);
             long likeCount = likeService.getCountLike(post_id);
 

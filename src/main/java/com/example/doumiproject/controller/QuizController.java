@@ -6,7 +6,10 @@ import com.example.doumiproject.dto.QuizRequestDto;
 import com.example.doumiproject.service.CommentService;
 import com.example.doumiproject.service.QuizService;
 import com.example.doumiproject.util.PaginationUtil;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -81,9 +84,11 @@ public class QuizController {
     }
 
     @GetMapping("/board")
-    public String getQuizDetail(@RequestParam("id") Long id, Model model){
+    public String getQuizDetail(@RequestParam("id") Long id, HttpServletRequest request, Model model){
 
-        long userId = 1;
+        HttpSession session = request.getSession();
+        long userId = (long) session.getAttribute("userId");
+
         //글의 상세 정보 가져오기
         QuizDto quiz = quizService.getQuiz(id, userId);
         //글에 연결된 댓글들 가져오기
