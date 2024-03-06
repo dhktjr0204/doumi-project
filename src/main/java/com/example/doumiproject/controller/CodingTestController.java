@@ -8,6 +8,7 @@ import com.example.doumiproject.dto.QuizDto;
 import com.example.doumiproject.entity.Comment;
 import com.example.doumiproject.service.CoteService;
 import com.example.doumiproject.util.PaginationUtil;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -45,9 +46,25 @@ public class CodingTestController {
         return "codingtest/index";
     }
 
+    @GetMapping("/codingtest/search")
+    public String search(@RequestParam(value = "keyword") String keyword,
+                         @RequestParam(defaultValue = "1", value = "page") int page, Model model) {
+
+        if (page < 1) {
+            page = 1;
+        }
+
+        setPaginationAttributes(model, page,
+                coteService.getTotalPagesForSearch(pageSize, keyword), coteService.getSearchCote(keyword, page, pageSize));
+        model.addAttribute("keyword", keyword);
+
+        return "codingtest/search";
+    }
+
     @GetMapping("/codingtest/board")
-    public String getCoteDetail(@RequestParam("id") Long id, Model model) {
-        long userId = 1;
+    public String getCoteDetail(@RequestParam("id") Long id, Model model, HttpSession session) {
+
+        long userId = (long) session.getAttribute("userId");
 
         //글의 상세 정보 가져오기
         CoteDto cote = coteService.getCote(id, userId);

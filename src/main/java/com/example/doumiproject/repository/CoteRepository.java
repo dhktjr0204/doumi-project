@@ -5,11 +5,10 @@ import com.example.doumiproject.dto.CoteRequestDto;
 import org.springframework.jdbc.core.RowMapper;
 
 public interface CoteRepository {
-    public CoteDto getByCoteId(long post_id, long user_id);
-    public Long saveCote(CoteRequestDto cote, long userId);
+    CoteDto getByCoteId(long post_id, long user_id);
+    Long saveCote(CoteRequestDto cote, long userId);
     void updateCote(CoteRequestDto cote, long postId);
     void deleteCote(long postId);
-
 
     default RowMapper<CoteDto> coteDtoRowMapper() {
 
