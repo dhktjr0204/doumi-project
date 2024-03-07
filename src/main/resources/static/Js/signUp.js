@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // 닉네임 유효성 검사
     const idRegex = /^[a-zA-Z0-9]{4,20}$/;
     if (!idRegex.test(id)) {
-      alert('아이디는 최소 5글자 이상 최대 20자 이하이며 영문자와 숫자만 가능합니다.');
+      alert('아이디는 최소 4글자 이상 최대 20자 이하이며 영문자와 숫자만 가능합니다.');
       return;
     }
 
@@ -42,17 +42,14 @@ document.addEventListener('DOMContentLoaded', function () {
       })
     })
     .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
       return response.json();
     })//서버에서 받은 객체를 json으로 변환한다
     .then(data => {
-      if (data.success) {
+      if (data.success) {//회원가입 성공
         alert(data.message);
         window.location.href = '/';
-      } else {
-        alert(data.message);
+      } else {//회원가입 실패
+        alert(data.errormsg);
       }
     })
     .catch(error => console.error('Error:', error));
