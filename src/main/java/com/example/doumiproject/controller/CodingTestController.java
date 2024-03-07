@@ -93,10 +93,6 @@ public class CodingTestController {
 
         Long postId = coteService.saveCote(cote, userId);
 
-        if(userId!=cote.getUserId()){
-            throw new NotValidateUserException();
-        }
-
         return ResponseEntity.ok("/codingtest/board?id=" + postId);
     }
 

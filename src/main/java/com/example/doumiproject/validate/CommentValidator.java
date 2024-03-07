@@ -1,6 +1,5 @@
 package com.example.doumiproject.validate;
 
-import com.example.doumiproject.dto.CoteRequestDto;
 import com.example.doumiproject.entity.Comment;
 import com.example.doumiproject.exception.comment.CommentContentsLengthException;
 import org.springframework.validation.Errors;
