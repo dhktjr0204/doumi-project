@@ -10,6 +10,7 @@ import com.example.doumiproject.exception.user.UserIdMismatchException;
 import com.example.doumiproject.exception.user.UserLoginFailedException;
 import com.example.doumiproject.exception.user.UserPwMismatchException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -45,8 +46,10 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(UserLoginFailedException.class)
-    public ErrorForm UserLoginFailedException(UserLoginFailedException ex) {
-        return new ErrorForm("아이디 또는 비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST.value());
+    public ResponseEntity<ErrorForm> UserLoginFailedException(UserLoginFailedException ex) {
+        ErrorForm errorForm = new ErrorForm("아이디 또는 비밀번호가 일치하지 않습니다.",
+            HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorForm);
     }
     // User 관련 예외 끝
 
