@@ -6,32 +6,19 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>DoumiCoteMain</title>
-  <link href="../../css/codingtest/doumiAlgorithm.css"
+  <link href="../../static/css/fragments/header.css" th:href="@{/css/fragments/header.css}"
+        rel="stylesheet"
+        type="text/css"/>
+  <link href="../../static/css/codingtest/doumiAlgorithm.css"
         th:href="@{/css/codingtest/doumiAlgorithm.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<header class="doumi_header">
-  <div class="box-header">
-    <h1><a href="/doumiAlgorithm">Oreumi Doumi</a></h1>
-    <div class="navbar-menu">
-      <div class="navbar-left">
-        <div><a href="/doumiAlgorithm" class="move_to_algorithm">코딩테스트</a></div>
-        <div><a href="/quiz" class="move_to_quiz">퀴즈</a></div>
-      </div>
-      <div class="navbar-right">
-        <div th:if="${userId != null}" class="user_info">
-          <div><a href="#none"><strong th:text="${userId}">유저
-            이름</strong>님
-            안녕하세요!</a></div>
-          <div><a href="/user/logout" class="logout_btn">로그아웃</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
+
+<div th:replace="~{fragments/header.html::header}"></div>
+
 <main class="doumi_main">
   <a href="/codingtest/index">
-    <button type="button" class="logout_btn" style="margin-bottom:40px">질문게시판</button>
+    <button type="button" class="codingtest_question">질문 게시판으로 이동 ></button>
   </a>
   <div class="table_container">
     <li class="cote_container_header">

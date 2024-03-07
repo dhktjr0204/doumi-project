@@ -21,12 +21,12 @@ document.addEventListener('DOMContentLoaded', function () {
       body: `id=${encodeURIComponent(id)}&password=${encodeURIComponent(
           password)}`
     })
-    .then(response => response.json())//서버에서 받은 객체를 json으로 변환한다
+    .then(response => response.json())
     .then(data => {
       if (data.success) { //로그인을 성공하면
         window.location.href = '/'; //메인페이지로 리다이렉트
-      } else {
-        alert(data.message);
+      } else {//로그인을 실패하면
+        alert(data.errormsg);//errormsg를 클라이언트에게 알려준다.
         window.location.href = '/user/login';
       }
     })

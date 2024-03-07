@@ -6,33 +6,20 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>DoumiQuizMain</title>
+  <link href="../../static/css/fragments/header.css" th:href="@{/css/fragments/header.css}"
+        rel="stylesheet"
+        type="text/css"/>
   <link href="../../static/css/quiz/index.css" th:href="@{/css/quiz/index.css}" rel="stylesheet"
         type="text/css"/>
 </head>
 <body>
-<header class="doumi_header">
-  <div class="box-header">
-    <h1><a href="#">Oreumi Doumi</a></h1>
-    <div class="navbar-menu">
-      <div class="navbar-left">
-        <div><a href="/doumiAlgorithm" class="move_to_algorithm">코딩테스트</a></div>
-        <div><a href="/quiz" class="move_to_quiz">퀴즈</a></div>
-      </div>
-      <div class="navbar-right">
-        <div th:if="${userId != null}" class="user_info">
-          <div><a href="#none"><strong th:text="${userId}">유저
-            이름</strong>님
-            안녕하세요!</a></div>
-          <div><a href="/user/logout" class="logout_btn">로그아웃</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
+
+<div th:replace="~{fragments/header.html::header}"></div>
+
 <main class="doumi_main">
 
   <!--        href 바꾸기-->
-  <a href="/quiz/post" class="quiz_question">퀴즈 출제하기 ➡</a>
+  <a href="/quiz/post" class="quiz_question">퀴즈 출제하기 ></a>
 
   <form class="form" action="/quiz/search">
     <div class="search_form">
@@ -40,7 +27,7 @@
                     <img src="/images/search.png" width="17px">
                 </span>
       <label for="search"></label>
-      <input class="input" type="text" required="" placeholder="제목,내용 검색하기" id="search"
+      <input class="input" type="text" required="" placeholder="제목,작성자 검색하기" id="search"
              name="keyword">
     </div>
   </form>

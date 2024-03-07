@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+<header th:fragment="header" class="doumi_header">
+  <div class="box-header">
+    <h1><a href="/">Bend Doumi</a></h1>
+    <div class="navbar-menu">
+      <div class="navbar-left">
+        <div><a href="/doumiAlgorithm" class="move_to_algorithm">코딩테스트</a></div>
+        <div><a href="/quiz" class="move_to_quiz">퀴즈</a></div>
+      </div>
+      <div class="navbar-right">
+        <div th:if="${userId != null}" class="user_info">
+          <div><a th:href="@{/user/mypage}"><strong th:text="${userName}">유저
+            이름</strong>님
+            안녕하세요!</a></div>
+          <div><a href="/user/logout" class="logout_btn">로그아웃</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+</body>
+</html>

@@ -12,8 +12,10 @@ public class IndexController {
     public String index(HttpSession session, Model model) {
         //세션에서 사용자의 로그인 유무를 확인한다
         Object loginUserId = session.getAttribute("userId");
+        Object loginUserName = session.getAttribute("userName");
         if (loginUserId != null) {
             model.addAttribute("userId", loginUserId);
+            model.addAttribute("userName", loginUserName);
         }
 
         return "index";

@@ -83,7 +83,7 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public List<PostDto> getSearchQuiz(String keyword, int page, int pageSize) {
 
-        return postRepository.findByTitleOrAuthor(keyword, page, pageSize);
+        return postRepository.findByTitleOrAuthor(keyword, type, page, pageSize);
     }
 
     @Transactional
