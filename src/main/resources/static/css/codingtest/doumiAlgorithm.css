@@ -15,109 +15,28 @@ body {
 }
 
 /*header 파트*/
-.box-header {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
-h1 {
-  white-space: nowrap; /*h1 내용이 줄바꿈되지 않도록 설정*/
-  flex-shrink: 0; /*h1 크리가 축소되지 않도록 설정*/
-}
-
-.navbar-menu {
-  display: flex;
-  justify-content: space-between;
-  margin-left: 5vw;
-  width: 100%;
-}
-
-.navbar-left, .navbar-right {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-}
-
 .move_to_algorithm {
   color: #04B45F;
 }
 
-.move_to_algorithm:hover, .move_to_quiz:hover {
-  color: #04B45F;
-  font-weight: 700;
-}
-
-.logout_btn {
-  padding: 10px;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #363636;
-  cursor: pointer;
-  text-align: center;
-  background-color: #FFFFFF;
-  border: 1px solid #dbdbdb;
-  border-radius: 10px;
-}
-
-.user_info {
-  display: flex;
-  gap: 50px;
-}
-
-.logout_btn {
-  color: #FFFFFF;
-  background-color: #96c99a;
-}
-
-.user_info strong:hover {
-  color: #04B45F;
-  font-weight: bold;
-}
-
 
 /*main 파트*/
-
-/*검색창 파트*/
-.search_form {
-  display: flex;
-  align-items: center;
-  position: relative;
-  margin-top: 6vh;
-  margin-bottom: 6vh;
-  width: 100%;
+.codingtest_question {
+  display: inline-block;
+  margin-top: 7vh;
+  margin-bottom: 3vh;
+  padding: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
   border: 1px solid #dbdbdb;
-  border-radius: 30px;
-  background: #f6f6f6;
+  border-radius: 10px;
+  color: white;
+  background-color: #04B45F;
 }
 
-.search_image {
-  position: absolute;
-  left: 30px;
-}
-
-.input {
-  color: black;
-  padding: 20px;
-  font-size: 20px;
-  width: 100%;
-  margin-inline: 40px;
-  border: none;
-  background-color: inherit;
-}
-
-.input:focus {
-  outline: none;
-}
-
-.search_form:hover {
-  border: 1px solid #363636;
-}
-
-.search_form:focus-within {
-  background-color: white;
-  outline: 3px solid #04B45F;
-  outline-offset: -3px; /* 아웃라인을 요소 안쪽으로 이동 */
+.codingtest_question:hover {
+  background-color: #05d380;
 }
 
 /*게시판*/
@@ -138,7 +57,11 @@ h1 {
 }
 
 .title {
-  width: 50%;
+  width: 40%;
+  margin-right: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .author {
@@ -147,6 +70,10 @@ h1 {
 
 .create_time {
   width: 20%;
+}
+
+.like {
+  width: 10%;
 }
 
 .cote_container {
@@ -168,7 +95,6 @@ h1 {
   border-radius: 10px;
   color: #afafaf;
   text-align: center;
-  padding: 1.0em;
   cursor: pointer;
 }
 
@@ -183,6 +109,8 @@ h1 {
 
 .page_list a, .page_current a {
   display: block;
-  width: 100%;
-  height: 100%;
+  padding: 1.0em;
+  box-sizing: border-box;
+  width: auto;
+  height: auto;
 }

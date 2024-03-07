@@ -1,0 +1,60 @@
+.box-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+h1 {
+  white-space: nowrap; /*h1 내용이 줄바꿈되지 않도록 설정*/
+  flex-shrink: 0; /*h1 크리가 축소되지 않도록 설정*/
+}
+
+.navbar-menu {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 5vw;
+  width: 100%;
+}
+
+.navbar-left, .navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+
+.logout_btn {
+  padding: 10px;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #363636;
+  cursor: pointer;
+  text-align: center;
+  background-color: #FFFFFF;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+}
+
+.user_info {
+  display: flex;
+  gap: 50px;
+}
+
+.move_to_algorithm:hover, .move_to_quiz:hover {
+  color: #04B45F;
+  font-weight: 700;
+}
+
+.logout_btn {
+  color: #FFFFFF;
+  background-color: #04B45F;
+}
+
+.logout_btn:hover {
+  background-color: #05d380;
+}
+
+.user_info strong:hover {
+  color: #04B45F;
+  font-weight: bold;
+}
