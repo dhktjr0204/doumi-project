@@ -1,63 +1,66 @@
-main{
-    display: flex;
-    justify-content: center;
-    margin-top:25vh;
+main {
+  display: flex;
+  justify-content: center;
+  margin-top: 25vh;
 }
 
-.signup{
-    width:340px;
-    height:676px;
+.signup {
+  width: 340px;
+  height: 500px;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
-.signup_title{
-    text-align: center;
-    font-weight: 500;
-    font-size: 26px;
+.signup_title {
+  text-align: center;
+  font-weight: 500;
+  font-size: 26px;
 }
 
-.signup_logo{
-    text-align: center;
+.signup_logo {
+  text-align: center;
 }
 
-.signup_form{
-    display: flex;
-    flex-direction: column;
+.signup_form {
+  display: flex;
+  flex-direction: column;
 }
 
-.form_input-block{
-    margin-bottom: 16px;
+.form_input-block {
+  margin-bottom: 16px;
 }
 
-.form_label{
-    line-height: 1.43;
-    letter-spacing: -.3px;
-    font-size:14px;
-    font-weight: 400;
-    color:#3e4042;
+.form_label {
+  line-height: 1.43;
+  letter-spacing: -.3px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #3e4042;
 }
 
-.input{
-    margin-top:10px;
-    padding:10px 10px;
-    width:320px;
-    height: 30px;
-    line-height: 1.47;
-    font-size: 15px;
-    border: 1px solid black;
-    border-radius: 4px;
-    background-color: #FFFFFF;
+.input {
+  margin-top: 10px;
+  padding: 10px 10px;
+  width: 320px;
+  height: 30px;
+  line-height: 1.47;
+  font-size: 15px;
+  border: 1px solid black;
+  border-radius: 4px;
+  background-color: #FFFFFF;
 }
 
-.signup_btn{
-    margin-top:16px;
-    margin-bottom: 12px;
-    font-size:15px;
-    font-weight: 700;
-    color:#FFFFFF;
-    width: 340px;
-    height: 48px;
-    border:1px solid #00c471;
-    border-radius: 4px;
-    background-color: #00c471;
-    cursor: pointer;
+.signup_btn {
+  margin-top: 16px;
+  margin-bottom: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #FFFFFF;
+  width: 340px;
+  height: 48px;
+  border: 1px solid #00c471;
+  border-radius: 4px;
+  background-color: #00c471;
+  cursor: pointer;
 }

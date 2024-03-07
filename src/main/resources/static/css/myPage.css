@@ -14,74 +14,37 @@ body {
   margin-right: 20vw;
 }
 
-/*header 파트*/
-.move_to_algorithm {
-  color: #04B45F
-}
-
-/*main 파트*/
-
-.cote_question {
-  display: inline-block;
-  margin-top: 7vh;
-  margin-bottom: 3vh;
-  padding: 15px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  border: 1px solid #dbdbdb;
-  border-radius: 10px;
-  color: white;
-  background-color: #04B45F;
-}
-
-.cote_question:hover {
-  background-color: #05d380;
-}
-
-
-/*검색창 파트*/
-.search_form {
+/*myPage_main*/
+.myPage_main {
   display: flex;
-  align-items: center;
-  position: relative;
-  margin-bottom: 6vh;
-  width: 100%;
-  border: 1px solid #dbdbdb;
-  border-radius: 30px;
-  background: #f6f6f6;
+  margin-top: 7vh;
+  /*border: 1px solid black;*/
 }
 
-.search_image {
-  position: absolute;
-  left: 30px;
+.myPage_leftSide {
+  width: 25%;
+  /*border: 1px solid blue;*/
 }
 
-.input {
-  color: black;
-  padding: 20px;
-  font-size: 20px;
-  width: 100%;
-  margin-inline: 40px;
-  border: none;
-  background-color: inherit;
+.dot {
+  color: #04B45F;
 }
 
-.input:focus {
-  outline: none;
+.mypage_userName, .cote_question, .quiz_question, .comment {
+  padding: 1.0rem 0.75rem;
 }
 
-.search_form:hover {
-  border: 1px solid #363636;
-}
-
-.search_form:focus-within {
-  background-color: white;
-  outline: 3px solid #04B45F;
-  outline-offset: -3px; /* 아웃라인을 요소 안쪽으로 이동 */
+.cote_question:hover, .quiz_question:hover, .comment:hover {
+  color: #04B45F;
+  font-weight: bold;
 }
 
 /*게시판*/
+.show_user_wrote {
+  padding: 1.0rem 0.75rem;
+  flex-grow: 1;
+}
+
 .table_container {
   width: 100%;
   background-color: #f6f6f6;
@@ -89,7 +52,7 @@ body {
   margin: 0;
 }
 
-.cote_container_header {
+.quiz_container_header {
   padding: 20px 30px;
   display: flex;
 }
@@ -100,7 +63,7 @@ body {
 
 .title {
   width: 40%;
-  margin-right: 10px;
+  /*margin-right: 10px;*/
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -118,10 +81,11 @@ body {
   width: 10%;
 }
 
-.cote_container {
+.quiz_container {
   display: flex;
   padding: 20px 30px;
 }
+
 
 /*페이지 이동 바*/
 .page_list {
