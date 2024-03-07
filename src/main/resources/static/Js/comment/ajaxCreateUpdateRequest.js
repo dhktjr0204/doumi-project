@@ -1,18 +1,18 @@
 function clickCommentSubmitButton(button){
     const commentForm=button.closest('.comment-form');
-    submitCommentForm(commentForm);
+    submitComment(commentForm);
 }
 
 function clickReCommentSubmitButton(button){
     const commentForm=button.closest('.re-comment-form');
-    submitCommentForm(commentForm);
+    submitComment(commentForm);
 }
 
 function clickCommentEditButton(button){
     const commentForm=button.closest('.comment-form');
     const commentItemContainer= button.closest('.re-comment-item-container') || button.closest('.comment-item-container');
     const commentId= commentItemContainer.querySelector('.comment-id').value;
-    editCommentForm(commentForm, commentId);
+    editComment(commentForm, commentId);
 }
 
 //삭제 버튼
@@ -67,7 +67,13 @@ function clickOrderByCreatedAt(){
 }
 
 
-function submitCommentForm(commentForm) {
+function submitComment(commentForm) {
+    const comment=commentForm.querySelector('.answer-input').value;
+    if (!comment) {
+        alert('댓글을 작성해주세요.');
+        return;
+    }
+
     const formData = new FormData(commentForm);
     $.ajax({
         url: commentForm.action,
@@ -79,7 +85,7 @@ function submitCommentForm(commentForm) {
             $('.comment-container').html(data);
         },
         error: function (error) {
-            console.log(error);
+            errorHandler(error);
         }
     });
 }
@@ -96,13 +102,20 @@ function requestEditCommentForm(commentItemContainer, comment){
             commentEditFormWordCount(commentItemContainer);
         },
         error: function (error) {
-            console.log(error);
+            errorHandler(error);
         }
     });
 }
 
-function editCommentForm(commentForm,commentId){
+function editComment(commentForm,commentId){
+    const comment=commentForm.querySelector('.answer-input').value;
+    if (!comment) {
+        alert('댓글을 작성해주세요.');
+        return;
+    }
+
     const formData = new FormData(commentForm);
+
     $.ajax({
         url: "/comment/edit?id="+commentId,
         type: "POST",
@@ -113,7 +126,7 @@ function editCommentForm(commentForm,commentId){
             $('.comment-container').html(data);
         },
         error: function (error) {
-            console.log(error);
+            errorHandler(error);
         }
     });
 }
@@ -128,7 +141,18 @@ function deleteComment(postId, commentId){
             $('.comment-container').html(data);
         },
         error: function (error) {
-            console.log(error);
+            errorHandler(error)
         }
     });
+}
+
+function errorHandler(error){
+    if (error.status === 400) {
+        alert("Bad Request: "+ error.responseText);
+    }else if(error.status===401){
+        alert("Unauthorized: "+error.responseText);
+        location.reload();
+    }else{
+        alert("error: "+error.responseText);
+    }
 }

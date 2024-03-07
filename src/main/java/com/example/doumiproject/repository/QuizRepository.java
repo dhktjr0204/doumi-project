@@ -7,9 +7,10 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public interface QuizRepository {
-    public QuizDto getQuizDetails(long post_id, long user_id);
+    public Optional<QuizDto> getQuizDetails(long post_id, long user_id);
 
     public QuizDto getByQuizId(long id);
 

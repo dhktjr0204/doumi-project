@@ -3,6 +3,7 @@ package com.example.doumiproject.repository;
 import com.example.doumiproject.dto.QuizDto;
 import com.example.doumiproject.dto.QuizRequestDto;
 import com.example.doumiproject.entity.Tag;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -12,6 +13,7 @@ import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class JdbcTemplateQuizRepository implements QuizRepository {
@@ -22,7 +24,7 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
     }
 
     @Override
-    public QuizDto getQuizDetails(long post_id, long user_id) {
+    public Optional<QuizDto> getQuizDetails(long post_id, long user_id) {
 
         String sql = "select " +
                 "p.id as post_id, " +
@@ -44,11 +46,15 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
                 "left join likes l on p.id = l.post_id " +
                 "left join answer a on p.id = a.post_id " +
                 "where " +
-                "p.id = ? " +
+                "p.id = ? and p.type='QUIZ' " +
                 "group by " +
                 "p.id;";
 
-        return jdbcTemplate.queryForObject(sql, quizDtoRowMapper(), user_id, post_id);
+        try {
+            return Optional.ofNullable(jdbcTemplate.queryForObject(sql, quizDtoRowMapper(), user_id, post_id));
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
     }
 
     @Override
@@ -70,8 +76,8 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
 
     @Override
     public List<Tag> getTags(long id) {
-        String sql = "select t.id, t.name "+
-                "from tag t inner join quiztag qt on t.id = qt.tag_id "+
+        String sql = "select t.id, t.name " +
+                "from tag t inner join quiztag qt on t.id = qt.tag_id " +
                 "where qt.post_id = ?";
         return jdbcTemplate.query(sql, TagRowMapper(), id);
     }
@@ -101,7 +107,7 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
     }
 
     @Override
-    public void saveAnswer(QuizRequestDto quiz, long postId, long userId){
+    public void saveAnswer(QuizRequestDto quiz, long postId, long userId) {
         //퀴즈 답변 저장
         String answerSql = "insert into answer(post_id, answer) " +
                 "values (?,?)";
@@ -113,25 +119,25 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
     @Override
     public void updateQuiz(QuizRequestDto quiz, long postId) {
         //로그인 생기면 수정 권한 있는지 확인 로직 where에 추가
-        String postSql="update post "+
-                "set title=?, contents=?, updated_at = ? "+
+        String postSql = "update post " +
+                "set title=?, contents=?, updated_at = ? " +
                 "where id = ?";
         jdbcTemplate.update(postSql,
-                quiz.getTitle(),quiz.getQuizContent(),LocalDateTime.now()
-                ,postId);
+                quiz.getTitle(), quiz.getQuizContent(), LocalDateTime.now()
+                , postId);
     }
 
     @Override
     public void updateAnswer(QuizRequestDto quiz, long postId) {
-        String answerSql="update answer "+
-                "set answer=? "+
+        String answerSql = "update answer " +
+                "set answer=? " +
                 "where post_id=?";
-        jdbcTemplate.update(answerSql,quiz.getAnswerContent(),postId);
+        jdbcTemplate.update(answerSql, quiz.getAnswerContent(), postId);
     }
 
     @Override
     public void deleteQuiz(long postId) {
-        String sql="delete from post where id=?";
+        String sql = "delete from post where id=?";
         jdbcTemplate.update(sql, postId);
     }
 

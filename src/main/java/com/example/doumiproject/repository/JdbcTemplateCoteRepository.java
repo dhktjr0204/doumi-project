@@ -2,6 +2,7 @@ package com.example.doumiproject.repository;
 
 import com.example.doumiproject.dto.CoteDto;
 import com.example.doumiproject.dto.CoteRequestDto;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Repository
 public class JdbcTemplateCoteRepository implements CoteRepository {
@@ -20,7 +22,7 @@ public class JdbcTemplateCoteRepository implements CoteRepository {
     }
 
     @Override
-    public CoteDto getByCoteId(long post_id, long user_id) {
+    public Optional<CoteDto> getByCoteId(long post_id, long user_id) {
         //post의 user_id(squence값)과 user의 user_id(nickname용)이 아주 헷갈린다;
         String sql = "select " +
                 "p.id as post_id, " +
@@ -38,11 +40,13 @@ public class JdbcTemplateCoteRepository implements CoteRepository {
                 "left join user u on p.user_id = u.id " +
                 "left join likes l on p.id = l.post_id " +
                 "where " +
-                "p.id = ? ";
-        //퀴즈 내용 가져오기
-        CoteDto coteDto = jdbcTemplate.queryForObject(sql, coteDtoRowMapper(), user_id, post_id);
-        //퀴즈와 연결된 태그들 가져오기
-        return coteDto;
+                "p.id = ? and p.type='COTE';";
+
+        try {
+            return Optional.of(jdbcTemplate.queryForObject(sql, coteDtoRowMapper(), user_id, post_id));
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
     }
 
 
