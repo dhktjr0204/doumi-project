@@ -1,11 +1,10 @@
 package com.example.doumiproject.service;
 
-import com.example.doumiproject.dto.CommentDto;
 import com.example.doumiproject.dto.CoteDto;
+import com.example.doumiproject.dto.CoteRequestDto;
 import com.example.doumiproject.dto.PostDto;
 import com.example.doumiproject.dto.TagDto;
-import com.example.doumiproject.dto.CoteRequestDto;
-import com.example.doumiproject.repository.CommentRepository;
+import com.example.doumiproject.exception.post.NoContentException;
 import com.example.doumiproject.repository.CoteRepository;
 import com.example.doumiproject.repository.PostRepository;
 import com.example.doumiproject.repository.TagRepository;
@@ -22,12 +21,11 @@ public class CoteServiceImpl implements CoteService {
     private final PostRepository postRepository;
     private final CoteRepository coteRepository;
     private final TagRepository tagRepository;
-    private final CommentRepository commentRepository;
+
+    private final String type = "COTE";
 
     @Override
     public List<PostDto> getAllCote(int page, int pageSize) {
-
-        String type = "COTE";
 
         return postRepository.findAllPost(page, pageSize, type);
     }
@@ -35,21 +33,14 @@ public class CoteServiceImpl implements CoteService {
     @Override
     public int getTotalPages(int pageSize) {
 
-        String type = "COTE";
-
         return postRepository.getTotalPages(pageSize, type);
     }
 
     @Override
     public CoteDto getCote(long postId, long userId) {
 
-        return coteRepository.getByCoteId(postId, userId);
-    }
-
-    @Override
-    public List<CommentDto> getComments(long postId, long userId) {
-
-        return commentRepository.getAllComment(postId, userId);
+        return coteRepository.getByCoteId(postId, userId)
+                .orElseThrow(NoContentException::new);
     }
 
     @Override
@@ -62,29 +53,27 @@ public class CoteServiceImpl implements CoteService {
     @Transactional
     @Override
     public Long saveCote(CoteRequestDto cote, Long userId) {
-        CoteRequestDto coteRequestDto = new CoteRequestDto(cote.getTitle(), cote.getCoteContent());
 
-        return coteRepository.saveCote(coteRequestDto, userId);
+        return coteRepository.saveCote(cote, userId);
     }
 
     @Override
-    public int getTotalPages(int pageSize, String keyword) {
+    public int getTotalPagesForSearch(int pageSize, String keyword) {
 
-        return postRepository.getTotalPages(pageSize, keyword);
+        return postRepository.getTotalPagesForSearch(pageSize, keyword, type);
     }
 
     @Override
     public List<PostDto> getSearchCote(String keyword, int page, int pageSize) {
 
-        return postRepository.findByTitleOrAuthor(keyword, page, pageSize);
+        return postRepository.findByTitleOrAuthor(keyword, type, page, pageSize);
     }
 
     @Transactional
     @Override
-    public void updateCote(CoteRequestDto cote, Long postId) {
-        CoteRequestDto coteRequestDto = new CoteRequestDto(cote.getTitle(), cote.getCoteContent());
+    public void updateCote(CoteRequestDto cote, Long postId) {;
 
-        coteRepository.updateCote(coteRequestDto, postId);
+        coteRepository.updateCote(cote, postId);
     }
 
     @Override

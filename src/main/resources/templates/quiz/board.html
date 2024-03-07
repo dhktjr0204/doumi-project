@@ -21,10 +21,12 @@
                 <a href="" class="board-writer-name" th:value="${quiz.userId}" th:text="${quiz.author}"></a>
                 <p class="content-createdAt" th:text="${#dates.format(quiz.createdAt,'yyyy-MM-dd HH:mm')}"></p>
             </div>
-            <div class="content-edit-container">
-                <button onclick="editContent()">수정</button>
-                <button onclick="deleteContent()">삭제</button>
-            </div>
+            <th:block th:if="${userName} eq ${quiz.author}">
+                <div class="content-edit-container">
+                    <button onclick="editContent()">수정</button>
+                    <button onclick="deleteContent()">삭제</button>
+                </div>
+            </th:block>
         </div>
     </section>
 

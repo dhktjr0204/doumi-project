@@ -49,10 +49,9 @@ public class JdbcTemplatePostRepository implements PostRepository{
     }
 
     @Override
-    public List<PostDto> findByTitleOrAuthor(String keyword, int page, int pageSize) {
+    public List<PostDto> findByTitleOrAuthor(String keyword, String type, int page, int pageSize) {
 
         String param = "%"+keyword+"%";
-        String type = "QUIZ";
         int offset = (page - 1) * pageSize;
 
         String sql = "select p.id," +

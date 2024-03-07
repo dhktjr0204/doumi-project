@@ -11,6 +11,9 @@
 <main class="cont-main">
     <input class="post-id hidden" th:value="${cote.id}" />
     <form action="/codingtest/post" method="post" class="coteForm" onsubmit="return false;" th:object="${cote}">
+
+        <input class="user-id hidden" th:field="*{userId}"/>
+
         <div class="title-container">
             <textarea class="title" placeholder="퀴즈 제목을 작성해주세요." rows="1" onkeyup="autoResize(this)"
                       onkeydown="autoResize(this)" th:field="*{title}"></textarea>

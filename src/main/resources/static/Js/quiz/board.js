@@ -12,8 +12,7 @@ function clickLike(button, type) {
         type: "GET",
         url: url,
         data: {
-            user_id: 1,
-            post_id: postId,
+            postId: postId,
             type: type
         },
         success: function(response) {
@@ -132,18 +131,26 @@ recent.addEventListener('click', () => {
 
 function deleteContent(){
     const confirmed= window.confirm("정말 삭제하시겠습니까?");
+    let userId = document.querySelector('.board-writer-name').getAttribute("value");
     let postId = document.querySelector(".post-id").value;
     if(confirmed) {
         $.ajax({
             type: 'DELETE',
-            url: "/quiz/delete?id="+postId,
+            url: "/quiz/delete?postId="+postId+"&userId="+userId,
             contentType: false,
             processData: false,
             success: function (redirectUrl) {
                 location.href = redirectUrl;
             },
             error: function (error) {
-                console.error(error);
+                if (error.status === 400) {
+                    alert("Bad Request: "+ error.responseText);
+                }else if(error.status===401){
+                    alert("Unauthorized: "+error.responseText);
+                    location.href="/quiz";
+                }else{
+                    alert("error: "+error.responseText);
+                }
             }
         });
     }else{

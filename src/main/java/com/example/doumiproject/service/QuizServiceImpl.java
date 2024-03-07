@@ -2,6 +2,7 @@ package com.example.doumiproject.service;
 
 import com.example.doumiproject.dto.*;
 import com.example.doumiproject.dto.QuizRequestDto;
+import com.example.doumiproject.exception.post.NoContentException;
 import com.example.doumiproject.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,7 +43,8 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public QuizDto getQuiz(long postId, long userId) {
 
-        return quizRepository.getQuizDetails(postId, userId);
+        return quizRepository.getQuizDetails(postId, userId)
+                .orElseThrow(NoContentException::new);
     }
 
     @Override
@@ -59,19 +61,13 @@ public class QuizServiceImpl implements QuizService {
     @Transactional
     @Override
     public Long saveQuiz(QuizRequestDto quiz, Long userId) {
-        QuizRequestDto quizDto=new QuizRequestDto(
-                quiz.getUserId(),
-                quiz.getTitle(),
-                quiz.getTags(),
-                quiz.getQuizContent(),
-                quiz.getAnswerContent());
 
-        Long postId = quizRepository.saveQuiz(quizDto, userId);
+        Long postId = quizRepository.saveQuiz(quiz, userId);
 
-        quizRepository.saveAnswer(quizDto, postId, userId);
+        quizRepository.saveAnswer(quiz, postId, userId);
 
-        if (!quizDto.getTags().isEmpty()) {
-            String[] tags = quizDto.getTags().split(",");
+        if (!quiz.getTags().isEmpty()) {
+            String[] tags = quiz.getTags().split(",");
             tagRepository.saveTags(tags, postId);
         }
 
@@ -87,26 +83,20 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public List<PostDto> getSearchQuiz(String keyword, int page, int pageSize) {
 
-        return postRepository.findByTitleOrAuthor(keyword, page, pageSize);
+        return postRepository.findByTitleOrAuthor(keyword, type, page, pageSize);
     }
 
     @Transactional
     @Override
     public void updateQuiz(QuizRequestDto quiz, Long postId) {
-        QuizRequestDto quizDto=new QuizRequestDto(
-                quiz.getUserId(),
-                quiz.getTitle(),
-                quiz.getTags(),
-                quiz.getQuizContent(),
-                quiz.getAnswerContent());
 
-        quizRepository.updateQuiz(quizDto, postId);
-        quizRepository.updateAnswer(quizDto, postId);
+        quizRepository.updateQuiz(quiz, postId);
+        quizRepository.updateAnswer(quiz, postId);
 
         //기존 태그 삭제 후 다시 저장
         tagRepository.deleteTags(postId);
-        if (!quizDto.getTags().isEmpty()) {
-            String[] tags = quizDto.getTags().split(",");
+        if (!quiz.getTags().isEmpty()) {
+            String[] tags = quiz.getTags().split(",");
             tagRepository.saveTags(tags, postId);
         }
     }

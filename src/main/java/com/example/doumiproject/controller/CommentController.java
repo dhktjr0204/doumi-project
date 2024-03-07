@@ -2,10 +2,14 @@ package com.example.doumiproject.controller;
 
 import com.example.doumiproject.dto.CommentDto;
 import com.example.doumiproject.entity.Comment;
+import com.example.doumiproject.exception.user.NotValidateUserException;
 import com.example.doumiproject.service.CommentService;
+import com.example.doumiproject.validate.CommentValidator;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,8 +26,8 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/ordertime")
-    public String orderCommentByCreateAt(@RequestParam("id") long postId, @RequestParam("type") String type, Model model) {
-        long userId = 1;
+    public String orderCommentByCreateAt(@RequestParam("id") long postId, @RequestParam("type") String type, Model model,HttpSession session) {
+        long userId = (long)session.getAttribute("userId");
 
         List<CommentDto> comments = commentService.getAllComments(postId, userId);
 
@@ -39,8 +43,8 @@ public class CommentController {
     }
 
     @PostMapping("/orderlike")
-    public String orderCommentByLikeCount(@RequestParam("id") long postId, @RequestParam("type") String type, Model model) {
-        long userId = 1;
+    public String orderCommentByLikeCount(@RequestParam("id") long postId, @RequestParam("type") String type, Model model, HttpSession session) {
+        long userId = (long)session.getAttribute("userId");
 
         List<CommentDto> comments = commentService.getAllCommentsOrderByLikeCount(postId, userId);
 
@@ -55,11 +59,17 @@ public class CommentController {
     }
 
     @PostMapping("/add")
-    public String addComment(@ModelAttribute("newComment") Comment comment, Model model) {
-        long userId = 1;
+    public String addComment(@ModelAttribute("newComment") Comment comment
+            ,BindingResult result, Model model,HttpSession session) {
+
+        CommentValidator commentValidator = new CommentValidator();
+        commentValidator.validate(comment, result);
+
+
+        long userId = (long)session.getAttribute("userId");;
 
         //로그인 기능 생기면 userId 방식 수정해야함
-        commentService.saveComment(comment, 1);
+        commentService.saveComment(comment, userId);
 
         long post_id = comment.getPostId();
         //글에 연결된 댓글들 가져오기
@@ -78,7 +88,13 @@ public class CommentController {
     }
 
     @PostMapping("/editForm")
-    public String getEditForm(@RequestBody Comment comment, Model model) {
+    public String getEditForm(@RequestBody Comment comment, Model model,HttpSession session) {
+
+        long userId = (long)session.getAttribute("userId");
+
+        if(userId!=comment.getUserId()){
+            throw new NotValidateUserException();
+        }
 
         model.addAttribute("comment", comment);
 
@@ -86,8 +102,18 @@ public class CommentController {
     }
 
     @PostMapping("/edit")
-    public String editComment(@RequestParam("id") long commentId, @ModelAttribute("comment") Comment comment, Model model) {
-        long userId = 1;
+    public String editComment(@RequestParam("id") long commentId, @ModelAttribute("comment") Comment comment,
+                              BindingResult result, Model model,HttpSession session) {
+
+        //댓글 길이 확인
+        CommentValidator commentValidator = new CommentValidator();
+        commentValidator.validate(comment, result);
+
+        long userId = (long)session.getAttribute("userId");
+
+        if(userId!=comment.getUserId()){
+            throw new NotValidateUserException();
+        }
 
         //댓글 업데이트
         commentService.updateComment(comment, commentId);
@@ -109,8 +135,8 @@ public class CommentController {
     }
 
     @DeleteMapping("/delete")
-    public String deleteComment(@RequestParam("postId") long postId, @RequestParam("commentId") long commentId, Model model) {
-        long userId = 1;
+    public String deleteComment(@RequestParam("postId") long postId, @RequestParam("commentId") long commentId, Model model, HttpSession session) {
+        long userId = (long)session.getAttribute("userId");;
 
         commentService.deleteComment(commentId);
 
