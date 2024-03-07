@@ -2,6 +2,7 @@ package com.example.doumiproject.service;
 
 import com.example.doumiproject.entity.User;
 import com.example.doumiproject.exception.user.UserDuplicateException;
+import com.example.doumiproject.exception.user.UserLoginFailedException;
 import com.example.doumiproject.repository.UserRepository;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
@@ -57,7 +58,7 @@ public class UserService {
         if (user != null && BCrypt.checkpw(password, user.getPassword())) {
             return user;
         } else {
-            throw new IllegalArgumentException("아이디 또는 비밀번호가 일치하지 않습니다.");
+            throw new UserLoginFailedException();
         }
     }
 }
