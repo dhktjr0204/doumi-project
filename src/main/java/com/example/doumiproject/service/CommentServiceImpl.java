@@ -16,15 +16,9 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     public void saveComment(Comment comment, long userId) {
-        Comment newComment = new Comment(
-                comment.getUserId(),
-                comment.getPostId(),
-                comment.getType(),
-                comment.getContents(),
-                comment.isDisplay(),
-                comment.getParentCommentId());
 
-        commentRepository.saveComment(newComment, userId);
+        commentRepository.saveComment(comment, userId);
+
     }
 
     @Override
@@ -49,15 +43,8 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     public void updateComment(Comment comment, long commentId) {
-        Comment newComment = new Comment(
-                comment.getUserId(),
-                comment.getPostId(),
-                comment.getType(),
-                comment.getContents(),
-                comment.isDisplay(),
-                comment.getParentCommentId());
 
-        commentRepository.updateComment(newComment,commentId);
+        commentRepository.updateComment(comment,commentId);
 
     }
 

@@ -4,23 +4,23 @@ submitButton.addEventListener('click', () => {
     handleSubmit("/codingtest/post");
 });
 
-const editButton=document.querySelector('.edit-button');
-editButton.addEventListener('click',()=>{
+const editButton = document.querySelector('.edit-button');
+editButton.addEventListener('click', () => {
     let postId = document.querySelector('.post-id').value;
-    handleSubmit('/codingtest/edit?id='+postId);
+    handleSubmit('/codingtest/edit?id=' + postId);
 });
 
-function handleSubmit(url){
+function handleSubmit(url) {
     const title = document.querySelector('.title').value.trim();
 
     // 타이틀 또는 coteContent가 비어 있는 경우 알림창을 띄우고 폼을 제출하지 않음
     if (!title && !contentEditor.getMarkdown()) {
         alert('제목과 내용을 작성해주세요.');
         return;
-    }else if(!title){
+    } else if (!title) {
         alert('제목을 입력해주세요.');
         return;
-    }else if(!contentEditor.getMarkdown()){
+    } else if (!contentEditor.getMarkdown()) {
         alert('내용을 입력해주세요.');
         return;
     }
@@ -39,7 +39,14 @@ function handleSubmit(url){
             location.href = redirectUrl;
         },
         error: function (error) {
-            console.error(error);
+            if (error.status === 400) {
+                alert("Bad Request: "+ error.responseText);
+            }else if(error.status===401){
+                alert("Unauthorized: "+error.responseText);
+                location.href="/codingtest/index";
+            }else{
+                alert("error: "+error.responseText);
+            }
         }
     });
 }

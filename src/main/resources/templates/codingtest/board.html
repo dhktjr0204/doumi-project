@@ -9,7 +9,7 @@
 <body>
 <header></header>
 <main class="cont-main">
-    <input class="post-id hidden" th:value="${cote.id}" />
+    <input class="post-id hidden" th:value="${cote.id}"/>
     <input class="type hidden" th:value="${cote.postType}"/>
 
     <section class="content-header">
@@ -20,10 +20,12 @@
                 <a href="" class="board-writer-name" th:value="${cote.userId}" th:text="${cote.author}"></a>
                 <p class="content-createdAt" th:text="${#dates.format(cote.createdAt,'yyyy-MM-dd HH:mm')}"></p>
             </div>
-            <div class="content-edit-container">
-                <button onclick="editContent()">수정</button>
-                <button onclick="deleteContent()">삭제</button>
-            </div>
+            <th:block th:if="${userName} eq ${cote.author}">
+                <div class="content-edit-container">
+                    <button onclick="editContent()">수정</button>
+                    <button onclick="deleteContent()">삭제</button>
+                </div>
+            </th:block>
         </div>
     </section>
     <section class="content-main">
@@ -44,7 +46,7 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script th:src="@{/Js/cote/board.js}"></script>
 <script th:inline="javascript">
-    let coteContent=[[${cote.contents}]];
+    let coteContent = [[${cote.contents}]];
 </script>
 <script th:src="@{/Js/wordCount.js}"></script>
 <script th:inline="javascript" th:src="@{/Js/cote/viewer.js}"></script>
