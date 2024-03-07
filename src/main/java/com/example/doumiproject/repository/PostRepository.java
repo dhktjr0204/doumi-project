@@ -10,7 +10,7 @@ public interface PostRepository {
     public List<PostDto> findAllPost(int page, int pageSize, String type);
     public int getTotalPages(int pageSize, String type);
     public int getTotalPagesForSearch(int pageSize, String keyword, String type);
-    public List<PostDto> findByTitleOrAuthor(String keyword, int page, int pageSize);
+    public List<PostDto> findByTitleOrAuthor(String keyword, String type, int page, int pageSize);
     public List<PostDto> findByTag(String tag, int page, int pageSize);
     public int getTotalPagesForTag(int pageSize, String tag);
 

@@ -22,18 +22,16 @@ public class CoteServiceImpl implements CoteService {
     private final CoteRepository coteRepository;
     private final TagRepository tagRepository;
 
+    private final String type = "COTE";
+
     @Override
     public List<PostDto> getAllCote(int page, int pageSize) {
-
-        String type = "COTE";
 
         return postRepository.findAllPost(page, pageSize, type);
     }
 
     @Override
     public int getTotalPages(int pageSize) {
-
-        String type = "COTE";
 
         return postRepository.getTotalPages(pageSize, type);
     }
@@ -60,15 +58,15 @@ public class CoteServiceImpl implements CoteService {
     }
 
     @Override
-    public int getTotalPages(int pageSize, String keyword) {
+    public int getTotalPagesForSearch(int pageSize, String keyword) {
 
-        return postRepository.getTotalPages(pageSize, keyword);
+        return postRepository.getTotalPagesForSearch(pageSize, keyword, type);
     }
 
     @Override
     public List<PostDto> getSearchCote(String keyword, int page, int pageSize) {
 
-        return postRepository.findByTitleOrAuthor(keyword, page, pageSize);
+        return postRepository.findByTitleOrAuthor(keyword, type, page, pageSize);
     }
 
     @Transactional

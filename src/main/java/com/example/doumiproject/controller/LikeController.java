@@ -2,6 +2,8 @@ package com.example.doumiproject.controller;
 
 import com.example.doumiproject.dto.LikesDto;
 import com.example.doumiproject.service.LikeService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +22,15 @@ public class LikeController {
 
     @ResponseBody
     @GetMapping("")
-    public ResponseEntity<?> getLikeInfo(@RequestParam(value = "user_id") long user_id,
-                                         @RequestParam(value = "post_id") long post_id) {
+    public ResponseEntity<?> getLikeInfo(HttpServletRequest request, @RequestParam(value = "postId") long postId) {
 
         try {
-            boolean exists = likeService.existsByUserIdAndPostId(user_id, post_id);
-            long likeCount = likeService.getCountLike(post_id);
+
+            HttpSession session = request.getSession();
+            long userId = (long) session.getAttribute("userId");
+
+            boolean exists = likeService.existsByUserIdAndPostId(userId, postId);
+            long likeCount = likeService.getCountLike(postId);
 
             LikesDto likesDto = new LikesDto();
             likesDto.setExists(exists);
@@ -40,13 +45,16 @@ public class LikeController {
 
     @ResponseBody
     @GetMapping("/add")
-    public ResponseEntity<?> addLike(@RequestParam(value = "user_id") long user_id,
-                                     @RequestParam(value = "post_id") long post_id,
+    public ResponseEntity<?> addLike(HttpServletRequest request,
+                                     @RequestParam(value = "postId") long postId,
                                      @RequestParam(value = "type") String type) {
 
         try {
-            likeService.addLike(user_id, post_id, type);
-            long likeCount = likeService.getCountLike(post_id);
+            HttpSession session = request.getSession();
+            long userId = (long) session.getAttribute("userId");
+
+            likeService.addLike(userId, postId, type);
+            long likeCount = likeService.getCountLike(postId);
 
             return ResponseEntity.ok(likeCount);
         }catch (Exception e) {
@@ -57,13 +65,16 @@ public class LikeController {
 
     @ResponseBody
     @GetMapping("/cancel")
-    public ResponseEntity<?> cancelLike(@RequestParam(value = "user_id") long user_id,
-                                        @RequestParam(value = "post_id") long post_id,
+    public ResponseEntity<?> cancelLike(HttpServletRequest request,
+                                        @RequestParam(value = "postId") long postId,
                                         @RequestParam(value = "type") String type) {
 
         try {
-            likeService.cancelLike(user_id, post_id, type);
-            long likeCount = likeService.getCountLike(post_id);
+            HttpSession session = request.getSession();
+            long userId = (long) session.getAttribute("userId");
+
+            likeService.cancelLike(userId, postId, type);
+            long likeCount = likeService.getCountLike(postId);
 
             return ResponseEntity.ok(likeCount);
         }catch (Exception e) {

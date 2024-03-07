@@ -12,7 +12,6 @@ public interface CoteRepository {
     void updateCote(CoteRequestDto cote, long postId);
     void deleteCote(long postId);
 
-
     default RowMapper<CoteDto> coteDtoRowMapper() {
 
         return ((rs, rowNum) -> {

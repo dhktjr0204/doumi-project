@@ -44,8 +44,9 @@ class PostRepositoryTest {
     public void findByTitleOrAuthorTest() {
 
         String search = "퀴즈";
+        String type = "QUIZ";
 
-        List<PostDto> quizs = postRepository.findByTitleOrAuthor(search, 3, 10);
+        List<PostDto> quizs = postRepository.findByTitleOrAuthor(search, type, 3, 10);
 
         for(PostDto postDto : quizs) {
             System.out.println(postDto.getId()+" "+postDto.getTitle()+" "+postDto.getContents());
