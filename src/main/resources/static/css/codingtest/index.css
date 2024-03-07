@@ -35,6 +35,10 @@ body {
   background-color: #04B45F;
 }
 
+.cote_question:hover {
+  background-color: #05d380;
+}
+
 
 /*검색창 파트*/
 .search_form {
