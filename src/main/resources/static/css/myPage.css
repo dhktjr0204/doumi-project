@@ -1,0 +1,124 @@
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin-left: 20vw;
+  margin-right: 20vw;
+}
+
+/*myPage_main*/
+.myPage_main {
+  display: flex;
+  margin-top: 7vh;
+  /*border: 1px solid black;*/
+}
+
+.myPage_leftSide {
+  width: 25%;
+  /*border: 1px solid blue;*/
+}
+
+.dot {
+  color: #04B45F;
+}
+
+.mypage_userName, .cote_question, .quiz_question, .comment {
+  padding: 1.0rem 0.75rem;
+}
+
+.cote_question:hover, .quiz_question:hover, .comment:hover {
+  color: #04B45F;
+  font-weight: bold;
+}
+
+/*게시판*/
+.show_user_wrote {
+  padding: 1.0rem 0.75rem;
+  flex-grow: 1;
+}
+
+.table_container {
+  width: 100%;
+  background-color: #f6f6f6;
+  border-radius: 30px;
+  margin: 0;
+}
+
+.quiz_container_header {
+  padding: 20px 30px;
+  display: flex;
+}
+
+.sequence {
+  width: 10%;
+}
+
+.title {
+  width: 40%;
+  /*margin-right: 10px;*/
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.author {
+  width: 20%;
+}
+
+.create_time {
+  width: 20%;
+}
+
+.like {
+  width: 10%;
+}
+
+.quiz_container {
+  display: flex;
+  padding: 20px 30px;
+}
+
+
+/*페이지 이동 바*/
+.page_list {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  gap: 10px;
+}
+
+.page_current, .page_link {
+  font-weight: bold;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+  color: #afafaf;
+  text-align: center;
+  /*padding:1.0em;*/
+  cursor: pointer;
+}
+
+.page_link:hover {
+  background-color: #ece9e9;
+}
+
+.page_current {
+  color: white;
+  background-color: #04B45F;
+}
+
+.page_list a, .page_current a {
+  display: block;
+  /*background-color: #04B45F;*/
+  padding: 1.0em;
+  box-sizing: border-box;
+  width: auto;
+  height: auto;
+}
