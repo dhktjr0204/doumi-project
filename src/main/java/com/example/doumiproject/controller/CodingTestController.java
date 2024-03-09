@@ -142,9 +142,15 @@ public class CodingTestController {
     }
 
     @DeleteMapping("/codingtest/delete")
-    public ResponseEntity<String> deleteCote(@RequestParam("id") long id) {
+    public ResponseEntity<String> deleteCote(@RequestParam("postId") long postId, @RequestParam("userId") long author, HttpSession session) {
 
-        coteService.deleteCote(id);
+        long userId = (long) session.getAttribute("userId");
+
+        if (author != userId) {
+            throw new NotValidateUserException();
+        }
+
+        coteService.deleteCote(postId);
 
         return ResponseEntity.ok("/quiz");
     }

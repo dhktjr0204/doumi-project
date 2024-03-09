@@ -2,6 +2,7 @@ package com.example.doumiproject.validate;
 
 import com.example.doumiproject.dto.CoteRequestDto;
 import com.example.doumiproject.exception.post.EmptyContentException;
+import com.example.doumiproject.exception.post.EmptyTitleException;
 import com.example.doumiproject.exception.post.OverContentLengthLimitException;
 import com.example.doumiproject.exception.post.OverTitleLengthLimitException;
 import org.springframework.validation.Errors;
@@ -22,7 +23,7 @@ public class CoteValidator implements Validator {
         String coteContent=coteRequestDto.getCoteContent();
 
         if(isEmptyTitle(title)){
-            throw new RuntimeException();
+            throw new EmptyTitleException();
         }
         if(isOverTitleLengthLimit(title)) {
             throw new OverTitleLengthLimitException();

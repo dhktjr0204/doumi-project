@@ -131,8 +131,13 @@ public class CommentController {
     }
 
     @DeleteMapping("/delete")
-    public String deleteComment(@RequestParam("postId") long postId, @RequestParam("commentId") long commentId, Model model, HttpSession session) {
+    public String deleteComment(@RequestParam("postId") long postId, @RequestParam("commentId") long commentId, @RequestParam("userId") long author
+            , Model model, HttpSession session) {
         long userId = (long)session.getAttribute("userId");;
+
+        if (author != userId) {
+            throw new NotValidateUserException();
+        }
 
         commentService.deleteComment(commentId);
 

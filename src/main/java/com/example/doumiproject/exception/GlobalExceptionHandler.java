@@ -60,7 +60,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NotValidateUserException.class)
     public ResponseEntity<String> NotValidateUserException(NotValidateUserException ex){
-//        return new ErrorForm("인증되지 않은 사용자입니다.", HttpStatus.UNAUTHORIZED.value());
         return new ResponseEntity<>("인증되지 않은 사용자입니다.",HttpStatus.UNAUTHORIZED);
     }
 
