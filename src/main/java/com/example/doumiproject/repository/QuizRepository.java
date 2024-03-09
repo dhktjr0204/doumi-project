@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface QuizRepository {
     public Optional<QuizDto> getQuizDetails(long post_id, long user_id);
 
-    public QuizDto getByQuizId(long id);
+    public QuizDto findByQuizId(long id);
 
     public Long saveQuiz(QuizRequestDto quiz, long userId);
 
@@ -29,18 +29,6 @@ public interface QuizRepository {
     default RowMapper<QuizDto> quizDtoRowMapper() {
 
         return ((rs, rowNum) -> {
-            QuizDto quizDto = new QuizDto();
-            quizDto.setId(rs.getLong("post_id"));
-            quizDto.setUserId(rs.getLong("user_id"));
-            quizDto.setAuthor(rs.getString("author"));
-            quizDto.setTitle(rs.getString("title"));
-            quizDto.setContents(rs.getString("contents"));
-            quizDto.setPostType(rs.getString("post_type"));
-            quizDto.setCreatedAt(rs.getTimestamp("created_at"));
-            quizDto.setUpdatedAt(rs.getTimestamp("updated_at"));
-            quizDto.setLikeCount(rs.getLong("like_count"));
-            quizDto.setLiked(rs.getString("is_liked").equals("Y") ? true : false);
-            quizDto.setAnswer(rs.getString("answer"));
 
             String tagNames = rs.getString("tag_names");
 
@@ -58,7 +46,19 @@ public interface QuizRepository {
                 }
             }
 
-            quizDto.setTags(tags);
+            QuizDto quizDto = QuizDto.builder()
+                    .id(rs.getLong("post_id"))
+                    .userId(rs.getLong("user_id"))
+                    .author(rs.getString("author"))
+                    .title(rs.getString("title"))
+                    .contents(rs.getString("contents"))
+                    .postType(rs.getString("post_type"))
+                    .createdAt(rs.getTimestamp("created_at"))
+                    .updatedAt(rs.getTimestamp("updated_at"))
+                    .likeCount(rs.getLong("like_count"))
+                    .isLiked(rs.getString("is_liked").equals("Y") ? true : false)
+                    .answer(rs.getString("answer"))
+                    .tags(tags).build();
 
             return quizDto;
         });
@@ -66,9 +66,9 @@ public interface QuizRepository {
 
     default RowMapper<Tag> TagRowMapper() {
         return (rs, rowNum) -> {
-            Tag tag = new Tag();
-            tag.setId(rs.getLong("id"));
-            tag.setName(rs.getString("name"));
+            Tag tag = Tag.builder()
+                    .id(rs.getLong("id"))
+                    .name(rs.getString("name")).build();
             return tag;
         };
     }

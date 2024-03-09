@@ -2,6 +2,7 @@ package com.example.doumiproject.service;
 
 import com.example.doumiproject.dto.CommentDto;
 import com.example.doumiproject.entity.Comment;
+import org.springframework.validation.BindingResult;
 
 import java.util.List;
 

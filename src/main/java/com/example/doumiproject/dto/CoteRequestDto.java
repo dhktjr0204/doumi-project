@@ -1,7 +1,5 @@
 package com.example.doumiproject.dto;
 
-import com.example.doumiproject.exception.post.ContentsLengthException;
-import com.example.doumiproject.exception.post.TitleLengthException;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

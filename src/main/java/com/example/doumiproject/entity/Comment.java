@@ -1,6 +1,5 @@
 package com.example.doumiproject.entity;
 
-import com.example.doumiproject.exception.comment.CommentContentsLengthException;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

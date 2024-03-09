@@ -22,7 +22,7 @@ public class JdbcTemplateCoteRepository implements CoteRepository {
     }
 
     @Override
-    public Optional<CoteDto> getByCoteId(long post_id, long user_id) {
+    public Optional<CoteDto> findByCoteId(long post_id, long user_id) {
         //post의 user_id(squence값)과 user의 user_id(nickname용)이 아주 헷갈린다;
         String sql = "select " +
                 "p.id as post_id, " +

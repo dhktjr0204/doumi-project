@@ -16,16 +16,16 @@ public interface CommentRepository {
 
     default RowMapper<CommentDto> commentRowMapper(){
         return (rs,rowNum)->{
-            CommentDto commentDto = new CommentDto();
-            commentDto.setId(rs.getLong("comment_id"));
-            commentDto.setUserId(rs.getLong("user_id"));
-            commentDto.setAuthor(rs.getString("author"));
-            commentDto.setType(rs.getString("type"));
-            commentDto.setContents(rs.getString("contents"));
-            commentDto.setDisplay(rs.getInt("display"));
-            commentDto.setCreatedAt(rs.getTimestamp("created_at"));
-            commentDto.setLikeCount(rs.getLong("like_count"));
-            commentDto.setLiked(rs.getString("is_liked").equals("Y") ? true : false);
+            CommentDto commentDto = CommentDto.builder()
+                    .id(rs.getLong("comment_id"))
+                    .userId(rs.getLong("user_id"))
+                    .author(rs.getString("author"))
+                    .type(rs.getString("type"))
+                    .contents(rs.getString("contents"))
+                    .display(rs.getInt("display"))
+                    .createdAt(rs.getTimestamp("created_at"))
+                    .likeCount(rs.getLong("like_count"))
+                    .isLiked(rs.getString("is_liked").equals("Y") ? true : false).build();
 
             return commentDto;
         };
@@ -33,16 +33,16 @@ public interface CommentRepository {
 
     default RowMapper<ReCommentDto> reCommentRowMapper(){
         return (rs,rowNum)->{
-            ReCommentDto reCommentDto = new ReCommentDto();
-            reCommentDto.setId(rs.getLong("re_comment_id"));
-            reCommentDto.setUserId(rs.getLong("user_id"));
-            reCommentDto.setAuthor(rs.getString("author"));
-            reCommentDto.setType(rs.getString("type"));
-            reCommentDto.setContents(rs.getString("contents"));
-            reCommentDto.setDisplay(rs.getInt("display"));
-            reCommentDto.setCreatedAt(rs.getTimestamp("created_at"));
-            reCommentDto.setLikeCount(rs.getLong("like_count"));
-            reCommentDto.setLiked(rs.getString("is_liked").equals("Y") ? true : false);
+            ReCommentDto reCommentDto = ReCommentDto.builder()
+                    .id(rs.getLong("re_comment_id"))
+                    .userId(rs.getLong("user_id"))
+                    .author(rs.getString("author"))
+                    .type(rs.getString("type"))
+                    .contents(rs.getString("contents"))
+                    .display(rs.getInt("display"))
+                    .createdAt(rs.getTimestamp("created_at"))
+                    .likeCount(rs.getLong("like_count"))
+                    .isLiked(rs.getString("is_liked").equals("Y") ? true : false).build();
 
             return reCommentDto;
         };

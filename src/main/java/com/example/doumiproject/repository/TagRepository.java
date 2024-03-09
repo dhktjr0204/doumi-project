@@ -15,18 +15,21 @@ public interface TagRepository {
 
     default RowMapper<TagDto> TagRowMapper(){
         return (rs, rowNum)->{
-            TagDto tagDto = new TagDto();
-            tagDto.setType(rs.getString("type"));
             String[] nameStrings=rs.getString("names").split(",");
             String[] idStrings=rs.getString("ids").split(",");
             List<Tag> tags=new ArrayList<>();
             for(int i=0;i<nameStrings.length;i++){
-                Tag tag = new Tag();
-                tag.setName(nameStrings[i]);
-                tag.setId(Long.parseLong(idStrings[i]));
+                Tag tag = Tag.builder()
+                        .name(nameStrings[i])
+                        .id(Long.parseLong(idStrings[i])).build();
                 tags.add(tag);
             }
-            tagDto.setDetailTags(tags);
+
+
+            TagDto tagDto = TagDto.builder()
+                    .type(rs.getString("type"))
+                    .detailTags(tags).build();
+
             return tagDto;
         };
     }

@@ -1,7 +1,10 @@
 package com.example.doumiproject.service;
 
-import com.example.doumiproject.dto.*;
+import com.example.doumiproject.dto.PostDto;
+import com.example.doumiproject.dto.QuizDto;
 import com.example.doumiproject.dto.QuizRequestDto;
+import com.example.doumiproject.dto.TagDto;
+import org.springframework.validation.BindingResult;
 
 import java.util.List;
 

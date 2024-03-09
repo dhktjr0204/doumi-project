@@ -62,9 +62,7 @@ public class CommentController {
     public String addComment(@ModelAttribute("newComment") Comment comment
             ,BindingResult result, Model model,HttpSession session) {
 
-        CommentValidator commentValidator = new CommentValidator();
-        commentValidator.validate(comment, result);
-
+        validateComment(comment, result);
 
         long userId = (long)session.getAttribute("userId");;
 
@@ -105,9 +103,7 @@ public class CommentController {
     public String editComment(@RequestParam("id") long commentId, @ModelAttribute("comment") Comment comment,
                               BindingResult result, Model model,HttpSession session) {
 
-        //댓글 길이 확인
-        CommentValidator commentValidator = new CommentValidator();
-        commentValidator.validate(comment, result);
+        validateComment(comment, result);
 
         long userId = (long)session.getAttribute("userId");
 
@@ -125,7 +121,7 @@ public class CommentController {
         model.addAttribute("comments", comments);
         model.addAttribute("postId", post_id);
 
-        if (comment.getType() == "QUIZ") {
+        if (comment.getType().equals("QUIZ")) {
             model.addAttribute("newComment", new Comment("QUIZ"));
         } else {
             model.addAttribute("newComment", new Comment("COTE"));
@@ -149,6 +145,11 @@ public class CommentController {
 
         return "comment/comment";
 
+    }
+
+    private void validateComment(Comment comment, BindingResult result){
+        CommentValidator commentValidator = new CommentValidator();
+        commentValidator.validate(comment, result);
     }
 
 }

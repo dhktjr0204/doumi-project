@@ -58,7 +58,7 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
     }
 
     @Override
-    public QuizDto getByQuizId(long id) {
+    public QuizDto findByQuizId(long id) {
         //post의 user_id(squence값)과 user의 user_id(nickname용)이 아주 헷갈린다;
         String sql = "select p.id as post_id, p.user_id, p.title, p.contents, p.created_at, a.answer, " +
                 "u.user_id as author " +

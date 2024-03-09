@@ -4,6 +4,7 @@ import com.example.doumiproject.dto.CoteDto;
 import com.example.doumiproject.dto.CoteRequestDto;
 import com.example.doumiproject.dto.PostDto;
 import com.example.doumiproject.dto.TagDto;
+import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
