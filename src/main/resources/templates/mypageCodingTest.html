@@ -1,0 +1,14 @@
+<ul th:fragment="list_of_codingtest" class="list_of_codingtest" th:each="cote:${coteList}">
+  <li class="quiz_container">
+    <div class="sequence" th:text="${cote.id}"></div>
+    <div class="title">
+      <a th:href="@{'/codingtest/board?id=' + ${cote.id}}" th:text="${cote.title}">게시글 제목</a>
+    </div>
+    <div class="author" th:text="${userName}">작성자</div>
+    <div class="create_time" th:text="${#dates.format(cote.createdAt, 'yyyy/MM/dd HH:mm')}">
+      작성일
+    </div>
+    <div class="likes" th:text="${cote.likeCount}"></div>
+  </li>
+</ul>
+

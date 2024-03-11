@@ -20,7 +20,7 @@
       <a href="/user/signup" class="join">회원가입</a>
     </div>
     <div th:if="${userId != null}" class="user_info">
-      <a href="#none"><strong th:text="${userName}">유저 이름</strong>님
+      <a th:href="@{/user/mypage}"><strong th:text="${userName}">유저 이름</strong>님
         안녕하세요!</a>
       <div><a href="/user/logout" class="logout_btn">로그아웃</a></div>
     </div>
