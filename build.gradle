@@ -7,7 +7,7 @@ plugins {
 
 war {
 
-    archiveFileName = "my-web-app.war"
+    archiveFileName = "doumi-web-app.war"
 }
 
 group = 'com.example'
