@@ -32,7 +32,7 @@ jobs:
 
       # (3) Gradle build (Test 제외)
       - name: Build with Gradle
-        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5
+        uses: gradle/actions/setup-gradle@latest
         with:
           arguments: clean build -x test
 
@@ -53,4 +53,5 @@ jobs:
       - name: Copy JAR file to EC2 instance
         run: |
           mkdir -p /path/on/ec2/instance
+          sudo chown ec2-user:ec2-user /path/on/ec2/instance
           aws s3 cp s3://$S3_BUCKET_NAME/doumi-web-app.jar /path/on/ec2/instance/
