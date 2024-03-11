@@ -125,7 +125,7 @@ function deleteContent(){
     if(confirmed) {
         $.ajax({
             type: 'DELETE',
-            url: "/codingtest/delete?id="+postId+"&userId="+userId,
+            url: "/codingtest/delete?postId="+postId+"&userId="+userId,
             contentType: false,
             processData: false,
             success: function (redirectUrl) {

@@ -1,11 +1,13 @@
 package com.example.doumiproject.dto;
 
-import com.example.doumiproject.exception.post.ContentsLengthException;
-import com.example.doumiproject.exception.post.TitleLengthException;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class CoteRequestDto {
     private long userId;

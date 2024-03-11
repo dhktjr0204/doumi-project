@@ -1,17 +1,17 @@
 const submitButton = document.querySelector('.submit-button');
 // 등록 버튼 클릭
 submitButton.addEventListener('click', () => {
-    handleSubmit("/quiz/post");
+    handleSubmit("/quiz/post",'POST');
 });
 
 //수정폼에서 수정 버튼 클릭
 const editButton=document.querySelector('.edit-button');
 editButton.addEventListener('click',()=>{
     let postId = document.querySelector('.post-id').value;
-    handleSubmit('/quiz/edit?id='+postId);
+    handleSubmit('/quiz/edit?id='+postId,'PUT');
 });
 
-function handleSubmit(url){
+function handleSubmit(url, method){
     const title = document.querySelector('.title').value.trim();
     const selectedTags = document.querySelectorAll('.selected-tag');
     const tagValues = Array.from(selectedTags).map(tag => tag.value);
@@ -35,7 +35,7 @@ function handleSubmit(url){
     // 폼 검증 통과 시
     // 폼 데이터를 서버로 전송
     $.ajax({
-        type: 'POST',
+        type: method,
         url: url,
         data: formData,
         contentType: false,

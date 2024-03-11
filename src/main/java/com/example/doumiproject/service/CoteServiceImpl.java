@@ -8,9 +8,11 @@ import com.example.doumiproject.exception.post.NoContentException;
 import com.example.doumiproject.repository.CoteRepository;
 import com.example.doumiproject.repository.PostRepository;
 import com.example.doumiproject.repository.TagRepository;
+import com.example.doumiproject.validate.CoteValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
@@ -39,7 +41,7 @@ public class CoteServiceImpl implements CoteService {
     @Override
     public CoteDto getCote(long postId, long userId) {
 
-        return coteRepository.getByCoteId(postId, userId)
+        return coteRepository.findByCoteId(postId, userId)
                 .orElseThrow(NoContentException::new);
     }
 
@@ -71,7 +73,7 @@ public class CoteServiceImpl implements CoteService {
 
     @Transactional
     @Override
-    public void updateCote(CoteRequestDto cote, Long postId) {;
+    public void updateCote(CoteRequestDto cote, Long postId) {
 
         coteRepository.updateCote(cote, postId);
     }
@@ -81,5 +83,4 @@ public class CoteServiceImpl implements CoteService {
 
         coteRepository.deleteCote(postId);
     }
-
 }

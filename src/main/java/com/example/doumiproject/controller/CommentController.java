@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -62,9 +63,7 @@ public class CommentController {
     public String addComment(@ModelAttribute("newComment") Comment comment
             ,BindingResult result, Model model,HttpSession session) {
 
-        CommentValidator commentValidator = new CommentValidator();
-        commentValidator.validate(comment, result);
-
+        validateComment(comment, result);
 
         long userId = (long)session.getAttribute("userId");;
 
@@ -101,13 +100,11 @@ public class CommentController {
         return "comment/commentEditForm";
     }
 
-    @PostMapping("/edit")
+    @PutMapping("/edit")
     public String editComment(@RequestParam("id") long commentId, @ModelAttribute("comment") Comment comment,
                               BindingResult result, Model model,HttpSession session) {
 
-        //댓글 길이 확인
-        CommentValidator commentValidator = new CommentValidator();
-        commentValidator.validate(comment, result);
+        validateComment(comment, result);
 
         long userId = (long)session.getAttribute("userId");
 
@@ -125,7 +122,9 @@ public class CommentController {
         model.addAttribute("comments", comments);
         model.addAttribute("postId", post_id);
 
-        if (comment.getType() == "QUIZ") {
+        System.out.println(comment.getType());
+
+        if (comment.getType().equals("QUIZ")) {
             model.addAttribute("newComment", new Comment("QUIZ"));
         } else {
             model.addAttribute("newComment", new Comment("COTE"));
@@ -135,8 +134,13 @@ public class CommentController {
     }
 
     @DeleteMapping("/delete")
-    public String deleteComment(@RequestParam("postId") long postId, @RequestParam("commentId") long commentId, Model model, HttpSession session) {
+    public String deleteComment(@RequestParam("postId") long postId, @RequestParam("commentId") long commentId, @RequestParam("userId") long author
+            , Model model, HttpSession session) {
         long userId = (long)session.getAttribute("userId");;
+
+        if (author != userId) {
+            throw new NotValidateUserException();
+        }
 
         commentService.deleteComment(commentId);
 
@@ -149,6 +153,11 @@ public class CommentController {
 
         return "comment/comment";
 
+    }
+
+    private void validateComment(Comment comment, BindingResult result){
+        CommentValidator commentValidator = new CommentValidator();
+        commentValidator.validate(comment, result);
     }
 
 }

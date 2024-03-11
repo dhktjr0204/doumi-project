@@ -4,7 +4,6 @@ import com.example.doumiproject.dto.CommentDto;
 import com.example.doumiproject.dto.CoteDto;
 import com.example.doumiproject.dto.CoteRequestDto;
 import com.example.doumiproject.dto.PostDto;
-import com.example.doumiproject.dto.QuizDto;
 import com.example.doumiproject.entity.Comment;
 import com.example.doumiproject.exception.user.NotValidateUserException;
 import com.example.doumiproject.service.CommentService;
@@ -20,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -101,10 +101,9 @@ public class CodingTestController {
     @PostMapping("/codingtest/post")
     public ResponseEntity<String> postCote(CoteRequestDto cote, BindingResult result, HttpSession session) {
 
-        CoteValidator coteValidator = new CoteValidator();
-        coteValidator.validate(cote, result);
+        validateCote(cote, result);
 
-        long userId=(long) session.getAttribute("userId");
+        long userId = (long) session.getAttribute("userId");
 
         Long postId = coteService.saveCote(cote, userId);
 
@@ -117,7 +116,7 @@ public class CodingTestController {
 
         CoteDto cote = coteService.getCote(id, userId);
 
-        if(userId!=cote.getUserId()){
+        if (userId != cote.getUserId()) {
             return "error/404";
         }
 
@@ -126,28 +125,33 @@ public class CodingTestController {
         return "codingtest/edit";
     }
 
-    @PostMapping("/codingtest/edit")
+    @PutMapping("/codingtest/edit")
     public ResponseEntity<String> updateCote(@RequestParam("id") Long id, CoteRequestDto cote,
-            BindingResult result, HttpSession session) {
+                                             BindingResult result, HttpSession session) {
 
-        CoteValidator coteValidator = new CoteValidator();
-        coteValidator.validate(cote, result);
+        validateCote(cote, result);
 
         long userId = (long) session.getAttribute("userId");
 
         //수정 권한있는 사용자인지 검증 로직 repository에 수정필요
         coteService.updateCote(cote, id);
 
-        if(userId!=cote.getUserId()){
+        if (userId != cote.getUserId()) {
             throw new NotValidateUserException();
         }
         return ResponseEntity.ok("/codingtest/board?id=" + id);
     }
 
     @DeleteMapping("/codingtest/delete")
-    public ResponseEntity<String> deleteCote(@RequestParam("id") long id) {
+    public ResponseEntity<String> deleteCote(@RequestParam("postId") long postId, @RequestParam("userId") long author, HttpSession session) {
 
-        coteService.deleteCote(id);
+        long userId = (long) session.getAttribute("userId");
+
+        if (author != userId) {
+            throw new NotValidateUserException();
+        }
+
+        coteService.deleteCote(postId);
 
         return ResponseEntity.ok("/quiz");
     }
@@ -162,6 +166,11 @@ public class CodingTestController {
         model.addAttribute("startIdx", startIdx);
         model.addAttribute("endIdx", endIdx);
         model.addAttribute("totalPages", totalPages);
+    }
+
+    private void validateCote(CoteRequestDto cote, BindingResult result){
+        CoteValidator coteValidator = new CoteValidator();
+        coteValidator.validate(cote, result);
     }
 
 }

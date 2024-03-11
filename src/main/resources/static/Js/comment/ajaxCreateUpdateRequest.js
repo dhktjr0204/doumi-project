@@ -23,7 +23,8 @@ function  clickDeleteButton(button){
         const postId = document.querySelector('.post-id').value;
         const commentItemContainer = button.closest('.re-comment-item-container') || button.closest('.comment-item-container');
         const commentId = commentItemContainer.querySelector('.comment-id').value;
-        deleteComment(postId, commentId);
+        const userId=commentItemContainer.querySelector('.comment-writer-name').getAttribute("value");
+        deleteComment(postId, commentId,userId);
     }else{
         alert("삭제가 취소 되었습니다.");
     }
@@ -118,7 +119,7 @@ function editComment(commentForm,commentId){
 
     $.ajax({
         url: "/comment/edit?id="+commentId,
-        type: "POST",
+        type: "PUT",
         data: formData,
         processData: false,
         contentType: false,
@@ -131,9 +132,9 @@ function editComment(commentForm,commentId){
     });
 }
 
-function deleteComment(postId, commentId){
+function deleteComment(postId, commentId, userId){
     $.ajax({
-        url: "/comment/delete?postId="+postId+"&commentId="+commentId,
+        url: "/comment/delete?postId="+postId+"&commentId="+commentId+"&userId="+userId,
         type: "DELETE",
         processData: false,
         contentType: false,

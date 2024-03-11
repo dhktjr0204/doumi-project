@@ -1,10 +1,13 @@
 package com.example.doumiproject.entity;
 
-import com.example.doumiproject.exception.comment.CommentContentsLengthException;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Comment {
     private long id;

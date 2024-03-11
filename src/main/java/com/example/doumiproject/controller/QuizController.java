@@ -119,8 +119,7 @@ public class QuizController {
     @PostMapping("/post")
     public ResponseEntity<String> postQuiz(QuizRequestDto quiz, BindingResult result, HttpSession session) {
 
-        QuizValidator quizValidator = new QuizValidator();
-        quizValidator.validate(quiz, result);
+        validateQuiz(quiz, result);
 
         long userId = (long) session.getAttribute("userId");
 
@@ -148,13 +147,11 @@ public class QuizController {
         return "quiz/edit";
     }
 
-    @PostMapping("/edit")
+    @PutMapping("/edit")
     public ResponseEntity<String> updateQuiz(@RequestParam("id") Long id, QuizRequestDto quiz,
                                              BindingResult result, HttpSession session) {
 
-        //퀴즈 길이 유효성 체크
-        QuizValidator quizValidator = new QuizValidator();
-        quizValidator.validate(quiz, result);
+        validateQuiz(quiz, result);
 
         long userId = (long) session.getAttribute("userId");
 
@@ -180,5 +177,10 @@ public class QuizController {
         quizService.deleteQuiz(postId);
 
         return ResponseEntity.ok("/quiz");
+    }
+
+    private void validateQuiz(QuizRequestDto quiz, BindingResult result){
+        QuizValidator quizValidator = new QuizValidator();
+        quizValidator.validate(quiz, result);
     }
 }

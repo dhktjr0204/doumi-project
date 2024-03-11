@@ -2,9 +2,11 @@ package com.example.doumiproject.validate;
 
 
 import com.example.doumiproject.dto.QuizRequestDto;
-import com.example.doumiproject.exception.post.ContentsLengthException;
-import com.example.doumiproject.exception.post.TitleLengthException;
-import com.example.doumiproject.exception.quiz.QuizAnswerLengthException;
+import com.example.doumiproject.exception.post.EmptyContentException;
+import com.example.doumiproject.exception.post.EmptyTitleException;
+import com.example.doumiproject.exception.post.OverContentLengthLimitException;
+import com.example.doumiproject.exception.post.OverTitleLengthLimitException;
+import com.example.doumiproject.exception.quiz.OverAnswerLengthLimitException;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -25,14 +27,40 @@ public class QuizValidator implements Validator {
         String quizContent= quiz.getQuizContent();
         String answerContent=quiz.getAnswerContent();
 
-        if (title.length() == 0 || title.length() > 250) {
-            throw new TitleLengthException();
+        if(isEmptyTitle(title)){
+            throw new EmptyTitleException();
         }
-        if (quizContent.length() == 0 || quizContent.length() > 3000) {
-            throw new ContentsLengthException();
+        if(isOverTitleLengthLimit(title)){
+            throw new OverTitleLengthLimitException();
         }
-        if (answerContent.length() > 3000) {
-            throw new QuizAnswerLengthException();
+        if(isEmptyQuizContent(quizContent)){
+            throw new EmptyContentException();
         }
+        if(isOverQuizContentLengthLimit(quizContent)){
+            throw new OverContentLengthLimitException();
+        }
+        if(isOverAnswerContentLengthLimit(answerContent)){
+            throw new OverAnswerLengthLimitException();
+        }
+    }
+
+    private boolean isEmptyTitle(String title) {
+        return title.isEmpty();
+    }
+
+    private boolean isOverTitleLengthLimit(String title) {
+        return title.length() > 250;
+    }
+
+    private boolean isEmptyQuizContent(String content) {
+        return content.isEmpty();
+    }
+
+    private boolean isOverQuizContentLengthLimit(String content) {
+        return content.length() > 3000;
+    }
+
+    private boolean isOverAnswerContentLengthLimit(String content) {
+        return content.length() > 3000;
     }
 }

@@ -1,18 +1,20 @@
 package com.example.doumiproject.exception;
 
 import com.example.doumiproject.exception.api.PageNegativeValueException;
-import com.example.doumiproject.exception.comment.CommentContentsLengthException;
-import com.example.doumiproject.exception.quiz.QuizAnswerLengthException;
-import com.example.doumiproject.exception.post.ContentsLengthException;
+import com.example.doumiproject.exception.comment.EmptyCommentContentException;
+import com.example.doumiproject.exception.comment.OverCommentLengthLimitException;
+import com.example.doumiproject.exception.post.EmptyContentException;
+import com.example.doumiproject.exception.post.EmptyTitleException;
+import com.example.doumiproject.exception.quiz.OverAnswerLengthLimitException;
+import com.example.doumiproject.exception.post.OverContentLengthLimitException;
 import com.example.doumiproject.exception.post.NoContentException;
-import com.example.doumiproject.exception.post.TitleLengthException;
+import com.example.doumiproject.exception.post.OverTitleLengthLimitException;
 import com.example.doumiproject.exception.user.NotValidateUserException;
 import com.example.doumiproject.exception.user.UserDuplicateException;
 import com.example.doumiproject.exception.user.UserIdMismatchException;
 import com.example.doumiproject.exception.user.UserLoginFailedException;
 import com.example.doumiproject.exception.user.UserPwMismatchException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -58,42 +60,53 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NotValidateUserException.class)
     public ResponseEntity<String> NotValidateUserException(NotValidateUserException ex){
-//        return new ErrorForm("인증되지 않은 사용자입니다.", HttpStatus.UNAUTHORIZED.value());
         return new ResponseEntity<>("인증되지 않은 사용자입니다.",HttpStatus.UNAUTHORIZED);
     }
 
     // User 관련 예외 끝
 
     // Quiz 관련 예외 시작
-    @ExceptionHandler(TitleLengthException.class)
-    public ResponseEntity<String> QuizTitleLengthException(TitleLengthException ex) {
-//        ErrorForm errorForm= new ErrorForm("퀴즈 제목 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST.value());
-        return new ResponseEntity<>("제목 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(EmptyTitleException.class)
+    public ResponseEntity<String> EmptyTitleException(EmptyTitleException ex) {
+        return new ResponseEntity<>("제목이 비어있습니다.", HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(ContentsLengthException.class)
-    public ResponseEntity<String> QuizContentsLengthException(ContentsLengthException ex) {
-//        return new ErrorForm("퀴즈 내용 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST.value());
-        return new ResponseEntity<>("내용 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(EmptyContentException.class)
+    public ResponseEntity<String> EmptyContentException(EmptyContentException ex) {
+        return new ResponseEntity<>("본문이 비어있습니다.", HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(QuizAnswerLengthException.class)
-    public ResponseEntity<String> QuizAnswerLengthException(QuizAnswerLengthException ex) {
-//        return new ErrorForm("퀴즈 정답 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST.value());
-        return new ResponseEntity<>("정답 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(OverTitleLengthLimitException.class)
+    public ResponseEntity<String> OverTitleLengthLimitException(OverTitleLengthLimitException ex) {
+        return new ResponseEntity<>("제목 길이가 최대 길이를 초과하였습니다.", HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(OverContentLengthLimitException.class)
+    public ResponseEntity<String> OverContentLengthLimitException(OverContentLengthLimitException ex) {
+        return new ResponseEntity<>("본문 길이가 최대 길이를 초과하였습니다.", HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(OverAnswerLengthLimitException.class)
+    public ResponseEntity<String> QuizAnswerLengthException(OverAnswerLengthLimitException ex) {
+        return new ResponseEntity<>("정답 길이가 최대 길이를 초과하였습니다.", HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(NoContentException.class)
-    public ResponseEntity<String> QuizNoContentException(NoContentException ex, Model model){
+    public ResponseEntity<String>NoContentException(NoContentException ex, Model model){
         return ResponseEntity.notFound().build();
     }
     // Quiz 관련 예외 끝
 
     //comment 예외
-    @ExceptionHandler(CommentContentsLengthException.class)
-    public ResponseEntity<String> CommentContentsLengthException(CommentContentsLengthException ex){
-//        return new ErrorForm("댓글 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST.value());
-        return new ResponseEntity<>("댓글 길이가 적합하지 않습니다", HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(OverCommentLengthLimitException.class)
+    public ResponseEntity<String> OverCommentLengthLimitException(OverCommentLengthLimitException ex){
+        return new ResponseEntity<>("댓글 길이가 최대 길이를 초과하였습니다.", HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(EmptyCommentContentException.class)
+    public ResponseEntity<String> EmptyCommentContentException(EmptyCommentContentException ex){
+        return new ResponseEntity<>("댓글 내용이 비어있습니다.", HttpStatus.BAD_REQUEST);
+    }
+
 
 }

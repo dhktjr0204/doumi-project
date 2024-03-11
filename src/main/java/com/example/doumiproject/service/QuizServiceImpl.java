@@ -4,10 +4,13 @@ import com.example.doumiproject.dto.*;
 import com.example.doumiproject.dto.QuizRequestDto;
 import com.example.doumiproject.exception.post.NoContentException;
 import com.example.doumiproject.repository.*;
+import com.example.doumiproject.validate.QuizValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 
+import javax.naming.Binding;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -37,7 +40,7 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public QuizDto getQuiz(long postId) {
 
-        return quizRepository.getByQuizId(postId);
+        return quizRepository.findByQuizId(postId);
     }
 
     @Override
@@ -89,7 +92,6 @@ public class QuizServiceImpl implements QuizService {
     @Transactional
     @Override
     public void updateQuiz(QuizRequestDto quiz, Long postId) {
-
         quizRepository.updateQuiz(quiz, postId);
         quizRepository.updateAnswer(quiz, postId);
 
@@ -118,5 +120,4 @@ public class QuizServiceImpl implements QuizService {
 
         return postRepository.findByTag(tag, page, pageSize);
     }
-
 }

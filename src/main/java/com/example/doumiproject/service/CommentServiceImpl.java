@@ -4,8 +4,10 @@ import com.example.doumiproject.dto.CommentDto;
 import com.example.doumiproject.dto.ReCommentDto;
 import com.example.doumiproject.entity.Comment;
 import com.example.doumiproject.repository.CommentRepository;
+import com.example.doumiproject.validate.CommentValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
@@ -54,6 +56,4 @@ public class CommentServiceImpl implements CommentService{
         commentRepository.deleteComment(commentId);
 
     }
-
-
 }
