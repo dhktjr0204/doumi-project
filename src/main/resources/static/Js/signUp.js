@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({//JS객체를 JSON문자열로 변환한다
-        id: id,
+        userId: id,
         password: password,
       })
     })
