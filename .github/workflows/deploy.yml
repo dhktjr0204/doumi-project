@@ -32,7 +32,7 @@ jobs:
 
       # (3) Gradle build (Test 제외)
       - name: Build with Gradle
-        uses: gradle/actions/setup-gradle@latest
+        uses: gradle/actions@3.1.0
         with:
           arguments: clean build -x test
 
