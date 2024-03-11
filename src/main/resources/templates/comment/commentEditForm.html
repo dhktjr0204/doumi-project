@@ -3,6 +3,7 @@
 
     <input type="hidden" th:field="*{postId}"/>
     <input type="hidden" th:field="*{userId}"/>
+    <input type="hidden" th:field="*{type}"/>
 
     <!--  comment.parentCommentId가 0이 아닐 경우일 경우(대댓글일 경우)-->
     <div th:if="*{parentCommentId!=0 or type!='QUIZ' }">

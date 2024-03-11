@@ -147,7 +147,7 @@ public class QuizController {
         return "quiz/edit";
     }
 
-    @PostMapping("/edit")
+    @PutMapping("/edit")
     public ResponseEntity<String> updateQuiz(@RequestParam("id") Long id, QuizRequestDto quiz,
                                              BindingResult result, HttpSession session) {
 

@@ -119,7 +119,7 @@ function editComment(commentForm,commentId){
 
     $.ajax({
         url: "/comment/edit?id="+commentId,
-        type: "POST",
+        type: "PUT",
         data: formData,
         processData: false,
         contentType: false,

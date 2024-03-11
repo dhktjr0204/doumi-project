@@ -1,16 +1,16 @@
 const submitButton = document.querySelector('.submit-button');
 // 등록 버튼 클릭
 submitButton.addEventListener('click', () => {
-    handleSubmit("/codingtest/post");
+    handleSubmit("/codingtest/post",'POST');
 });
 
 const editButton = document.querySelector('.edit-button');
 editButton.addEventListener('click', () => {
     let postId = document.querySelector('.post-id').value;
-    handleSubmit('/codingtest/edit?id=' + postId);
+    handleSubmit('/codingtest/edit?id=' + postId,'PUT');
 });
 
-function handleSubmit(url) {
+function handleSubmit(url,method) {
     const title = document.querySelector('.title').value.trim();
 
     // 타이틀 또는 coteContent가 비어 있는 경우 알림창을 띄우고 폼을 제출하지 않음
@@ -30,7 +30,7 @@ function handleSubmit(url) {
     // 폼 검증 통과 시
     // 폼 데이터를 서버로 전송
     $.ajax({
-        type: 'POST',
+        type: method,
         url: url,
         data: formData,
         contentType: false,

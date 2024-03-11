@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -99,7 +100,7 @@ public class CommentController {
         return "comment/commentEditForm";
     }
 
-    @PostMapping("/edit")
+    @PutMapping("/edit")
     public String editComment(@RequestParam("id") long commentId, @ModelAttribute("comment") Comment comment,
                               BindingResult result, Model model,HttpSession session) {
 
@@ -120,6 +121,8 @@ public class CommentController {
 
         model.addAttribute("comments", comments);
         model.addAttribute("postId", post_id);
+
+        System.out.println(comment.getType());
 
         if (comment.getType().equals("QUIZ")) {
             model.addAttribute("newComment", new Comment("QUIZ"));

@@ -19,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -124,7 +125,7 @@ public class CodingTestController {
         return "codingtest/edit";
     }
 
-    @PostMapping("/codingtest/edit")
+    @PutMapping("/codingtest/edit")
     public ResponseEntity<String> updateCote(@RequestParam("id") Long id, CoteRequestDto cote,
                                              BindingResult result, HttpSession session) {
 
