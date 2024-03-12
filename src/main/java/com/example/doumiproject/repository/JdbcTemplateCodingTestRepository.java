@@ -1,7 +1,7 @@
 package com.example.doumiproject.repository;
 
-import com.example.doumiproject.dto.CoteDto;
-import com.example.doumiproject.dto.CoteRequestDto;
+import com.example.doumiproject.dto.CodingTestDto;
+import com.example.doumiproject.dto.CodingTestRequestDto;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -14,15 +14,15 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Repository
-public class JdbcTemplateCoteRepository implements CoteRepository {
+public class JdbcTemplateCodingTestRepository implements CodingTestRepository {
     private final JdbcTemplate jdbcTemplate;
 
-    public JdbcTemplateCoteRepository(DataSource dataSource) {
+    public JdbcTemplateCodingTestRepository(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     @Override
-    public Optional<CoteDto> findByCoteId(long post_id, long user_id) {
+    public Optional<CodingTestDto> findByCodingTestId(long post_id, long user_id) {
         //post의 user_id(squence값)과 user의 user_id(nickname용)이 아주 헷갈린다;
         String sql = "select " +
                 "p.id as post_id, " +
@@ -43,7 +43,7 @@ public class JdbcTemplateCoteRepository implements CoteRepository {
                 "p.id = ? and p.type='COTE';";
 
         try {
-            return Optional.of(jdbcTemplate.queryForObject(sql, coteDtoRowMapper(), user_id, post_id));
+            return Optional.of(jdbcTemplate.queryForObject(sql, codingTestDtoRowMapper(), user_id, post_id));
         } catch (EmptyResultDataAccessException e) {
             return Optional.empty();
         }
@@ -51,7 +51,7 @@ public class JdbcTemplateCoteRepository implements CoteRepository {
 
 
     @Override
-    public Long saveCote(CoteRequestDto cote, long userId) {
+    public Long saveCodingTest(CodingTestRequestDto cote, long userId) {
         //게시글 저장
         String postSql = "insert into post (user_id, type, title, contents, created_at, updated_at) " +
                 "values (?, ?, ?, ?, ?, ?)";
@@ -63,7 +63,7 @@ public class JdbcTemplateCoteRepository implements CoteRepository {
             ps.setLong(1, userId);
             ps.setString(2, "COTE");
             ps.setString(3, cote.getTitle());
-            ps.setString(4, cote.getCoteContent());
+            ps.setString(4, cote.getCodingTestContent());
             ps.setObject(5, LocalDateTime.now());
             ps.setObject(6, LocalDateTime.now());
             return ps;
@@ -75,18 +75,18 @@ public class JdbcTemplateCoteRepository implements CoteRepository {
     }
 
     @Override
-    public void updateCote(CoteRequestDto cote, long postId) {
+    public void updateCodingTest(CodingTestRequestDto cote, long postId) {
         //로그인 생기면 수정 권한 있는지 확인 로직 where에 추가
         String postSql="update post "+
                 "set title=?, contents=?, updated_at = ? "+
                 "where id = ?";
         jdbcTemplate.update(postSql,
-                cote.getTitle(), cote.getCoteContent(),LocalDateTime.now()
+                cote.getTitle(), cote.getCodingTestContent(),LocalDateTime.now()
                 ,postId);
     }
 
     @Override
-    public void deleteCote(long postId) {
+    public void deleteCodingTest(long postId) {
         String sql="delete from post where id=?";
         jdbcTemplate.update(sql, postId);
     }

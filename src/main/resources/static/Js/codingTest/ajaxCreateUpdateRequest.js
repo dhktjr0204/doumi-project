@@ -26,7 +26,7 @@ function handleSubmit(url,method) {
     }
     // 폼 데이터에 새로 생성된 태그 값들을 추가하는 JavaScript 코드 추가
     const formData = new FormData(document.querySelector('.coteForm'));
-    formData.append('coteContent', contentEditor.getMarkdown());
+    formData.append('codingTestContent', contentEditor.getMarkdown());
     // 폼 검증 통과 시
     // 폼 데이터를 서버로 전송
     $.ajax({

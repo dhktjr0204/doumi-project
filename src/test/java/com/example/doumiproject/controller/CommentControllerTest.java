@@ -142,7 +142,7 @@ class CommentControllerTest {
 
         String expectedMessage = "인증되지 않은 사용자입니다.";
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/comment/edit")
+        mockMvc.perform(MockMvcRequestBuilders.put("/comment/edit")
                         .session(session)
                         .param("id", String.valueOf(commentId))
                         .param("userId", String.valueOf(comment.getUserId()))
