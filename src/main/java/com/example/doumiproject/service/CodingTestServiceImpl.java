@@ -3,7 +3,6 @@ package com.example.doumiproject.service;
 import com.example.doumiproject.dto.CodingTestDto;
 import com.example.doumiproject.dto.CodingTestRequestDto;
 import com.example.doumiproject.dto.PostDto;
-import com.example.doumiproject.dto.TagDto;
 import com.example.doumiproject.exception.post.NoContentException;
 import com.example.doumiproject.repository.CodingTestRepository;
 import com.example.doumiproject.repository.PostRepository;
@@ -20,7 +19,6 @@ public class CodingTestServiceImpl implements CodingTestService {
 
     private final PostRepository postRepository;
     private final CodingTestRepository codingTestRepository;
-    private final TagRepository tagRepository;
 
     private final String type = "COTE";
 

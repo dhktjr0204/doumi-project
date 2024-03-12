@@ -125,6 +125,35 @@ class CommentControllerTest {
     }
 
     @Test
+    @DisplayName("수정 테스트")
+    void editComment() throws Exception {
+        long postId = 1;
+        long commentId = 1;
+
+        Comment comment = Comment.builder()
+                .userId(TEST_USER_ID)
+                .postId(postId)
+                .contents("sample comment")
+                .display(true)
+                .parentCommentId(0)
+                .type("QUIZ")
+                .build();
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/comment/edit")
+                        .session(session)
+                        .param("id", String.valueOf(commentId))
+                        .param("userId", String.valueOf(comment.getUserId()))
+                        .param("postId", String.valueOf(comment.getPostId()))
+                        .param("contents", comment.getContents())
+                        .param("display", String.valueOf(comment.isDisplay()))
+                        .param("parentCommentId", String.valueOf(comment.getParentCommentId()))
+                        .param("type", comment.getType())
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
     @DisplayName("권한이 없는 사용자가 수정 요청했을 때 테스트")
     void editComment_withValidUser() throws Exception {
         long postId = 1;
