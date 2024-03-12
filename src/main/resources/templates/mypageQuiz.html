@@ -1,0 +1,13 @@
+<ul th:fragment="list_of_quiz" class="list_of_quiz" th:each="quiz:${quizList}">
+  <li class="quiz_container">
+    <div class="sequence" th:text="${quiz.id}"></div>
+    <div class="title">
+      <a th:href="@{'/quiz/board?id=' + ${quiz.id}}" th:text="${quiz.title}">게시글 제목</a>
+    </div>
+    <div class="author" th:text="${userName}">작성자</div>
+    <div class="create_time" th:text="${#dates.format(quiz.createdAt, 'yyyy/MM/dd HH:mm')}">
+      작성일
+    </div>
+    <div class="likes" th:text="${quiz.likeCount}"></div>
+  </li>
+</ul>

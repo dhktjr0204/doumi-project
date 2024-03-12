@@ -1,5 +1,7 @@
 package com.example.doumiproject.repository;
 
+import com.example.doumiproject.dto.CommentDto;
+import com.example.doumiproject.dto.PostDto;
 import com.example.doumiproject.entity.User;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -49,15 +51,7 @@ public class JdbcTemplateUserRepository implements UserRepository {
     public User findByUserId(String userId) {
         String sql = "SELECT id,user_id,password FROM user WHERE user_id = ?";
 
-        List<User> users = jdbcTemplate.query(sql, new Object[]{userId}, (rs, rowNum) -> {
-//            User user = new User(rs.getString("user_Id"), rs.getString("password"));
-            User user = new User();
-            user.setId(rs.getLong("id"));
-            user.setUserId(rs.getString("user_Id"));
-            user.setPassword(rs.getString("password"));
-
-            return user;
-        });
+        List<User> users = jdbcTemplate.query(sql, userRowMapper(), userId);
 
         return users.isEmpty() ? null : users.get(0);
     }
@@ -66,4 +60,51 @@ public class JdbcTemplateUserRepository implements UserRepository {
     public List<User> findAllUser() {
         return null;
     }
+
+    @Override
+    public List<PostDto> findAllUserCodingTestPosts(long userId) {
+        String sql = "SELECT * FROM post WHERE user_id = ? AND (type = 'COTE')";
+
+        return jdbcTemplate.query(sql, new Object[]{userId}, (rs, rowNum) -> {
+            return PostDto.builder()
+                .id(rs.getLong("id"))
+                .userId(rs.getString("user_id"))
+                .type(rs.getString("type"))
+                .title(rs.getString("title"))
+                .contents(rs.getString("contents"))
+                .createdAt(rs.getTimestamp("created_at"))
+                .updatedAt(rs.getTimestamp("updated_at"))
+//                .likeCount(rs.getLong("likeCount")) ?????
+                .build();
+        });
+    }
+
+    @Override
+    public List<PostDto> findAllUserQuizPosts(long userId) {
+        String sql = "SELECT * FROM post WHERE user_id = ? AND (type = 'QUIZ')";
+
+        return jdbcTemplate.query(sql, new Object[]{userId}, (rs, rowNum) -> {
+            return PostDto.builder()
+                .id(rs.getLong("id"))
+                .userId(rs.getString("user_id"))
+                .type(rs.getString("type"))
+                .title(rs.getString("title"))
+                .contents(rs.getString("contents"))
+                .createdAt(rs.getTimestamp("created_at"))
+                .updatedAt(rs.getTimestamp("updated_at"))
+//                .likeCount(rs.getLong("likeCount")) ?????
+                .build();
+        });
+    }
+
+    //수정
+    @Override
+    public List<CommentDto> findAllUserCommentPosts(long userId) {
+        String sql = "SELECT user_id,post_id,contents,updated_at FROM comment WHERE user_id = ?";
+
+        return jdbcTemplate.query(sql, new Object[]{userId}, (rs, rowNum) -> {
+            return CommentDto.builder().build();
+        });
+    }
+
 }

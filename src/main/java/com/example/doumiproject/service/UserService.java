@@ -1,9 +1,12 @@
 package com.example.doumiproject.service;
 
+import com.example.doumiproject.dto.CommentDto;
+import com.example.doumiproject.dto.PostDto;
 import com.example.doumiproject.entity.User;
 import com.example.doumiproject.exception.user.UserDuplicateException;
 import com.example.doumiproject.exception.user.UserLoginFailedException;
 import com.example.doumiproject.repository.UserRepository;
+import java.util.List;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -22,33 +25,29 @@ public class UserService {
         //비밀번호 암호화
         String encryptedPassword = BCrypt.hashpw(password, BCrypt.gensalt(10));
 
-//        User user = new User(userId, encryptedPassword);
-        User user = new User();
-        user.setUserId(userId);
-        user.setPassword(encryptedPassword);
+        User user = User.builder()
+            .userId(userId)
+            .password(encryptedPassword)
+            .build();
 
         //중복 회원 검증
-        validateDuplicateUser(user);
+        validateDuplicateUser(userId);
 
         //중복 회원이 아니면 userRepository에 저장한다
         userRepository.save(user);
     }
 
     /*중복 회원 검증*/
-    private void validateDuplicateUser(User user) {
+    private void validateDuplicateUser(String userId) {
         User result;
         try {
-            result = userRepository.findByUserId(user.getUserId());
+            result = userRepository.findByUserId(userId);
         } catch (Exception ex) {
             throw new UserDuplicateException();
         }
         if (result != null) {
             throw new UserDuplicateException();
         }
-//        User result = userRepository.findByUserId(user.getUserId());
-//        if (result != null) {//사용자를 찾았다면, 즉 중복 아이디가 있다면
-//            throw new IllegalStateException("이미 존재하는 아이디입니다.");
-//        }
     }
 
     /*로그인*/
@@ -61,4 +60,20 @@ public class UserService {
             throw new UserLoginFailedException();
         }
     }
+
+    public List<PostDto> getAllUserCodingTestPosts(long userId) {
+        List<PostDto> userCotePosts = userRepository.findAllUserCodingTestPosts(userId);
+        return userCotePosts;
+    }
+
+    public List<PostDto> getAllUserQuizPosts(long userId) {
+        List<PostDto> userQuizPosts = userRepository.findAllUserQuizPosts(userId);
+        return userQuizPosts;
+    }
+
+    public List<CommentDto> getAllUserCommentPosts(long userId) {
+        List<CommentDto> userCommentPosts = userRepository.findAllUserCommentPosts(userId);
+        return userCommentPosts;
+    }
+
 }
