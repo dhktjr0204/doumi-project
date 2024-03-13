@@ -1,6 +1,10 @@
 function clickToGoMyCodingtestPost() {
+  let id = document.getElementById('myPage_userName').getAttribute(
+      'data-userid');
+
   $.ajax({
-    url: "/user/codingtest/post",
+    //JS에 백틱을 써서 템플릿 리터럴을 사용했다
+    url: `/user/${id}/codingtest/posts`,
     type: "GET",
     success: function (data) {
       $('.show_user_wrote .table_container .postList').html(data);
@@ -13,8 +17,11 @@ function clickToGoMyCodingtestPost() {
 }
 
 function clickToGoMyQuizPost() {
+  let id = document.getElementById('myPage_userName').getAttribute(
+      'data-userid');
+
   $.ajax({
-    url: "/user/quiz/post",
+    url: `/user/${id}/quiz/posts`,
     type: "GET",
     success: function (data) {
       $('.show_user_wrote .table_container .postList').html(data);
@@ -27,8 +34,11 @@ function clickToGoMyQuizPost() {
 }
 
 function clickToGoMyCommentPost() {
+  let id = document.getElementById('myPage_userName').getAttribute(
+      'data-userid');
+
   $.ajax({
-    url: "/user/comment/post",
+    url: "/user/${id}/comment/posts",
     type: "GET",
     success: function (data) {
       $('.show_user_wrote .table_container .postList').html(data);

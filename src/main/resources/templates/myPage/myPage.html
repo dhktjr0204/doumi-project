@@ -8,8 +8,6 @@
         type="text/css"/>
   <link href="/css/myPage.css" th:href="@{/css/myPage.css}" rel="stylesheet"
         type="text/css"/>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="../../static/Js/myPage.js" th:src="@{/Js/myPage.js}"></script>
 </head>
 <body>
 
@@ -19,7 +17,7 @@
   <aside class="myPage_leftSide">
 
     <nav>
-      <h2 class="mypage_userName" th:text="${userName}" th:value="${userId}">
+      <h2 id="myPage_userName" th:text="${userName}" th:data-userId="${userId}">
         userIdUnder20character</h2>
       <ul class="user_wrote_list">
         <li class="cote_question">
@@ -47,13 +45,7 @@
         <div class="create_time">작성일</div>
         <div class="like">추천</div>
       </li>
-      <!--            서버로 받은 post 컬렉션에 반복문을돌려 각 게시글에 정보를 테이블 행으로 생성한다-->
-      <!--      <ul class="postList" th:each="cote:${cotes}">-->
       <ul class="postList"></ul>
-      <!--      <div th:replace="~{mypageCodingTest.html::list_of_codingtest}"></div>-->
-      <!--      <div th:replace="~{mypageQuiz.html::list_of_quiz}"></div>-->
-      <!--      <div th:replace="~{mypageComment.html::list_of_comment}"></div>-->
-      <!--      </ul>-->
     </div>
 
     <!--        페이지 링크-->
@@ -80,5 +72,7 @@
   </div>
 
 </main>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../../static/Js/myPage.js" th:src="@{/Js/myPage.js}"></script>
 </body>
 </html>
