@@ -140,14 +140,14 @@ function deleteContent(){
             contentType: false,
             processData: false,
             success: function (redirectUrl) {
-                location.href = redirectUrl;
+                location.replace(redirectUrl);
             },
             error: function (error) {
                 if (error.status === 400) {
                     alert("Bad Request: "+ error.responseText);
                 }else if(error.status===401){
                     alert("Unauthorized: "+error.responseText);
-                    location.href="/quiz";
+                    location.replace("/quiz");
                 }else{
                     alert("error: "+error.responseText);
                 }

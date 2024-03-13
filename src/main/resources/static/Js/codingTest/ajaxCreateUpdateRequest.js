@@ -36,14 +36,14 @@ function handleSubmit(url,method) {
         contentType: false,
         processData: false,
         success: function (redirectUrl) {
-            location.href = redirectUrl;
+            location.replace( redirectUrl);
         },
         error: function (error) {
             if (error.status === 400) {
                 alert("Bad Request: "+ error.responseText);
             }else if(error.status===401){
                 alert("Unauthorized: "+error.responseText);
-                location.href="/codingtest/index";
+                location.replace("/codingtest/index");
             }else{
                 alert("error: "+error.responseText);
             }
@@ -55,5 +55,5 @@ function handleSubmit(url,method) {
 const cancelButton = document.querySelector('.cancel-button');
 cancelButton.addEventListener('click', () => {
     // 취소
-    location.href = '/codingtest/index';
+    location.replace('/codingtest/index');
 });

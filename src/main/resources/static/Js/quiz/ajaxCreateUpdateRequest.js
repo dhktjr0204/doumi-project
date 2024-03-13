@@ -48,7 +48,7 @@ function handleSubmit(url, method){
                 alert("Bad Request: "+ error.responseText);
             }else if(error.status===401){
                 alert("Unauthorized: "+error.responseText);
-                location.href="/quiz";
+                location.replace("/quiz");
             }else{
                 alert("error: "+error.responseText);
             } // 에러 응답 본문을 alert 창에 표시

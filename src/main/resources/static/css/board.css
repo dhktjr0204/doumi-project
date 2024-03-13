@@ -1,18 +1,17 @@
-*{
+main *{
     box-sizing: border-box;
     margin:0;
     padding:0;
     line-height:1.4;
 }
 a{
-    display: inline-block;
     text-decoration:none;
     color: inherit;
 }
 ul, ol{
     list-style: none;
 }
-button{
+main button{
     cursor:pointer;
     padding: 7px 10px;
     background-color: white;
@@ -23,12 +22,12 @@ img{
     width: 100%;
     vertical-align: top;
 }
-p{
+main p{
     font-size: 16px;
     line-height: 200%;
 }
 
-div{
+main div{
     font-size: 16px;
     line-height: 200%;
 }
@@ -36,8 +35,6 @@ div{
 .liked{
     content: url("../images/icon_like_act.png");
 }
-
-
 button:hover, .content-edit-button:hover {
     filter: brightness(90%); // 10% 어둡게
 }
@@ -75,14 +72,18 @@ button:hover, .content-edit-button:hover {
     clip-path:inset(50%);
 }
 
+header{
+    max-width: 900px;
+    margin: 0 auto;
+}
 
 /*main 게시글 본문 내용 파트*/
 .cont-main{
-    max-width: 1100px;
-    margin:0 auto;
+    max-width: 900px;
+    margin: 40px auto 0 auto;
     border-left: 1px solid #C4C4C4;
     border-right: 1px solid #C4C4C4;
-    padding: 40px 40px;
+    padding: 0 40px 40px 40px;
 }
 
 .content-header{
