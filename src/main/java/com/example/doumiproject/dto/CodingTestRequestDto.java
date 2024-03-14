@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CoteRequestDto {
+public class CodingTestRequestDto {
     private long userId;
     private String title; // 질문 제목
-    private String coteContent;
+    private String codingTestContent;
 }

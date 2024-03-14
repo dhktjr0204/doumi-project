@@ -1,18 +1,17 @@
-*{
+main *{
     box-sizing: border-box;
     margin:0;
     padding:0;
     line-height: 1.4;
 }
 a{
-    display: inline-block;
     text-decoration:none;
     color: inherit;
 }
 ul, ol{
     list-style: none;
 }
-button{
+main button{
     cursor:pointer;
     padding: 7px 10px;
     background-color: white;
@@ -21,7 +20,8 @@ button{
     font-size: 16px;
 }
 
-button:hover{
+
+main button:hover{
     filter: brightness(90%); // 10% 어둡게
 }
 
@@ -29,7 +29,7 @@ img{
     width: 100%;
     vertical-align: top;
 }
-p{
+main p{
     font-size: 16px;
     line-height: 200%;
 }
@@ -42,11 +42,16 @@ textarea{
     padding: 10px 10px;
     overflow-y: hidden;
 }
+
+header{
+    max-width: 900px;
+    margin: 0 auto;
+}
 /*css common*/
 
 /*form title 부분*/
 .cont-main{
-    max-width: 1100px;
+    max-width: 900px;
     margin:0 auto;
     padding: 40px 40px 0 40px;
 }

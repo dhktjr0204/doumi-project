@@ -74,7 +74,7 @@ class QuizControllerTest {
                 .tags("1,2,3,4")
                 .build();
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/quiz/edit")
+        mockMvc.perform(MockMvcRequestBuilders.put("/quiz/edit")
                         .session(session)
                         .param("id", String.valueOf(quizId))
                         .param("userId", Integer.toString((int) quizRequestDto.getUserId()))
@@ -88,7 +88,7 @@ class QuizControllerTest {
     }
 
     @Test
-    @DisplayName("권한이 없는 유저가 업데이트 요청했을 때 테스트")
+    @DisplayName("권한이 없는 유저가 수정 요청했을 때 테스트")
     void editQuiz_withValidUser() throws Exception {
         long quizId = 1;
         long userId = 2;
@@ -103,7 +103,7 @@ class QuizControllerTest {
 
         String expectedMessage = "인증되지 않은 사용자입니다.";
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/quiz/edit")
+        mockMvc.perform(MockMvcRequestBuilders.put("/quiz/edit")
                         .session(session)
                         .param("id", String.valueOf(quizId))
                         .param("userId", Integer.toString((int) quizRequestDto.getUserId()))

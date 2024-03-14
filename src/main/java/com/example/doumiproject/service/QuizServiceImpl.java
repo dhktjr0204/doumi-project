@@ -25,7 +25,7 @@ public class QuizServiceImpl implements QuizService {
 
     private String type = "QUIZ";
 
-    @Override
+
     public List<PostDto> getAllQuiz(int page, int pageSize) {
 
         return postRepository.findAllPost(page, pageSize, type);

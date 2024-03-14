@@ -1,21 +1,21 @@
 package com.example.doumiproject.repository;
 
-import com.example.doumiproject.dto.CoteDto;
-import com.example.doumiproject.dto.CoteRequestDto;
+import com.example.doumiproject.dto.CodingTestDto;
+import com.example.doumiproject.dto.CodingTestRequestDto;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.util.Optional;
 
-public interface CoteRepository {
-    public Optional<CoteDto> findByCoteId(long post_id, long user_id);
-    public Long saveCote(CoteRequestDto cote, long userId);
-    void updateCote(CoteRequestDto cote, long postId);
-    void deleteCote(long postId);
+public interface CodingTestRepository {
+    public Optional<CodingTestDto> findByCodingTestId(long post_id, long user_id);
+    public Long saveCodingTest(CodingTestRequestDto cote, long userId);
+    void updateCodingTest(CodingTestRequestDto cote, long postId);
+    void deleteCodingTest(long postId);
 
-    default RowMapper<CoteDto> coteDtoRowMapper() {
+    default RowMapper<CodingTestDto> codingTestDtoRowMapper() {
 
         return ((rs, rowNum) -> {
-            CoteDto coteDto= CoteDto.builder()
+            CodingTestDto codingTestDto = CodingTestDto.builder()
                     .id(rs.getLong("post_id"))
                     .userId(rs.getLong("user_id"))
                     .author(rs.getString("author"))
@@ -26,7 +26,7 @@ public interface CoteRepository {
                     .updatedAt(rs.getTimestamp("updated_at"))
                     .likeCount(rs.getLong("like_count"))
                     .isLiked(rs.getString("is_liked").equals("Y") ? true : false).build();
-            return coteDto;
+            return codingTestDto;
         });
     }
 }

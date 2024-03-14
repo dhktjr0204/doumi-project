@@ -1,8 +1,8 @@
 package com.example.doumiproject.controller;
 
-import com.example.doumiproject.dto.CoteRequestDto;
+import com.example.doumiproject.dto.CodingTestRequestDto;
 import com.example.doumiproject.service.CommentService;
-import com.example.doumiproject.service.CoteService;
+import com.example.doumiproject.service.CodingTestService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,7 @@ class CodingTestControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private CoteService coteService;
+    private CodingTestService codingTestService;
     @MockBean
     private CommentService commentService;
 
@@ -41,17 +41,17 @@ class CodingTestControllerTest {
     @Test
     @DisplayName("저장 테스트")
     void postCote() throws Exception {
-        CoteRequestDto coteRequestDto = CoteRequestDto.builder()
+        CodingTestRequestDto codingTestRequestDto = CodingTestRequestDto.builder()
                 .userId(TEST_USER_ID)
                 .title("Sample Title")
-                .coteContent("Sample coteContent")
+                .codingTestContent("Sample coteContent")
                 .build();
 
         mockMvc.perform(MockMvcRequestBuilders.post("/codingtest/post")
                         .session(session)
-                        .param("userId", Long.toString(coteRequestDto.getUserId()))
-                        .param("title", coteRequestDto.getTitle())
-                        .param("coteContent", coteRequestDto.getCoteContent())
+                        .param("userId", Long.toString(codingTestRequestDto.getUserId()))
+                        .param("title", codingTestRequestDto.getTitle())
+                        .param("codingTestContent", codingTestRequestDto.getCodingTestContent())
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().isOk());
@@ -62,18 +62,18 @@ class CodingTestControllerTest {
     void editCote() throws Exception {
         long postId=1;
 
-        CoteRequestDto coteRequestDto = CoteRequestDto.builder()
+        CodingTestRequestDto codingTestRequestDto = CodingTestRequestDto.builder()
                 .userId(TEST_USER_ID)
                 .title("Sample Title")
-                .coteContent("Sample coteContent")
+                .codingTestContent("Sample coteContent")
                 .build();
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/codingtest/edit")
+        mockMvc.perform(MockMvcRequestBuilders.put("/codingtest/edit")
                         .session(session)
                         .param("id", String.valueOf(postId))
-                        .param("userId", Long.toString(coteRequestDto.getUserId()))
-                        .param("title", coteRequestDto.getTitle())
-                        .param("coteContent", coteRequestDto.getCoteContent())
+                        .param("userId", Long.toString(codingTestRequestDto.getUserId()))
+                        .param("title", codingTestRequestDto.getTitle())
+                        .param("codingTestContent", codingTestRequestDto.getCodingTestContent())
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().isOk());
@@ -85,18 +85,18 @@ class CodingTestControllerTest {
         long postId=1;
         long userId=2;
 
-        CoteRequestDto coteRequestDto = CoteRequestDto.builder()
+        CodingTestRequestDto codingTestRequestDto = CodingTestRequestDto.builder()
                 .userId(userId)
                 .title("Sample Title")
-                .coteContent("Sample coteContent")
+                .codingTestContent("Sample coteContent")
                 .build();
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/codingtest/edit")
+        mockMvc.perform(MockMvcRequestBuilders.put("/codingtest/edit")
                         .session(session)
                         .param("id", String.valueOf(postId))
-                        .param("userId", Long.toString(coteRequestDto.getUserId()))
-                        .param("title", coteRequestDto.getTitle())
-                        .param("coteContent", coteRequestDto.getCoteContent())
+                        .param("userId", Long.toString(codingTestRequestDto.getUserId()))
+                        .param("title", codingTestRequestDto.getTitle())
+                        .param("codingTestContent", codingTestRequestDto.getCodingTestContent())
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().isUnauthorized());
@@ -135,19 +135,19 @@ class CodingTestControllerTest {
     @Test
     @DisplayName("title이 250자 초과하였을 때 테스트")
     void postCote_withValidTitleLength() throws Exception {
-        CoteRequestDto coteRequestDto = CoteRequestDto.builder()
+        CodingTestRequestDto codingTestRequestDto = CodingTestRequestDto.builder()
                 .userId(TEST_USER_ID)
                 .title("Sample TitleSample TitleSample".repeat(10))
-                .coteContent("Sample coteContent")
+                .codingTestContent("Sample coteContent")
                 .build();
 
         String expectedMessage="제목 길이가 최대 길이를 초과하였습니다.";
 
         mockMvc.perform(MockMvcRequestBuilders.post("/codingtest/post")
                         .session(session)
-                        .param("userId", Long.toString(coteRequestDto.getUserId()))
-                        .param("title", coteRequestDto.getTitle())
-                        .param("coteContent", coteRequestDto.getCoteContent())
+                        .param("userId", Long.toString(codingTestRequestDto.getUserId()))
+                        .param("title", codingTestRequestDto.getTitle())
+                        .param("codingTestContent", codingTestRequestDto.getCodingTestContent())
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
@@ -157,19 +157,19 @@ class CodingTestControllerTest {
     @Test
     @DisplayName("title이 빈칸일 때 테스트")
     void postCote_withValidEmptyTitle() throws Exception {
-        CoteRequestDto coteRequestDto = CoteRequestDto.builder()
+        CodingTestRequestDto codingTestRequestDto = CodingTestRequestDto.builder()
                 .userId(TEST_USER_ID)
                 .title("")
-                .coteContent("Sample coteContent")
+                .codingTestContent("Sample coteContent")
                 .build();
 
         String expectedMessage="제목이 비어있습니다.";
 
         mockMvc.perform(MockMvcRequestBuilders.post("/codingtest/post")
                         .session(session)
-                        .param("userId", Long.toString(coteRequestDto.getUserId()))
-                        .param("title", coteRequestDto.getTitle())
-                        .param("coteContent", coteRequestDto.getCoteContent())
+                        .param("userId", Long.toString(codingTestRequestDto.getUserId()))
+                        .param("title", codingTestRequestDto.getTitle())
+                        .param("codingTestContent", codingTestRequestDto.getCodingTestContent())
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
@@ -179,19 +179,19 @@ class CodingTestControllerTest {
     @Test
     @DisplayName("contents가 3000자 초과하였을 때 테스트")
     void postCote_withValidContentLength() throws Exception {
-        CoteRequestDto coteRequestDto = CoteRequestDto.builder()
+        CodingTestRequestDto codingTestRequestDto = CodingTestRequestDto.builder()
                 .userId(TEST_USER_ID)
                 .title("Sample Title")
-                .coteContent("Sample coteContentSample coteContentSample coteContentSample coteContentSample coteContentSample coteContent".repeat(40))
+                .codingTestContent("Sample coteContentSample coteContentSample coteContentSample coteContentSample coteContentSample coteContent".repeat(40))
                 .build();
 
         String expectedMessage="본문 길이가 최대 길이를 초과하였습니다.";
 
         mockMvc.perform(MockMvcRequestBuilders.post("/codingtest/post")
                         .session(session)
-                        .param("userId", Long.toString(coteRequestDto.getUserId()))
-                        .param("title", coteRequestDto.getTitle())
-                        .param("coteContent", coteRequestDto.getCoteContent())
+                        .param("userId", Long.toString(codingTestRequestDto.getUserId()))
+                        .param("title", codingTestRequestDto.getTitle())
+                        .param("codingTestContent", codingTestRequestDto.getCodingTestContent())
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
@@ -201,19 +201,19 @@ class CodingTestControllerTest {
     @Test
     @DisplayName("contents가 빈칸일 때 테스트")
     void postCote_withValidEmptyContents() throws Exception {
-        CoteRequestDto coteRequestDto = CoteRequestDto.builder()
+        CodingTestRequestDto codingTestRequestDto = CodingTestRequestDto.builder()
                 .userId(TEST_USER_ID)
                 .title("Sample Title")
-                .coteContent("")
+                .codingTestContent("")
                 .build();
 
         String expectedMessage="본문이 비어있습니다.";
 
         mockMvc.perform(MockMvcRequestBuilders.post("/codingtest/post")
                         .session(session)
-                        .param("userId", Long.toString(coteRequestDto.getUserId()))
-                        .param("title", coteRequestDto.getTitle())
-                        .param("coteContent", coteRequestDto.getCoteContent())
+                        .param("userId", Long.toString(codingTestRequestDto.getUserId()))
+                        .param("title", codingTestRequestDto.getTitle())
+                        .param("codingTestContent", codingTestRequestDto.getCodingTestContent())
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())

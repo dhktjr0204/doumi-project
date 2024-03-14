@@ -40,7 +40,7 @@ public class JdbcTemplateCommentRepository implements CommentRepository {
                 "inner join user u on u.id = c.user_id " +
                 "where c.post_id = ? " +
                 "and c.parent_comment_id = 0 " +
-                "order by like_count DESC ";
+                "order by like_count DESC, c.created_at DESC";
         return jdbcTemplate.query(sql, commentRowMapper(), userId, postId);
     }
 

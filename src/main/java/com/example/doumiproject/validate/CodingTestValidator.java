@@ -1,6 +1,6 @@
 package com.example.doumiproject.validate;
 
-import com.example.doumiproject.dto.CoteRequestDto;
+import com.example.doumiproject.dto.CodingTestRequestDto;
 import com.example.doumiproject.exception.post.EmptyContentException;
 import com.example.doumiproject.exception.post.EmptyTitleException;
 import com.example.doumiproject.exception.post.OverContentLengthLimitException;
@@ -8,19 +8,19 @@ import com.example.doumiproject.exception.post.OverTitleLengthLimitException;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-public class CoteValidator implements Validator {
+public class CodingTestValidator implements Validator {
     @Override
     public boolean supports(Class<?> clazz) {
 
-        return CoteRequestDto.class.isAssignableFrom(clazz);
+        return CodingTestRequestDto.class.isAssignableFrom(clazz);
 
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        CoteRequestDto coteRequestDto=(CoteRequestDto) target;
-        String title=coteRequestDto.getTitle();
-        String coteContent=coteRequestDto.getCoteContent();
+        CodingTestRequestDto codingTestRequestDto =(CodingTestRequestDto) target;
+        String title= codingTestRequestDto.getTitle();
+        String coteContent= codingTestRequestDto.getCodingTestContent();
 
         if(isEmptyTitle(title)){
             throw new EmptyTitleException();
@@ -29,10 +29,10 @@ public class CoteValidator implements Validator {
             throw new OverTitleLengthLimitException();
         }
 
-        if(isEmptyCoteContent(coteContent)){
+        if(isEmptyCodingTestContent(coteContent)){
             throw new EmptyContentException();
         }
-        if (isOverCoteContentLengthLimit(coteContent)) {
+        if (isOverCodingTestContentLengthLimit(coteContent)) {
             throw new OverContentLengthLimitException();
         }
     }
@@ -45,11 +45,11 @@ public class CoteValidator implements Validator {
         return title.length() > 250;
     }
 
-    private boolean isEmptyCoteContent(String content) {
+    private boolean isEmptyCodingTestContent(String content) {
         return content.isEmpty();
     }
 
-    private boolean isOverCoteContentLengthLimit(String content) {
+    private boolean isOverCodingTestContentLengthLimit(String content) {
         return content.length() > 3000;
     }
 }

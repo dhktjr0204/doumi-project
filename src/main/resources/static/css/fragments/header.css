@@ -4,7 +4,7 @@
   width: 100%;
 }
 
-h1 {
+.logo {
   white-space: nowrap; /*h1 내용이 줄바꿈되지 않도록 설정*/
   flex-shrink: 0; /*h1 크리가 축소되지 않도록 설정*/
 }

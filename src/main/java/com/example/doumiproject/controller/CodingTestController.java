@@ -1,15 +1,15 @@
 package com.example.doumiproject.controller;
 
 import com.example.doumiproject.dto.CommentDto;
-import com.example.doumiproject.dto.CoteDto;
-import com.example.doumiproject.dto.CoteRequestDto;
+import com.example.doumiproject.dto.CodingTestDto;
+import com.example.doumiproject.dto.CodingTestRequestDto;
 import com.example.doumiproject.dto.PostDto;
 import com.example.doumiproject.entity.Comment;
 import com.example.doumiproject.exception.user.NotValidateUserException;
 import com.example.doumiproject.service.CommentService;
-import com.example.doumiproject.service.CoteService;
+import com.example.doumiproject.service.CodingTestService;
 import com.example.doumiproject.util.PaginationUtil;
-import com.example.doumiproject.validate.CoteValidator;
+import com.example.doumiproject.validate.CodingTestValidator;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +28,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CodingTestController {
 
-    private final CoteService coteService;
+    private final CodingTestService codingTestService;
     private final CommentService commentService;
 
     private int pageSize = 10;
@@ -46,7 +46,7 @@ public class CodingTestController {
         }
 
         setPaginationAttributes(model, page,
-                coteService.getTotalPages(pageSize), coteService.getAllCote(page, pageSize));
+                codingTestService.getTotalPages(pageSize), codingTestService.getAllCodingTest(page, pageSize));
 
         return "codingtest/index";
     }
@@ -60,7 +60,7 @@ public class CodingTestController {
         }
 
         setPaginationAttributes(model, page,
-                coteService.getTotalPagesForSearch(pageSize, keyword), coteService.getSearchCote(keyword, page, pageSize));
+                codingTestService.getTotalPagesForSearch(pageSize, keyword), codingTestService.getSearchCodingTest(keyword, page, pageSize));
         model.addAttribute("keyword", keyword);
 
         return "codingtest/search";
@@ -72,7 +72,7 @@ public class CodingTestController {
         long userId = (long) session.getAttribute("userId");
 
         //글의 상세 정보 가져오기
-        CoteDto cote = coteService.getCote(id, userId);
+        CodingTestDto cote = codingTestService.getCodingTest(id, userId);
         //글에 연결된 댓글들 가져오기
         List<CommentDto> comments = commentService.getAllComments(id, userId);
 
@@ -91,30 +91,30 @@ public class CodingTestController {
     }
 
     @GetMapping("/codingtest/post")
-    public String createCote(Model model) {
+    public String createCodingTest(Model model) {
 
-        model.addAttribute("cote", new CoteRequestDto());
+        model.addAttribute("cote", new CodingTestRequestDto());
 
         return "codingtest/form";
     }
 
     @PostMapping("/codingtest/post")
-    public ResponseEntity<String> postCote(CoteRequestDto cote, BindingResult result, HttpSession session) {
+    public ResponseEntity<String> postCodingTest(CodingTestRequestDto cote, BindingResult result, HttpSession session) {
 
-        validateCote(cote, result);
+        validateCodingTest(cote, result);
 
         long userId = (long) session.getAttribute("userId");
 
-        Long postId = coteService.saveCote(cote, userId);
+        Long postId = codingTestService.saveCodingTest(cote, userId);
 
         return ResponseEntity.ok("/codingtest/board?id=" + postId);
     }
 
     @GetMapping("/codingtest/edit")
-    public String editCote(@RequestParam("id") Long id, Model model, HttpSession session) {
+    public String editCodingTest(@RequestParam("id") Long id, Model model, HttpSession session) {
         long userId = (long) session.getAttribute("userId");
 
-        CoteDto cote = coteService.getCote(id, userId);
+        CodingTestDto cote = codingTestService.getCodingTest(id, userId);
 
         if (userId != cote.getUserId()) {
             return "error/404";
@@ -126,15 +126,15 @@ public class CodingTestController {
     }
 
     @PutMapping("/codingtest/edit")
-    public ResponseEntity<String> updateCote(@RequestParam("id") Long id, CoteRequestDto cote,
-                                             BindingResult result, HttpSession session) {
+    public ResponseEntity<String> updateCodingTest(@RequestParam("id") Long id, CodingTestRequestDto cote,
+                                                   BindingResult result, HttpSession session) {
 
-        validateCote(cote, result);
+        validateCodingTest(cote, result);
 
         long userId = (long) session.getAttribute("userId");
 
         //수정 권한있는 사용자인지 검증 로직 repository에 수정필요
-        coteService.updateCote(cote, id);
+        codingTestService.updateCodingTest(cote, id);
 
         if (userId != cote.getUserId()) {
             throw new NotValidateUserException();
@@ -143,7 +143,7 @@ public class CodingTestController {
     }
 
     @DeleteMapping("/codingtest/delete")
-    public ResponseEntity<String> deleteCote(@RequestParam("postId") long postId, @RequestParam("userId") long author, HttpSession session) {
+    public ResponseEntity<String> deleteCodingTest(@RequestParam("postId") long postId, @RequestParam("userId") long author, HttpSession session) {
 
         long userId = (long) session.getAttribute("userId");
 
@@ -151,7 +151,7 @@ public class CodingTestController {
             throw new NotValidateUserException();
         }
 
-        coteService.deleteCote(postId);
+        codingTestService.deleteCodingTest(postId);
 
         return ResponseEntity.ok("/quiz");
     }
@@ -168,9 +168,9 @@ public class CodingTestController {
         model.addAttribute("totalPages", totalPages);
     }
 
-    private void validateCote(CoteRequestDto cote, BindingResult result){
-        CoteValidator coteValidator = new CoteValidator();
-        coteValidator.validate(cote, result);
+    private void validateCodingTest(CodingTestRequestDto cote, BindingResult result){
+        CodingTestValidator codingTestValidator = new CodingTestValidator();
+        codingTestValidator.validate(cote, result);
     }
 
 }
