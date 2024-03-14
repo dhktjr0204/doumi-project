@@ -6,6 +6,7 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>DoumiQuizMain</title>
+  <link href="../../static/css/fragments/footer.css" th:href="@{/css/fragments/footer.css}" rel="stylesheet" type="text/css"/>
   <link href="../../static/css/fragments/header.css" th:href="@{/css/fragments/header.css}"
         rel="stylesheet"
         type="text/css"/>
@@ -80,9 +81,9 @@
     </ul>
   </nav>
 </main>
-<footer>
 
-</footer>
+<div th:replace="~{fragments/footer.html::footer}"></div>
+
 <script>
   // 비회원은 퀴즈 출제하기와 게시판의 게시글 제목을 클릭시 로그인이 필요합니다! 알람이 뜬다
   // const selectors = ['.quiz_question', '.title a'];

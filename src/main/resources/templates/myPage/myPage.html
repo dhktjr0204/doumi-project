@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>MyPage</title>
+  <link href="../../static/css/fragments/footer.css" th:href="@{/css/fragments/footer.css}" rel="stylesheet" type="text/css"/>
   <link href="/css/fragments/header.css" th:href="@{/css/fragments/header.css}"
         rel="stylesheet"
         type="text/css"/>
@@ -48,6 +49,9 @@
   </div>
 
 </main>
+
+<div th:replace="~{fragments/footer.html::footer}"></div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="../../static/Js/myPage.js" th:src="@{/Js/myPage.js}"></script>
 </body>

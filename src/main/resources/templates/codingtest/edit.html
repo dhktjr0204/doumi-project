@@ -2,12 +2,14 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>퀴즈 수정</title>
+    <title>코딩테스트 질문글 수정</title>
+    <link href="../../static/css/fragments/footer.css" th:href="@{/css/fragments/footer.css}" rel="stylesheet" type="text/css"/>
     <link href="../../static/css/form.css" th:href="@{/css/form.css}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/>
     <link href="../../static/css/fragments/header.css" th:href="@{/css/fragments/header.css}"
           rel="stylesheet"
           type="text/css"/>
+    <link href="../../static/css/codingtest/header.css" th:href="@{/css/codingtest/header.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div th:replace="~{fragments/header.html::header}"></div>
@@ -18,10 +20,11 @@
         <input class="user-id hidden" th:field="*{userId}"/>
 
         <div class="title-container">
-            <textarea class="title" placeholder="퀴즈 제목을 작성해주세요." rows="1" onkeyup="autoResize(this)"
-                      onkeydown="autoResize(this)" th:field="*{title}"></textarea>
+            <textarea class="title" placeholder="질문 제목을 작성해주세요."
+                      rows="1" th:field="*{title}"></textarea>
             <div class="title-text-count"></div>
         </div>
+
         <div class="input-container">
             <div class="quiz-container">
                 <div class="quiz-text-count"></div>
@@ -35,7 +38,8 @@
         </div>
     </form>
 </main>
-<footer></footer>
+
+<div th:replace="~{fragments/footer.html::footer}"></div>
 
 <script th:inline="javascript">
     let coteContent=[[${cote.contents}]];

@@ -50,7 +50,7 @@
         <input type="hidden" class="type" th:value="${comment.type}"/>
         <div class="comment-item-header">
             <div class="comment-info">
-                <a href="" class="comment-writer-name" th:value="${comment.userId}" th:text="${comment.author}"></a>
+                <span class="comment-writer-name" th:value="${comment.userId}" th:text="${comment.author}"></span>
                 <p class="comment-createdAt" th:text="${#dates.format(comment.createdAt,'yyyy-MM-dd HH:mm')}"></p>
             </div>
             <th:block th:if="${userName} eq ${comment.author}">
@@ -117,8 +117,8 @@
                 <input type="hidden" class="type" th:value="${reComment.type}"/>
                 <div class="comment-item-header">
                     <div class="comment-info">
-                        <a href="" class="comment-writer-name" th:value="${reComment.userId}"
-                           th:text="${reComment.author}"></a>
+                        <span class="comment-writer-name" th:value="${reComment.userId}"
+                           th:text="${reComment.author}"></span>
                         <p class="comment-createdAt"
                            th:text="${#dates.format(reComment.createdAt,'yyyy-MM-dd HH:mm')}"></p>
                     </div>

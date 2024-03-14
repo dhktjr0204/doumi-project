@@ -67,7 +67,7 @@ public class CodingTestController {
     }
 
     @GetMapping("/codingtest/board")
-    public String getCoteDetail(@RequestParam("id") Long id, Model model, HttpSession session) {
+    public String getCodingTestDetail(@RequestParam("id") Long id, Model model, HttpSession session) {
 
         long userId = (long) session.getAttribute("userId");
 

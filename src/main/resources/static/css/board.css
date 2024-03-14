@@ -72,7 +72,7 @@ button:hover, .content-edit-button:hover {
     clip-path:inset(50%);
 }
 
-header{
+.box-header{
     max-width: 900px;
     margin: 0 auto;
 }

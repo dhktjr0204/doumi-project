@@ -1,0 +1,41 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    width: 100%;
+}
+
+footer{
+    width: 100%;
+    padding: 100px 0 40px 0;
+}
+
+.footer-wrapper{
+    display: flex;
+    justify-content: space-between;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.boot-camp-info{
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.footer-img{
+    width: 40px;
+}
+
+.helper{
+    gap: 15px;
+}
