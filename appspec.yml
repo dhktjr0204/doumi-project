@@ -3,12 +3,14 @@ os: linux
 
 files:
   - source:  /
-    destination: /home/ubuntu/app
+    destination: /home/ubuntu/doumi-bucket-deploy
     overwrite: yes
 
 permissions:
   - object: /
     pattern: "**"
+    owner: ec2-user
+    group: ec2-user
 
 hooks:
   AfterInstall:
@@ -18,3 +20,4 @@ hooks:
   ApplicationStart:
     - location: scripts/start.sh
       timeout: 60
+      runas: ec2-user
