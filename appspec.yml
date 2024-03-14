@@ -9,8 +9,6 @@ files:
 permissions:
   - object: /
     pattern: "**"
-    owner: ubuntu
-    group: ubuntu
 
 hooks:
   AfterInstall:
@@ -20,4 +18,3 @@ hooks:
   ApplicationStart:
     - location: scripts/start.sh
       timeout: 60
-      runas: ubuntu
