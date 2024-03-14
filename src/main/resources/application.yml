@@ -1,6 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:mysql://${{ secrets.DATABASE_URL }}:3306/doumi_webservice
-    username: ${{ secrets.DATABASE_ID }}
-    password: ${{ secrets.DATABASE_PW }}
-    driver-class-name: org.mariadb.jdbc.Driver
