@@ -1,3 +1,11 @@
+<li class="quiz_container_header">
+  <div class="sequence">번호</div>
+  <div class="title">제목</div>
+  <div class="author">작성자</div>
+  <div class="create_time">작성일</div>
+  <div class="like">추천</div>
+</li>
+
 <ul th:fragment="list_of_quiz" class="list_of_quiz" th:each="quiz:${quizList}">
   <li class="quiz_container">
     <div class="sequence" th:text="${quiz.id}"></div>

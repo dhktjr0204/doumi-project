@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>MyPage</title>
+  <link href="/css/fragments/header.css" th:href="@{/css/fragments/header.css}"
+        rel="stylesheet"
+        type="text/css"/>
+  <link href="/css/myPage.css" th:href="@{/css/myPage.css}" rel="stylesheet"
+        type="text/css"/>
+</head>
+<body>
+
+<div th:replace="~{fragments/header.html::header}"></div>
+
+<main class="myPage_main">
+  <aside class="myPage_leftSide">
+
+    <nav>
+      <h2 id="myPage_userName" th:text="${userName}" th:data-userId="${userId}">
+        userIdUnder20character</h2>
+      <ul class="user_wrote_list">
+        <li class="cote_question">
+          <span class="dot">•</span>
+          <span class="cote_type" id="coteType"
+                onclick="clickToGoMyCodingtestPost()">코딩 테스트 질문</span>
+        </li>
+        <li class="quiz_question">
+          <span class="dot">•</span>
+          <span class="quiz_type" id="quizType" onclick="clickToGoMyQuizPost()">퀴즈 게시물</span>
+        </li>
+        <li class="comment">
+          <span class="dot">•</span>
+          <span class="comment_type" id="commentType" onclick="clickToGoMyCommentPost()">댓글</span>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+  <!--  기존에 있던 container 재활용-->
+  <div class="show_user_wrote">
+    <div class="table_container">
+      <ul class="postList"></ul>
+    </div>
+
+    <!--    <div th:replace="~{myPage/quizPagenation.html::page_info}"></div>-->
+    <!--    페이지 링크-->
+
+  </div>
+
+</main>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../../static/Js/myPage.js" th:src="@{/Js/myPage.js}"></script>
+</body>
+</html>
