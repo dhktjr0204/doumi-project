@@ -22,15 +22,16 @@
       <ul class="user_wrote_list">
         <li class="cote_question">
           <span class="dot">•</span>
-          <span class="cote_type" onclick="clickToGoMyCodingtestPost()">코딩 테스트 질문</span>
+          <span class="cote_type" id="coteType"
+                onclick="clickToGoMyCodingtestPost()">코딩 테스트 질문</span>
         </li>
         <li class="quiz_question">
           <span class="dot">•</span>
-          <span class="quiz_type" onclick="clickToGoMyQuizPost()">퀴즈 게시물</span>
+          <span class="quiz_type" id="quizType" onclick="clickToGoMyQuizPost()">퀴즈 게시물</span>
         </li>
         <li class="comment">
           <span class="dot">•</span>
-          <span class="comment_type" onclick="clickToGoMyCommentPost()">댓글</span>
+          <span class="comment_type" id="commentType" onclick="clickToGoMyCommentPost()">댓글</span>
         </li>
       </ul>
     </nav>
@@ -38,13 +39,6 @@
   <!--  기존에 있던 container 재활용-->
   <div class="show_user_wrote">
     <div class="table_container">
-      <!--      <li class="quiz_container_header">-->
-      <!--        <div class="sequence">번호</div>-->
-      <!--        <div class="title">제목</div>-->
-      <!--        <div class="author">작성자</div>-->
-      <!--        <div class="create_time">작성일</div>-->
-      <!--        <div class="like">추천</div>-->
-      <!--      </li>-->
       <ul class="postList"></ul>
     </div>
 

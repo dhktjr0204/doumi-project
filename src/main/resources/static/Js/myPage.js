@@ -1,7 +1,7 @@
 function clickToGoMyCodingtestPost() {
   let id = document.getElementById('myPage_userName').getAttribute(
       'data-userid');
-
+  switchHighlight('coteType');
   $.ajax({
     //JS에 백틱을 써서 템플릿 리터럴을 사용했다
     url: `/user/${id}/codingtest/posts`,
@@ -19,7 +19,7 @@ function clickToGoMyCodingtestPost() {
 function clickToGoMyQuizPost() {
   let id = document.getElementById('myPage_userName').getAttribute(
       'data-userid');
-
+  switchHighlight('quizType');
   $.ajax({
     url: `/user/${id}/quiz/posts`,
     type: "GET",
@@ -36,7 +36,7 @@ function clickToGoMyQuizPost() {
 function clickToGoMyCommentPost() {
   let id = document.getElementById('myPage_userName').getAttribute(
       'data-userid');
-
+  switchHighlight('commentType');
   $.ajax({
     url: `/user/${id}/comment/posts`,
     type: "GET",
@@ -48,4 +48,14 @@ function clickToGoMyCommentPost() {
       console.log(error);
     }
   });
+}
+
+function switchHighlight(selectedId) {
+  let items = ['coteType', 'quizType', 'commentType'];
+
+  items.forEach(function (id) {
+    document.getElementById(id).style.color = ''; // 원래 색상으로 초기화
+  });
+  
+  document.getElementById(selectedId).style.color = '#04B45F';
 }
