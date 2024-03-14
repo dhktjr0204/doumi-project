@@ -11,6 +11,10 @@ env:
   CODE_DEPLOY_APPLICATION_NAME: codedeploy
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: doumi-codedeploy-deployment-group
 
+  DATABASE_URL: ${{ secrets.DB_URL }}
+  DATABASE_USERNAME: ${{ secrets.DB_USERNAME }}
+  DATABASE_PASSWORD: ${{ secrets.DB_PASSWORD }}
+
 permissions:
   contents: read
 
@@ -30,15 +34,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-
-      - name: make application.yml
-        if: |
-          contains(github.ref, 'develop')
-        run: |
-          cd ./src/main/resources 
-          touch ./application.yml 
-          echo "${{ secrets.YML }}" > ./application.yml
-        shell: bash
 
       - name: Build with Gradle
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5
