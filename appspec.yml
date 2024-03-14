@@ -9,6 +9,9 @@ files:
 permissions:
   - object: /
     pattern: "**"
+    owner: ec2-user
+    group: ec2-user
+    mode: 755
 
 hooks:
   AfterInstall:
@@ -18,3 +21,4 @@ hooks:
   ApplicationStart:
     - location: scripts/start.sh
       timeout: 60
+      runas: ec2-user
