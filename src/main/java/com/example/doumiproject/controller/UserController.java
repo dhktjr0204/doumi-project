@@ -1,10 +1,13 @@
 package com.example.doumiproject.controller;
 
-import com.example.doumiproject.dto.CommentDto;
 import com.example.doumiproject.dto.PostDto;
+import com.example.doumiproject.entity.Comment;
 import com.example.doumiproject.entity.User;
+import com.example.doumiproject.repository.JdbcTemplatePostRepository;
+import com.example.doumiproject.service.QuizService;
 import com.example.doumiproject.service.UserService;
 
+import com.example.doumiproject.util.PaginationUtil;
 import com.example.doumiproject.validate.UserValidator;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -17,16 +20,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
 
     private final UserService userService;
+    private final JdbcTemplatePostRepository jdbcTemplatePostRepository;
 
-    public UserController(UserService userService) {
+
+    public UserController(UserService userService,
+        JdbcTemplatePostRepository jdbcTemplatePostRepository) {
         this.userService = userService;
+        this.jdbcTemplatePostRepository = jdbcTemplatePostRepository;
     }
 
     @PostMapping("/user/signup")
@@ -71,42 +80,42 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("/user/mypage")
-    public String myPage(HttpSession session, Model model) {
+    @GetMapping("/user/{userId}/mypage")
+    public String myPage(@PathVariable("userId") Long userId, HttpSession session, Model model) {
 
-        return "mypage";
+        return "myPage/myPage";
     }
 
-    @GetMapping("/user/codingtest/post")
-    public String getCodingTestPost(Model model, HttpSession session) {
-        long userId = (long) session.getAttribute("userId");
+    @GetMapping("/user/{userId}/codingtest/posts")
+    public String getCodingTestPost(@PathVariable("userId") Long userId, Model model,
+        HttpSession session) {
 
-        List<PostDto> userCoteList = userService.getAllUserCodingTestPosts(userId);
+        List<PostDto> userCoteList = jdbcTemplatePostRepository.findAllUserCodingTestPosts(userId);
 
         model.addAttribute("coteList", userCoteList);
 
-        return "mypageCodingTest";
+        return "myPage/myPageCodingTest";
     }
 
-    @GetMapping("/user/quiz/post")
-    public String getQuizPost(Model model, HttpSession session) {
-        long userId = (long) session.getAttribute("userId");
+    @GetMapping("/user/{userId}/quiz/posts")
+    public String getQuizPost(@PathVariable("userId") Long userId, Model model,
+        HttpSession session) {
 
-        List<PostDto> userQuizList = userService.getAllUserQuizPosts(userId);
+        List<PostDto> userQuizList = jdbcTemplatePostRepository.findAllUserQuizPosts(userId);
 
         model.addAttribute("quizList", userQuizList);
 
-        return "mypageQuiz";
+        return "myPage/myPageQuiz";
     }
 
-    @GetMapping("/user/comment/post")
-    public String getCommentPost(Model model, HttpSession session) {
-        long userId = (long) session.getAttribute("userId");
+    @GetMapping("/user/{userId}/comment/posts")
+    public String getCommentPost(@PathVariable("userId") Long userId, Model model,
+        HttpSession session) {
 
-        List<CommentDto> userCommentList = userService.getAllUserCommentPosts(userId);
+        List<Comment> userCommentList = userService.getAllUserCommentPosts(userId);
 
         model.addAttribute("commentList", userCommentList);
 
-        return "mypageComment";
+        return "myPage/myPageComment";
     }
 }

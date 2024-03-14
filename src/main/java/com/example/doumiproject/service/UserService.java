@@ -2,6 +2,7 @@ package com.example.doumiproject.service;
 
 import com.example.doumiproject.dto.CommentDto;
 import com.example.doumiproject.dto.PostDto;
+import com.example.doumiproject.entity.Comment;
 import com.example.doumiproject.entity.User;
 import com.example.doumiproject.exception.user.UserDuplicateException;
 import com.example.doumiproject.exception.user.UserLoginFailedException;
@@ -61,18 +62,8 @@ public class UserService {
         }
     }
 
-    public List<PostDto> getAllUserCodingTestPosts(long userId) {
-        List<PostDto> userCotePosts = userRepository.findAllUserCodingTestPosts(userId);
-        return userCotePosts;
-    }
-
-    public List<PostDto> getAllUserQuizPosts(long userId) {
-        List<PostDto> userQuizPosts = userRepository.findAllUserQuizPosts(userId);
-        return userQuizPosts;
-    }
-
-    public List<CommentDto> getAllUserCommentPosts(long userId) {
-        List<CommentDto> userCommentPosts = userRepository.findAllUserCommentPosts(userId);
+    public List<Comment> getAllUserCommentPosts(Long userId) {
+        List<Comment> userCommentPosts = userRepository.findAllUserCommentPosts(userId);
         return userCommentPosts;
     }
 

@@ -24,7 +24,6 @@ public class UserValidator implements Validator {
 
         isNull(user);
         isMatch(user);
-
     }
 
     private void isNull(User user) {
@@ -38,13 +37,16 @@ public class UserValidator implements Validator {
     }
 
     private void isMatch(User user) {
-        //!를 안쓰긴 했는데 ==로 검증해도 되나요?
-        if (Pattern.matches(ID_REGEEXP, user.getUserId()) == false) {
+        if (!isPatternMatch(ID_REGEEXP, user.getUserId())) {
             throw new UserIdMismatchException();
         }
 
-        if (Pattern.matches(PW_REGEXP, user.getPassword()) == false) {
+        if (!isPatternMatch(PW_REGEXP, user.getPassword())) {
             throw new UserPwMismatchException();
         }
+    }
+
+    private boolean isPatternMatch(String regex, String input) {
+        return Pattern.matches(regex, input);
     }
 }

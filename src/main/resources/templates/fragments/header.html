@@ -14,7 +14,8 @@
       </div>
       <div class="navbar-right">
         <div th:if="${userId != null}" class="user_info">
-          <div><a th:href="@{/user/mypage}"><strong th:text="${userName}">유저
+          <div><a th:href="@{/user/{userId}/mypage(userId =${userId})}"><strong
+              th:text="${userName}">유저
             이름</strong>님
             안녕하세요!</a></div>
           <div><a href="/user/logout" class="logout_btn">로그아웃</a></div>
