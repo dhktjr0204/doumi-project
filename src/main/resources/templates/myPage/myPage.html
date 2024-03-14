@@ -38,37 +38,19 @@
   <!--  기존에 있던 container 재활용-->
   <div class="show_user_wrote">
     <div class="table_container">
-      <li class="quiz_container_header">
-        <div class="sequence">번호</div>
-        <div class="title">제목</div>
-        <div class="author">작성자</div>
-        <div class="create_time">작성일</div>
-        <div class="like">추천</div>
-      </li>
+      <!--      <li class="quiz_container_header">-->
+      <!--        <div class="sequence">번호</div>-->
+      <!--        <div class="title">제목</div>-->
+      <!--        <div class="author">작성자</div>-->
+      <!--        <div class="create_time">작성일</div>-->
+      <!--        <div class="like">추천</div>-->
+      <!--      </li>-->
       <ul class="postList"></ul>
     </div>
 
-    <!--        페이지 링크-->
-    <!--    <nav class="page">-->
-    <!--      <ul class="page_list" th:unless="${quizs.isEmpty()}">-->
-    <!--        <li class="page_link" th:unless="${startIdx == 1}">-->
-    <!--          <a th:href="@{/quiz?page=1}">처음</a>-->
-    <!--        </li>-->
-    <!--        <li class="page_link" th:unless="${startIdx == 1}">-->
-    <!--          <a th:href="@{/quiz(page = ${startIdx - 1})}"><<</a>-->
-    <!--        </li>-->
-    <!--        <li th:each="page : ${#numbers.sequence(startIdx, endIdx)}"-->
-    <!--            th:class="${page == currentPage} ? 'page_current' : 'page_link'">-->
-    <!--          <a th:href="@{/quiz(page = ${page})}" th:text="${page}"></a>-->
-    <!--        </li>-->
-    <!--        <li class="page_link" th:unless="${endIdx == totalPages}">-->
-    <!--          <a th:href="@{/quiz(page = ${endIdx + 1})}">>></a>-->
-    <!--        </li>-->
-    <!--        <li class="page_link" th:unless="${endIdx == totalPages}">-->
-    <!--          <a th:href="@{/quiz(page = ${totalPages})}">마지막</a>-->
-    <!--        </li>-->
-    <!--      </ul>-->
-    <!--    </nav>-->
+    <!--    <div th:replace="~{myPage/quizPagenation.html::page_info}"></div>-->
+    <!--    페이지 링크-->
+
   </div>
 
 </main>

@@ -38,7 +38,7 @@ function clickToGoMyCommentPost() {
       'data-userid');
 
   $.ajax({
-    url: "/user/${id}/comment/posts",
+    url: `/user/${id}/comment/posts`,
     type: "GET",
     success: function (data) {
       $('.show_user_wrote .table_container .postList').html(data);

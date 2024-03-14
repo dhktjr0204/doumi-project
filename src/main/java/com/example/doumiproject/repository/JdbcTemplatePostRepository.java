@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Repository
-public class JdbcTemplatePostRepository implements PostRepository{
+public class JdbcTemplatePostRepository implements PostRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -24,26 +24,27 @@ public class JdbcTemplatePostRepository implements PostRepository{
         int offset = (page - 1) * pageSize;
 
         String sql = "select p.id," +
-                "u.user_id as author," +
-                "p.type, p.title, p.contents, p.created_at," +
-                "p.updated_at, " +
-                "(select count(*) from likes where post_id = p.id and type = 'POST') as like_count " +
-                "from post p " +
-                "inner join " +
-                "user u on p.user_id = u.id " +
-                "where p.type = ? " +
-                "order by " +
-                "p.id desc " +
-                "limit ? offset ?";
+            "u.user_id as author," +
+            "p.type, p.title, p.contents, p.created_at," +
+            "p.updated_at, " +
+            "(select count(*) from likes where post_id = p.id and type = 'POST') as like_count " +
+            "from post p " +
+            "inner join " +
+            "user u on p.user_id = u.id " +
+            "where p.type = ? " +
+            "order by " +
+            "p.id desc " +
+            "limit ? offset ?";
 
         return jdbcTemplate.query(sql, postDtoRowMapper(), type, pageSize, offset);
     }
+
     @Override
     public int getTotalPages(int pageSize, String type) {
 
         String sql = "select ceil(count(*) / ?) as totalPages " +
-                "from post " +
-                "where type = ?";
+            "from post " +
+            "where type = ?";
 
         return jdbcTemplate.queryForObject(sql, Integer.class, pageSize, type);
     }
@@ -51,23 +52,23 @@ public class JdbcTemplatePostRepository implements PostRepository{
     @Override
     public List<PostDto> findByTitleOrAuthor(String keyword, String type, int page, int pageSize) {
 
-        String param = "%"+keyword+"%";
+        String param = "%" + keyword + "%";
         int offset = (page - 1) * pageSize;
 
         String sql = "select p.id," +
-                "u.user_id as author," +
-                "p.type, p.title, p.contents, p.created_at," +
-                "p.updated_at, " +
-                "(select count(*) from likes where post_id = p.id and type = 'POST') as like_count " +
-                "from post p " +
-                "inner join " +
-                "user u on p.user_id = u.id " +
-                "where " +
-                "(p.type = ?) and" +
-                "(p.title like ? or u.user_id like ? )" +
-                "order by " +
-                "p.id desc "+
-                "limit ? offset ?";
+            "u.user_id as author," +
+            "p.type, p.title, p.contents, p.created_at," +
+            "p.updated_at, " +
+            "(select count(*) from likes where post_id = p.id and type = 'POST') as like_count " +
+            "from post p " +
+            "inner join " +
+            "user u on p.user_id = u.id " +
+            "where " +
+            "(p.type = ?) and" +
+            "(p.title like ? or u.user_id like ? )" +
+            "order by " +
+            "p.id desc " +
+            "limit ? offset ?";
 
         return jdbcTemplate.query(sql, postDtoRowMapper(), type, param, param, pageSize, offset);
     }
@@ -81,16 +82,16 @@ public class JdbcTemplatePostRepository implements PostRepository{
         int offset = (page - 1) * pageSize;
 
         String sql = "select p.id, p.title, p.user_id as author, p.contents, p.created_at, " +
-                "(select count(*) from likes where post_id = p.id and type = 'POST') as like_count " +
-                "from post p " +
-                "left join " +
-                "quiztag qt on p.id = qt.post_id " +
-                "left join " +
-                "tag t on qt.tag_id = t.id " +
-                "where " +
-                "p.type = ? AND " + sqlSelector +
-                "order by p.id desc " +
-                "limit ? offset ?";
+            "(select count(*) from likes where post_id = p.id and type = 'POST') as like_count " +
+            "from post p " +
+            "left join " +
+            "quiztag qt on p.id = qt.post_id " +
+            "left join " +
+            "tag t on qt.tag_id = t.id " +
+            "where " +
+            "p.type = ? AND " + sqlSelector +
+            "order by p.id desc " +
+            "limit ? offset ?";
 
         return jdbcTemplate.query(sql, postDtoRowMapper(), type, tag, pageSize, offset);
     }
@@ -102,14 +103,14 @@ public class JdbcTemplatePostRepository implements PostRepository{
         String sqlSelector = isTagType(tag) ? "t.type = ? " : "t.name = ? ";
 
         String sql = "select ceil(count(*) / ?) " +
-                "from post p " +
-                "left join " +
-                "quiztag qt on p.id = qt.post_id " +
-                "left join " +
-                "tag t on qt.tag_id = t.id " +
-                "where " +
-                "p.type = ? AND " +
-                sqlSelector;
+            "from post p " +
+            "left join " +
+            "quiztag qt on p.id = qt.post_id " +
+            "left join " +
+            "tag t on qt.tag_id = t.id " +
+            "where " +
+            "p.type = ? AND " +
+            sqlSelector;
 
         return jdbcTemplate.queryForObject(sql, Integer.class, pageSize, type, tag);
     }
@@ -123,16 +124,42 @@ public class JdbcTemplatePostRepository implements PostRepository{
     @Override
     public int getTotalPagesForSearch(int pageSize, String keyword, String type) {
 
-        String param = "%"+keyword+"%";
+        String param = "%" + keyword + "%";
 
         String sql = "select ceil(count(*) / ?) " +
-                "from post p " +
-                "inner join " +
-                "user u on p.user_id = u.id " +
-                "where " +
-                "(p.type = ?) and " +
-                "(p.title like ? or u.user_id like ? )";
+            "from post p " +
+            "inner join " +
+            "user u on p.user_id = u.id " +
+            "where " +
+            "(p.type = ?) and " +
+            "(p.title like ? or u.user_id like ? )";
 
         return jdbcTemplate.queryForObject(sql, Integer.class, pageSize, type, param, param);
+    }
+
+    @Override
+    public List<PostDto> findAllUserCodingTestPosts(Long userId) {
+        String sql =
+            "SELECT p.id, p.user_id AS author, p.title, p.contents, p.created_at, p.type, COUNT(l.id) AS like_count "
+                + "FROM post p "
+                + "LEFT JOIN likes l "
+                + "ON p.id = l.post_id "
+                + "WHERE p.user_id = ? AND p.type = 'COTE' "
+                + "GROUP BY p.id "
+                + "ORDER BY p.created_at DESC";
+        return jdbcTemplate.query(sql, postDtoRowMapper(), userId);
+    }
+
+    @Override
+    public List<PostDto> findAllUserQuizPosts(Long userId) {
+        String sql =
+            "SELECT p.id, p.user_id AS author, p.title, p.contents, p.created_at, p.type, COUNT(l.id) AS like_count "
+                + "FROM post p "
+                + "LEFT JOIN likes l "
+                + "ON p.id = l.post_id "
+                + "WHERE p.user_id = ? AND p.type = 'QUIZ' "
+                + "GROUP BY p.id "
+                + "ORDER BY p.created_at DESC";
+        return jdbcTemplate.query(sql, postDtoRowMapper(), userId);
     }
 }

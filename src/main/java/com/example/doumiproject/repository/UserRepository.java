@@ -2,6 +2,7 @@ package com.example.doumiproject.repository;
 
 import com.example.doumiproject.dto.CommentDto;
 import com.example.doumiproject.dto.PostDto;
+import com.example.doumiproject.entity.Comment;
 import com.example.doumiproject.entity.User;
 
 import java.util.List;
@@ -15,11 +16,7 @@ public interface UserRepository {
 
     List<User> findAllUser(); //모든 회원 리스트를 반환하는 기능
 
-    List<PostDto> findAllUserCodingTestPosts(long userId);
-
-    List<PostDto> findAllUserQuizPosts(long userId);
-
-    List<CommentDto> findAllUserCommentPosts(long userId);
+    List<Comment> findAllUserCommentPosts(Long userId);
 
     default RowMapper<User> userRowMapper() {
         return ((rs, rowNum) -> {

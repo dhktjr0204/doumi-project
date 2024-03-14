@@ -1,14 +1,23 @@
+<li class="quiz_container_header">
+  <div class="sequence">번호</div>
+  <div class="contents">댓글 내용</div>
+  <div class="author">작성자</div>
+  <div class="update_time">최근 수정일</div>
+</li>
+
 <ul th:fragment="list_of_comment" class="list_of_comment" th:each="comment:${commentList}">
-  <li class="post_container">
-    <div class="sequence" th:text="${comment.id}"></div>
-    <div class="title">
+  <li class="quiz_container">
+    <div class="sequence" th:text="${comment.postId}"></div>
+    <div class="contents">
       <!--      -->
-      <a th:href="@{'/quiz/board?id=' + ${comment.id}}" th:text="${comment.title}">게시글 제목</a>
+      <a th:if="${comment.type eq 'QUIZ'}" th:href="@{'/quiz/board?id=' + ${comment.postId}}"
+         th:text="${comment.contents}">댓글 내용</a>
+      <a th:if="${comment.type eq 'COTE'}" th:href="@{'/codingtest/board?id=' + ${comment.postId}}"
+         th:text="${comment.contents}">댓글 내용</a>
     </div>
     <div class="author" th:text="${userName}">작성자</div>
-    <div class="create_time" th:text="${#dates.format(comment.createdAt, 'yyyy/MM/dd HH:mm')}">
-      작성일
+    <div class="update_time" th:text="${#dates.format(comment.updatedAt, 'yyyy/MM/dd HH:mm')}">
+      최근 수정일
     </div>
-    <div class="likes" th:text="${comment.likeCount}"></div>
   </li>
 </ul>
