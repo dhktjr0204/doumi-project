@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 
@@ -22,31 +23,15 @@ public class FileController{
 
     private final FileService fileService;
 
-    @PostMapping("/board/file")
+    @PostMapping("/image-upload")
     public String fileWrite(@RequestBody MultipartFile file) throws IOException {
 
-        FileDto fileDto = fileService.fileWrite(file);
-
-        return fileDto.getFileName();
+        return fileService.fileWrite(file);
     }
 
     @GetMapping("/image-print")
-    public byte[] printEditorImage(String fileName) {
+    public byte[] printEditorImage(String fileName) throws FileNotFoundException {
 
-        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\quiz";
-
-        File uploadedFile = new File(path+'\\'+fileName);
-
-        if (uploadedFile.exists() == false) {
-            throw new RuntimeException();
-        }
-
-        try {
-            byte[] imageBytes = Files.readAllBytes(uploadedFile.toPath());
-            return imageBytes;
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        return fileService.fileLoad(fileName);
     }
 }

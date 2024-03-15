@@ -1,34 +1,65 @@
 package com.example.doumiproject.service;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.amazonaws.util.IOUtils;
 import com.example.doumiproject.dto.FileDto;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.UUID;
 
 @Service
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class FileServiceImpl implements FileService{
-
-    private FileDto fileDto;
+    private final AmazonS3 amazonS3;
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucket;
     @Override
-    public FileDto fileWrite(MultipartFile file) throws IOException {
-
-        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\quiz";
+    public String fileWrite(MultipartFile file) throws IOException {
 
         UUID uuid = UUID.randomUUID();
 
-        String fileName = uuid + "_" + file.getOriginalFilename();
+        String directory = "images/";
 
-        File savefile = new File(path, fileName);
+        String fileName = directory + uuid + "_" + file.getOriginalFilename();
 
-        file.transferTo(savefile);
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentLength(file.getSize());
+        metadata.setContentType(file.getContentType());
 
-        fileDto = new FileDto("id", fileName, "");
+        amazonS3.putObject(bucket, fileName, file.getInputStream(), metadata);
 
-        return fileDto;
+        return fileName;
+    }
+
+    @Override
+    public byte[] fileLoad(String fileName) throws FileNotFoundException {
+
+        if(isNotExist(fileName)) {
+            throw new FileNotFoundException();
+        }
+
+        S3Object s3Object = amazonS3.getObject(bucket, fileName);
+        S3ObjectInputStream s3ObjectInputStream = s3Object.getObjectContent();
+
+        try {
+            return IOUtils.toByteArray(s3ObjectInputStream);
+        }catch (IOException e){
+            throw new FileNotFoundException();
+        }
+    }
+
+    private boolean isNotExist(String fileName) {
+
+        return !amazonS3.doesObjectExist(bucket, fileName);
     }
 }

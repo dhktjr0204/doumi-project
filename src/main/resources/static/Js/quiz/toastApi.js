@@ -22,7 +22,7 @@ const contentEditor = new toastui.Editor({
                 const formData = new FormData();
                 formData.append('file', blob);
 
-                const response = await fetch('/board/file', {
+                const response = await fetch('/image-upload', {
                     method: 'POST',
                     body: formData,
                 });
@@ -60,7 +60,7 @@ const answerEditor = new toastui.Editor({
                 const formData = new FormData();
                 formData.append('file', blob);
 
-                const response = await fetch('/board/file', {
+                const response = await fetch('/image-upload', {
                     method: 'POST',
                     body: formData,
                 });
