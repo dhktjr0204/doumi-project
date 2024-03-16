@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Doumi</title>
+  <link href="../../static/css/codingtest/timeComplexity.css"
+        th:href="@{/css/codingtest/timeComplexity.css}"
+        rel="stylesheet" type="text/css"/>
+  <link rel="stylesheet"
+        href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+</head>
+<body>
+<header></header>
+<main class="cont-main">
+  <section class="content-header">
+    <button class="back-button"><a href="/doumiAlgorithm">< 목록으로</a></button>
+    <h1 class="title">브루트 포스(brute force)</h1>
+    <div class="content-info">
+      <a href="" class="board-writer-name">도우미</a>
+      <p class="content-createdAt">24.03.16 18:29 작성</p>
+    </div>
+  </section>
+  <section class="content-main">
+    <h2 class="a11y">퀴즈 게시판 본문 내용</h2>
+    <div class="content-detail">
+      <img src="/images/codingtest/HJhello.gif" style="width:200px; height:200px;"><br><br>
+      안녕하세요! <br>
+      오늘은 <strong>브루트 포스</strong>, 즉 '완전 탐색 알고리즘'에 대해 이야기해볼까요?<br><br>
+
+      브루트 포스란, 그 이름에서 알 수 있듯이,<br>
+      brute(무식한) , force(힘) 즉, '무식한 힘','완전 해결법','완전 탐색 알고리즘'을 의미하며, 코딩 테스트나 알고리즘 문제를 해결하는 방식 중
+      하나입니다!<br>
+      <br><br>
+
+      이 방법은 <strong>가능한 모든 경우의 수를 하나하나 체크</strong>하여 문제의 해답을 찾는 것을 말합니다.<br>
+      가장 기본적이면서 직관적인 접근 방식으로, 특별한 알고리즘 지식이 없어도 문제를 해결할 수 있는 장점이 있죠.<br><br>
+      <br>
+
+      <h3 class="algorithm_info">브루트 포스의 특징은 무엇일까요?</h3>
+      <br>
+
+      <ul>
+        <li>1. 단순함: 알고리즘의 로직 자체가 매우 단순하여,이해하기 쉽고 구현하기도 쉬워요.</li>
+        <br>
+        <li>2. 완전 탐색: <strong>모든 가능성을 탐색</strong>하기 때문에, 해가 존재한다면 <strong>반드시</strong> 정답을 찾을 수
+          있습니다.
+        </li>
+        <br>
+        <li>3. 효율성: 대부분의 경우 시간이나 메모리 측면에서 <strong>매우 비효율적</strong>이며, 데이터의 양이 적을 때 주로 사용됩니다. 가능한 모든
+          경우의 수를 탐색하기
+          때문에 실행 시간이 길어질 수 있는 점을 주의해야 해요 ~!
+        </li>
+      </ul>
+      <br><br><br><br>
+      그럼, 브루트 포스를 사용할 때 고려해야 할 점들은 무엇일까요? <br><br>브루트 포스의 특징 3번에 힌트가 나와있어요!<br><br><br>
+      <h3 class="algorithm_info">브루트 포스를 사용할 때 유의해야 할 점들</h3>
+      <br>
+      <ul>
+        <li>1. 시간 복잡도: 가능한 모든 경우의 수를 탐색하기 때문에, 문제의 크기가 커질수록 알고리즘의 실행 시간이 기하급수적으로 증가할 수
+          있어요...‼️<br><br>
+          따라서,<strong>문제의 크기가 작거나,시간 제한이 비교적 관대한 경우에 주로 사용됩니다.</strong></li>
+        <br><br>
+        <li>2. 최적화 방법: 때로는 브루트 포스 방식을 기반으로 하되, <strong>불필요한 계산을 줄이는 방식(예:백트래킹)으로 알고리즘의 효율성을 높일 수
+          있습니다.</strong></li>
+        <br><br>
+      </ul>
+      <h3>브루트 포스는 알고리즘을 배우는 초기 단계에서 매우 유용한 개념이며,복잡한 문제 해결 전략을 고안하기 전에 기본적으로 시도해볼 수 있는 방법입니다!</h3>
+      <br><br>
+      자, 그러면 간단한 브루트 포스 문제를 함께 풀어보는 것으로 마무리해볼까요?<br><br>
+      <p style="color:gray">(문제는 모두 백준 브론즈 단계로 구성 되어 있습니다)</p>
+      <ol class="problem_list">
+        <li><a href="https://www.acmicpc.net/problem/17614" target="_blank">369</a> ⬅ ️이 문제를 풀어보겠습니다
+        </li>
+        <li><a href="https://www.acmicpc.net/problem/2501" target="_blank">약수 구하기</a></li>
+        <li><a href="https://www.acmicpc.net/problem/3040" target="_blank">백설 공주와 일곱 난쟁이</a></li>
+        <li><a href="https://www.acmicpc.net/problem/2798" target="_blank">블랙잭</a></li>
+        <li><a href="https://www.acmicpc.net/problem/2309" target="_blank">일곱 난쟁이</a></li>
+      </ol>
+      <br><br>
+      "문제 : 1이상의 정수 N에 대하여 369 게임을 N까지 규칙을 지키며 진행된다면 그때까지 듣게 되는 박수의 총 횟수를 계산하여 출력하는 프로그램을 작성하시오."
+      <br><br>
+      여기서 브루트 포스의 개념은 어디에 쓰였을까요⁉️ <br><br>
+      이 문제에서 브루트 포스 방식은 게임의 규칙을 따라 모든 숫자를 하나하나 검사하여 3,6,9가 포함되어 있는지 확인하고,
+      해당 하는 경우 박수를 치는 횟수를 세는 데 사용됩니다.<br>
+      이처럼 <strong>가능한 모든 경우의 수를 직접 탐색하는 브루트 포스의 전형적인 예시</strong>죠!
+      <br><br><br>
+      그럼 브루트 포스 접근법을 사용해 봅시다!<br><br>
+      <ol>
+        <li>1. 단순 반복문 사용: 1부터 N까지의 모든 숫자에 대해 반목문을 돌면서 각 숫자를 검사합니다.</li>
+        <br>
+        <li>2. 숫자 분해: 각 숫자를 문자열로 변환하거나,숫자를 분해하여 각 자리수가 3,6,9인지 확인합니다.</li>
+        <br>
+        <li>3. 박수 횟수 계산: 각 숫자를 검사할 때마다 3,6,9가 포함된 횟수를 세어 총 합에 더합니다.</li>
+        <br>
+      </ol>
+      <br><br>
+      이렇게 단순하지만 강력한 브루트 포스 접근법을 통해, 알고리즘 문제 해결의 첫걸음을 뗄 수 있습니다!
+      <br><br>
+      <pre>
+<code class="language-java">
+  public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int N = sc.nextInt(); //정수 N이 주어진다
+        int totalClaps = 0; //박수를 친 총 횟수
+
+        for(int i = 1; i <= N; i++) {
+            String number = Integer.toString(i); //int를 String으로 바꾼다
+
+            for(int j = 0; j < number.length(); j++) {
+                char c = number.charAt(j);
+                if(c == '3' || c == '6' || c == '9') {
+                    totalClaps++;
+                }
+            }
+        }
+        System.out.println(totalClaps);
+    }
+</code></pre>
+    </div>
+  </section>
+</main>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+</body>
+</html>

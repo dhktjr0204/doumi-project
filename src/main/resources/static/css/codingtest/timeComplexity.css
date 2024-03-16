@@ -154,5 +154,13 @@ p {
   height: 55px;
 }
 
+.problem_list a {
+  color: #04B45F;
+}
+
+.problem_list a:hover {
+  font-weight: bold;
+}
+
 
 
