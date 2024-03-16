@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
     .then(data => {
       if (data.success) {//회원가입 성공
         alert(data.message);
-        window.location.href = '/';
+        window.location.replace('/');
       } else {//회원가입 실패
         alert(data.errormsg);
       }
