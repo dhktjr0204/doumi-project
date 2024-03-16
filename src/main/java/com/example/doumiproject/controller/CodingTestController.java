@@ -33,12 +33,6 @@ public class CodingTestController {
 
     private int pageSize = 10;
 
-    @GetMapping("/doumiAlgorithm")
-    public String index() {
-
-        return "codingtest/doumiAlgorithm";
-    }
-
     @GetMapping("/codingtest/index")
     public String board(@RequestParam(defaultValue = "1") int page, Model model) {
         if (page < 1) {
@@ -82,12 +76,6 @@ public class CodingTestController {
         model.addAttribute("newComment", new Comment("COTE"));
 
         return "codingtest/board";
-    }
-
-    @GetMapping("/codingtest/timecomplexity")
-    public String timecomplexity() {
-
-        return "codingtest/timeComplexity";
     }
 
     @GetMapping("/codingtest/post")
