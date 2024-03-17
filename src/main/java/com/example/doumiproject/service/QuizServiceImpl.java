@@ -120,4 +120,16 @@ public class QuizServiceImpl implements QuizService {
 
         return postRepository.findByTag(tag, page, pageSize);
     }
+
+    @Override
+    public int getTotalPagesForMyPage(Long userId, String type, int pageSize) {
+
+        return postRepository.getTotalPagesForMyPage(userId, type, pageSize);
+    }
+
+    @Override
+    public List<PostDto> findByUserId(Long userId, int page, int pageSize) {
+
+        return postRepository.findAllUserQuizPosts(userId, page, pageSize);
+    }
 }

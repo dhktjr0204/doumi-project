@@ -6,20 +6,20 @@ import com.example.doumiproject.entity.Comment;
 import com.example.doumiproject.entity.User;
 import com.example.doumiproject.exception.user.UserDuplicateException;
 import com.example.doumiproject.exception.user.UserLoginFailedException;
+import com.example.doumiproject.repository.PostRepository;
 import com.example.doumiproject.repository.UserRepository;
 import java.util.List;
+
+import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {//UserService 객체 생성 시
-        this.userRepository = userRepository; //UserRepository 객체 생성
-    }
-
+    private final PostRepository postRepository;
     /*회원 가입*/
 
     public void join(String userId, String password) {
@@ -66,5 +66,4 @@ public class UserService {
         List<Comment> userCommentPosts = userRepository.findAllUserCommentPosts(userId);
         return userCommentPosts;
     }
-
 }

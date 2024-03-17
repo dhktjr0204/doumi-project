@@ -21,7 +21,8 @@ public interface PostRepository {
 
     List<PostDto> findAllUserCodingTestPosts(Long userId);
 
-    List<PostDto> findAllUserQuizPosts(Long userId);
+    List<PostDto> findAllUserQuizPosts(Long userId, int page, int pageSize);
+    int getTotalPagesForMyPage(Long userId, String type, int pageSize);
 
     default RowMapper<PostDto> postDtoRowMapper() {
         return ((rs, rowNum) -> {

@@ -151,7 +151,10 @@ public class JdbcTemplatePostRepository implements PostRepository {
     }
 
     @Override
-    public List<PostDto> findAllUserQuizPosts(Long userId) {
+    public List<PostDto> findAllUserQuizPosts(Long userId, int page, int pageSize) {
+
+        int offset = (page - 1) * pageSize;
+
         String sql =
             "SELECT p.id, p.user_id AS author, p.title, p.contents, p.created_at, p.type, COUNT(l.id) AS like_count "
                 + "FROM post p "
@@ -159,7 +162,21 @@ public class JdbcTemplatePostRepository implements PostRepository {
                 + "ON p.id = l.post_id "
                 + "WHERE p.user_id = ? AND p.type = 'QUIZ' "
                 + "GROUP BY p.id "
-                + "ORDER BY p.created_at DESC";
-        return jdbcTemplate.query(sql, postDtoRowMapper(), userId);
+                + "ORDER BY p.created_at DESC "
+                + "limit ? offset ?";
+        return jdbcTemplate.query(sql, postDtoRowMapper(), userId, pageSize, offset);
+    }
+
+    @Override
+    public int getTotalPagesForMyPage(Long userId, String type, int pageSize) {
+
+        String sql = "select ceil(count(*) / ?) " +
+                "from post p " +
+                "inner join " +
+                "user u on p.user_id = u.id " +
+                "where " +
+                "(p.type = ?) and (u.id = ?)";
+
+        return jdbcTemplate.queryForObject(sql, Integer.class, pageSize, type, userId);
     }
 }

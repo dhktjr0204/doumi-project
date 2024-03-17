@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,18 +27,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
+    private final QuizService quizService;
     private final JdbcTemplatePostRepository jdbcTemplatePostRepository;
 
-
-    public UserController(UserService userService,
-        JdbcTemplatePostRepository jdbcTemplatePostRepository) {
-        this.userService = userService;
-        this.jdbcTemplatePostRepository = jdbcTemplatePostRepository;
-    }
-
+    private final int pageSize = 10;
     @PostMapping("/user/signup")
     public ResponseEntity<?> save(@RequestBody User user, BindingResult bindingResult) {
 
@@ -98,12 +95,26 @@ public class UserController {
     }
 
     @GetMapping("/user/{userId}/quiz/posts")
-    public String getQuizPost(@PathVariable("userId") Long userId, Model model,
-        HttpSession session) {
+    public String getQuizPost(@PathVariable("userId") Long userId, HttpSession session,
+                              @RequestParam(defaultValue = "1", value = "page") int page, Model model) {
 
-        List<PostDto> userQuizList = jdbcTemplatePostRepository.findAllUserQuizPosts(userId);
+        if (page < 1) {
+            page = 1;
+        }
+
+        int totalPages = quizService.getTotalPagesForMyPage(userId, "QUIZ", pageSize);
+
+        int startIdx = PaginationUtil.calculateStartIndex(page);
+        int endIdx = PaginationUtil.calculateEndIndex(page, totalPages);
+
+        List<PostDto> userQuizList = quizService.findByUserId(userId, page, pageSize);
 
         model.addAttribute("quizList", userQuizList);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("startIdx", startIdx);
+        model.addAttribute("endIdx", endIdx);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("userId", userId);
 
         return "myPage/myPageQuiz";
     }
