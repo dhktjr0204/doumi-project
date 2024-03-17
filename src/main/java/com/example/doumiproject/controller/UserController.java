@@ -4,6 +4,7 @@ import com.example.doumiproject.dto.PostDto;
 import com.example.doumiproject.entity.Comment;
 import com.example.doumiproject.entity.User;
 import com.example.doumiproject.repository.JdbcTemplatePostRepository;
+import com.example.doumiproject.service.CodingTestService;
 import com.example.doumiproject.service.QuizService;
 import com.example.doumiproject.service.UserService;
 
@@ -32,7 +33,7 @@ public class UserController {
 
     private final UserService userService;
     private final QuizService quizService;
-    private final JdbcTemplatePostRepository jdbcTemplatePostRepository;
+    private final CodingTestService codingTestService;
 
     private final int pageSize = 10;
     @PostMapping("/user/signup")
@@ -84,12 +85,26 @@ public class UserController {
     }
 
     @GetMapping("/user/{userId}/codingtest/posts")
-    public String getCodingTestPost(@PathVariable("userId") Long userId, Model model,
-        HttpSession session) {
+    public String getCodingTestPost(@PathVariable("userId") Long userId, HttpSession session,
+                                    @RequestParam(defaultValue = "1", value = "page") int page, Model model) {
 
-        List<PostDto> userCoteList = jdbcTemplatePostRepository.findAllUserCodingTestPosts(userId);
+        if (page < 1) {
+            page = 1;
+        }
+
+        int totalPages = codingTestService.getTotalPagesForMyPage(userId, "COTE", pageSize);
+
+        int startIdx = PaginationUtil.calculateStartIndex(page);
+        int endIdx = PaginationUtil.calculateEndIndex(page, totalPages);
+
+        List<PostDto> userCoteList = codingTestService.findByUserId(userId, page, pageSize);
 
         model.addAttribute("coteList", userCoteList);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("startIdx", startIdx);
+        model.addAttribute("endIdx", endIdx);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("userId", userId);
 
         return "myPage/myPageCodingTest";
     }

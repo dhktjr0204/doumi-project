@@ -19,7 +19,7 @@ public interface PostRepository {
 
     int getTotalPagesForTag(int pageSize, String tag);
 
-    List<PostDto> findAllUserCodingTestPosts(Long userId);
+    List<PostDto> findAllUserCodingTestPosts(Long userId, int page, int pageSize);
 
     List<PostDto> findAllUserQuizPosts(Long userId, int page, int pageSize);
     int getTotalPagesForMyPage(Long userId, String type, int pageSize);

@@ -15,5 +15,7 @@ public interface CodingTestService {
     public List<PostDto> getSearchCodingTest(String keyword, int page, int pageSize);
     public void updateCodingTest(CodingTestRequestDto cote, Long postId);
     public void deleteCodingTest(long postId);
+    int getTotalPagesForMyPage(Long userId, String type, int pageSize);
+    List<PostDto> findByUserId(Long userId, int page, int pageSize);
 }
 
