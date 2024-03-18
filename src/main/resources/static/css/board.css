@@ -152,6 +152,7 @@ button:hover, .content-edit-button:hover {
 }
 .content-tags-container{
     display: flex;
+    flex-wrap: wrap;
     gap:10px;
 }
 .content-detail-tag{
