@@ -40,7 +40,7 @@ class CodingTestServiceImplTest {
         //then
         //예외 발생 됐는지 확인
         assertThatThrownBy(() -> codingTestService.getCodingTest(postId, userId))
-                .isInstanceOf(NoContentException.class);
+                .isInstanceOf(NoContentException.class).hasMessage(null);
     }
 
     @Test

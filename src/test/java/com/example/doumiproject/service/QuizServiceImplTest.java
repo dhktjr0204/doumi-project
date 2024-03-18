@@ -140,7 +140,8 @@ class QuizServiceImplTest {
 
         //then
         //예외 발생 됐는지 확인
-        assertThatThrownBy(() -> quizService.getQuiz(postId, userId)).isInstanceOf(NoContentException.class);
+        assertThatThrownBy(() -> quizService.getQuiz(postId, userId))
+                .isInstanceOf(NoContentException.class).hasMessage(null);;
     }
 
     @Test

@@ -1,0 +1,71 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.queue-exception-table{
+    width: auto;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    border-top: none;
+    border-left: none;
+    border-right: 1px solid #ddd;
+}
+td{
+    font-size: 13px;
+}
+th {
+    background-color: #f2f2f2;
+}
+
+table:not(.queue-exception-table) th:first-child,
+table:not(.queue-exception-table) td:first-child {
+    width: 30%;
+}
+table:not(.queue-exception-table) th:last-child,
+table:not(.queue-exception-table) td:last-child {
+    width: 70%;
+}
+
+.stack-and-queue-img{
+    width: 400px;
+}
+.deque-img{
+    width: 700px;
+}
+
+/*목차 부분*/
+.stack-and-queue-list {
+    font-size: 13px;
+    text-decoration: underline;
+    color: #8A8A8A;
+}
+.stack-and-queue-list:hover {
+    color: #666;
+    border-bottom-color: #666;
+}
+
+/*예제 부분*/
+.exercise-problem, .recommend-list{
+    text-decoration: underline;
+    font-size: 18px;
+    font-weight: 900;
+    padding-right: 50px;
+}
+.recommend-list{
+    font-size: 16px;
+}
+.exercise-answer summary{
+    color: #8A8A8A;
+    font-size: 13px;
+}
+.explanation{
+    font-size: 15px;
+    margin: 30px;
+}
+
+li{
+    line-height: 200%;
+}

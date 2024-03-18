@@ -1,94 +1,109 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>퀴즈 수정</title>
-  <link href="../../static/css/form.css" th:href="@{/css/form.css}" rel="stylesheet"
-        type="text/css"/>
-  <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/>
-  <link href="../../static/css/fragments/header.css" th:href="@{/css/fragments/header.css}"
-        rel="stylesheet"
-        type="text/css"/>
+    <<<<<<< HEAD
+    <meta charset="UTF-8">
+    <title>퀴즈 수정</title>
+    <link href="../../static/css/fragments/footer.css" th:href="@{/css/fragments/footer.css}" rel="stylesheet"
+          type="text/css"/>
+    <link href="../../static/css/form.css" th:href="@{/css/form.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/>
+    <link href="../../static/css/fragments/header.css" th:href="@{/css/fragments/header.css}"
+          rel="stylesheet"
+          type="text/css"/>
+    <link href="../../static/css/quiz/header.css" th:href="@{/css/quiz/header.css}" rel="stylesheet" type="text/css"/>
+    =======
+    <meta charset="UTF-8">
+    <title>퀴즈 수정</title>
+    <link href="../../static/css/form.css" th:href="@{/css/form.css}" rel="stylesheet"
+          type="text/css"/>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/>
+    <link href="../../static/css/fragments/header.css" th:href="@{/css/fragments/header.css}"
+          rel="stylesheet"
+          type="text/css"/>
+    >>>>>>> develop
 </head>
 <body>
 <div th:replace="~{fragments/header.html::header}"></div>
 <main class="cont-main">
-  <input class="post-id hidden" th:value="${postId}"/>
-  <form action="/quiz/post" method="post" class="quizForm" onsubmit="return false;"
-        th:object="${quiz}">
+    <input class="post-id hidden" th:value="${postId}"/>
+    <form action="/quiz/post" method="post" class="quizForm" onsubmit="return false;"
+          th:object="${quiz}">
 
-    <input class="user-id hidden" th:field="*{userId}"/>
+        <input class="user-id hidden" th:field="*{userId}"/>
 
-    <div class="title-container">
-            <textarea class="title" placeholder="퀴즈 제목을 작성해주세요." rows="1" onkeyup="autoResize(this)"
-                      onkeydown="autoResize(this)" th:field="*{title}"></textarea>
-      <div class="title-text-count"></div>
-    </div>
 
-    <div class="tag-select-container">
-      <h1>과목을 선택해주세요! 중복 선택 가능합니다.</h1>
-      <div class="selected-tags-container">
-        <p>선택된 태그들:</p>
-        <div class="selected-tags">
-
-          <th:block th:each="selectedTag : ${quiz.tags}">
-            <button class="selected-tag" th:value="${selectedTag.id}"
-                    th:text="${selectedTag.name}"></button>
-          </th:block>
-
+        <div class="title-container">
+            <textarea class="title" placeholder="퀴즈 제목을 작성해주세요."
+                      rows="1" th:field="*{title}"></textarea>
+            <div class="title-text-count"></div>
         </div>
-        <button class="reset-button">
-          <img th:src="@{/images/icon_reset.png}" alt="초기화 버튼">
-          초기화
-        </button>
-      </div>
-      <div class="subject-tags-container">
-        <button class="subject-tag-button selected-subject">JAVA</button>
-        <button class="subject-tag-button">SPRING</button>
-        <button class="subject-tag-button">DB</button>
-        <button class="subject-tag-button">AWS</button>
-        <button class="subject-tag-button">FrontEnd</button>
-      </div>
-      <div class="detail-tags-container">
-        <!--Java일땐 hidden tag없애기-->
-        <th:block th:each="tag:${tags}">
-          <div th:class="detail-tags"
-               th:classappend="${tag.type == 'Java' ? '' : 'hidden '}+${tag.type.toLowerCase()}">
-            <!--태그 생성-->
-            <th:block th:each="detailTag : ${tag.detailTags}">
-              <button th:class="detail-tag-button"
-                      th:classappend="${quiz.tags.contains(detailTag)? 'selected': ''}"
-                      th:value="${detailTag.getId()}" th:text="${detailTag.getName()}"></button>
-            </th:block>
-          </div>
-        </th:block>
-      </div>
-    </div>
-    <div class="input-container">
-      <div class="quiz-container">
-        <h1>Quiz</h1>
-        <div class="quiz-text-count"></div>
-        <div class="quiz-content"></div>
-      </div>
-      <div class="answer-container">
-        <h1>Answer</h1>
-        <div class="answer-text-count"></div>
-        <div class="answer-content"></div>
-      </div>
-    </div>
-    <div class="button-container">
-      <button class="cancel-button">취소</button>
-      <button class="edit-button">수정</button>
-      <button class="submit-button hidden">등록</button>
-    </div>
-  </form>
+
+        <div class="tag-select-container">
+            <h1>과목을 선택해주세요! 중복 선택 가능합니다.</h1>
+            <div class="selected-tags-container">
+                <p>선택된 태그들:</p>
+                <div class="selected-tags">
+
+                    <th:block th:each="selectedTag : ${quiz.tags}">
+                        <button class="selected-tag" th:value="${selectedTag.id}"
+                                th:text="${selectedTag.name}"></button>
+                    </th:block>
+
+                </div>
+                <button class="reset-button">
+                    <img th:src="@{/images/icon_reset.png}" alt="초기화 버튼">
+                    초기화
+                </button>
+            </div>
+            <div class="subject-tags-container">
+                <button class="subject-tag-button selected-subject">JAVA</button>
+                <button class="subject-tag-button">SPRING</button>
+                <button class="subject-tag-button">DB</button>
+                <button class="subject-tag-button">AWS</button>
+                <button class="subject-tag-button">FrontEnd</button>
+            </div>
+            <div class="detail-tags-container">
+                <!--Java일땐 hidden tag없애기-->
+                <th:block th:each="tag:${tags}">
+                    <div th:class="detail-tags"
+                         th:classappend="${tag.type == 'Java' ? '' : 'hidden '}+${tag.type.toLowerCase()}">
+                        <!--태그 생성-->
+                        <th:block th:each="detailTag : ${tag.detailTags}">
+                            <button th:class="detail-tag-button"
+                                    th:classappend="${quiz.tags.contains(detailTag)? 'selected': ''}"
+                                    th:value="${detailTag.getId()}" th:text="${detailTag.getName()}"></button>
+                        </th:block>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+        <div class="input-container">
+            <div class="quiz-container">
+                <h1>Quiz</h1>
+                <div class="quiz-text-count"></div>
+                <div class="quiz-content"></div>
+            </div>
+            <div class="answer-container">
+                <h1>Answer</h1>
+                <div class="answer-text-count"></div>
+                <div class="answer-content"></div>
+            </div>
+        </div>
+        <div class="button-container">
+            <button class="cancel-button">취소</button>
+            <button class="edit-button">수정</button>
+            <button class="submit-button hidden">등록</button>
+        </div>
+    </form>
 </main>
-<footer></footer>
+
+<div th:replace="~{fragments/footer.html::footer}"></div>
 
 <script src="../../static/Js/header.js" th:src="@{/Js/header.js}"></script>
 <script th:inline="javascript">
-  let quizContent = [[${quiz.contents}]];
-  let answerContent = [[${quiz.answer}]];
+    let quizContent = [[${quiz.contents}]];
+    let answerContent = [[${quiz.answer}]];
 </script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script th:src="@{/Js/wordCount.js}"></script>

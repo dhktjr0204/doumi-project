@@ -6,11 +6,13 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>DoumiQuizMain</title>
+  <link href="../../static/css/fragments/footer.css" th:href="@{/css/fragments/footer.css}" rel="stylesheet" type="text/css"/>
   <link href="../../static/css/fragments/header.css" th:href="@{/css/fragments/header.css}"
         rel="stylesheet"
         type="text/css"/>
   <link href="../../static/css/quiz/index.css" th:href="@{/css/quiz/index.css}" rel="stylesheet"
         type="text/css"/>
+  <link href="../../static/css/quiz/header.css" th:href="@{/css/quiz/header.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 
@@ -126,9 +128,9 @@
     </ul>
   </nav>
 </main>
-<footer>
 
-</footer>
+<div th:replace="~{fragments/footer.html::footer}"></div>
+
 <script src="../../static/Js/header.js" th:src="@{/Js/header.js}"></script>
 </body>
 </html>

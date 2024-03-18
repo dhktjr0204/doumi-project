@@ -93,7 +93,7 @@ public class CodingTestController {
         @ApiResponse(responseCode = "200", description = "특정 코딩테스트 질문 게시글을 조회한 HTML을 반환",
             content = @Content(mediaType = "text/html"))
     })
-    public String getCoteDetail(@RequestParam("id") Long id, Model model, HttpSession session) {
+    public String getCodingTestDetail(@RequestParam("id") Long id, Model model, HttpSession session) {
 
         long userId = (long) session.getAttribute("userId");
 
@@ -108,12 +108,6 @@ public class CodingTestController {
         model.addAttribute("newComment", new Comment("COTE"));
 
         return "codingTest/board";
-    }
-
-    @GetMapping("/codingtest/timecomplexity")
-    public String timecomplexity() {
-
-        return "codingTest/timeComplexity";
     }
 
     @GetMapping("/codingtest/post")

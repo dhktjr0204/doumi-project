@@ -6,6 +6,7 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>DoumiCoteMain</title>
+  <link href="../../static/css/fragments/footer.css" th:href="@{/css/fragments/footer.css}" rel="stylesheet" type="text/css"/>
   <link href="../../static/css/fragments/header.css" th:href="@{/css/fragments/header.css}"
         rel="stylesheet"
         type="text/css"/>
@@ -35,11 +36,20 @@
       <div class="author">도우미</div>
       <div class="create_time">2024-02-25</div>
     </li>
+    <li class="cote_container_header">
+      <div class="sequence">2</div>
+      <div class="title">
+        <a href="/codingtest/stack">스택과 큐</a>
+      </div>
+      <div class="author">도우미</div>
+      <div class="create_time">2024-03-16</div>
+    </li>
   </div>
 </main>
-<footer>
 
-</footer>
+<div th:replace="~{fragments/footer.html::footer}"></div>
+
 <script src="../../static/Js/header.js" th:src="@{/Js/header.js}"></script>
+
 </body>
 </html>
