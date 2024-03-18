@@ -73,9 +73,10 @@
 
 <div th:replace="~{fragments/footer.html::footer}"></div>
 
+<script src="../../static/Js/header.js" th:src="@{/Js/header.js}"></script>
 <script th:inline="javascript">
-    let quizContent="";
-    let answerContent="";
+  let quizContent = "";
+  let answerContent = "";
 </script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script th:src="@{/Js/wordCount.js}"></script>

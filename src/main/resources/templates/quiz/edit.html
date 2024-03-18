@@ -1,28 +1,41 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <<<<<<< HEAD
     <meta charset="UTF-8">
     <title>퀴즈 수정</title>
-    <link href="../../static/css/fragments/footer.css" th:href="@{/css/fragments/footer.css}" rel="stylesheet" type="text/css"/>
+    <link href="../../static/css/fragments/footer.css" th:href="@{/css/fragments/footer.css}" rel="stylesheet"
+          type="text/css"/>
     <link href="../../static/css/form.css" th:href="@{/css/form.css}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/>
     <link href="../../static/css/fragments/header.css" th:href="@{/css/fragments/header.css}"
           rel="stylesheet"
           type="text/css"/>
     <link href="../../static/css/quiz/header.css" th:href="@{/css/quiz/header.css}" rel="stylesheet" type="text/css"/>
+    =======
+    <meta charset="UTF-8">
+    <title>퀴즈 수정</title>
+    <link href="../../static/css/form.css" th:href="@{/css/form.css}" rel="stylesheet"
+          type="text/css"/>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/>
+    <link href="../../static/css/fragments/header.css" th:href="@{/css/fragments/header.css}"
+          rel="stylesheet"
+          type="text/css"/>
+    >>>>>>> develop
 </head>
 <body>
 <div th:replace="~{fragments/header.html::header}"></div>
 <main class="cont-main">
-    <input class="post-id hidden" th:value="${postId}" />
+    <input class="post-id hidden" th:value="${postId}"/>
     <form action="/quiz/post" method="post" class="quizForm" onsubmit="return false;"
           th:object="${quiz}">
 
         <input class="user-id hidden" th:field="*{userId}"/>
 
+
         <div class="title-container">
             <textarea class="title" placeholder="퀴즈 제목을 작성해주세요."
-                      rows="1"  th:field="*{title}"></textarea>
+                      rows="1" th:field="*{title}"></textarea>
             <div class="title-text-count"></div>
         </div>
 
@@ -33,7 +46,8 @@
                 <div class="selected-tags">
 
                     <th:block th:each="selectedTag : ${quiz.tags}">
-                        <button class="selected-tag" th:value="${selectedTag.id}" th:text="${selectedTag.name}"></button>
+                        <button class="selected-tag" th:value="${selectedTag.id}"
+                                th:text="${selectedTag.name}"></button>
                     </th:block>
 
                 </div>
@@ -56,7 +70,9 @@
                          th:classappend="${tag.type == 'Java' ? '' : 'hidden '}+${tag.type.toLowerCase()}">
                         <!--태그 생성-->
                         <th:block th:each="detailTag : ${tag.detailTags}">
-                            <button th:class="detail-tag-button" th:classappend="${quiz.tags.contains(detailTag)? 'selected': ''}" th:value="${detailTag.getId()}" th:text="${detailTag.getName()}"></button>
+                            <button th:class="detail-tag-button"
+                                    th:classappend="${quiz.tags.contains(detailTag)? 'selected': ''}"
+                                    th:value="${detailTag.getId()}" th:text="${detailTag.getName()}"></button>
                         </th:block>
                     </div>
                 </th:block>
@@ -84,9 +100,10 @@
 
 <div th:replace="~{fragments/footer.html::footer}"></div>
 
+<script src="../../static/Js/header.js" th:src="@{/Js/header.js}"></script>
 <script th:inline="javascript">
-    let quizContent=[[${quiz.contents}]];
-    let answerContent=[[${quiz.answer}]];
+    let quizContent = [[${quiz.contents}]];
+    let answerContent = [[${quiz.answer}]];
 </script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script th:src="@{/Js/wordCount.js}"></script>

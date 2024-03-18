@@ -1,32 +1,21 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <<<<<<< HEAD
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DoumiQuizMain</title>
-    <link href="../../static/css/fragments/footer.css" th:href="@{/css/fragments/footer.css}" rel="stylesheet" type="text/css"/>
-    <link href="/css/quiz/index.css" th:href = "@{/css/quiz/index.css}" rel="stylesheet" type="text/css"/>
+    <link href="../../static/css/fragments/footer.css" th:href="@{/css/fragments/footer.css}" rel="stylesheet"
+          type="text/css"/>
+    <link href="../../static/css/fragments/header.css" th:href="@{/css/fragments/header.css}"
+          rel="stylesheet"
+          type="text/css"/>
+    <link href="/css/quiz/index.css" th:href="@{/css/quiz/index.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<header class="doumi_header">
-    <div class="box-header">
-        <h1><a href="#">Oreumi Doumi</a></h1>
-        <div class="navbar-menu">
-            <div class="navbar-left">
-                <div><a href="/doumiAlgorithm" class="move_to_algorithm">코딩테스트</a></div>
-                <div><a href="/quiz" class="move_to_quiz">퀴즈</a></div>
-            </div>
-            <div class="navbar-right">
-                <div><button type="button" class="login_btn">로그인</button></div>
-                <div><button type="button" class="join_btn">회원가입</button></div>
-                <a href="#none" class="user_info"><strong th:text="${userName}"  >유저1</strong>님 안녕하세요!</a>
-                <div><button type="button" class="logout_btn">로그아웃</button></div>
-            </div>
-        </div>
-    </div>
-</header>
+<div th:replace="~{fragments/header.html::header}"></div>
 <main class="doumi_main">
 
     <!--        href 바꾸기-->
@@ -38,7 +27,8 @@
                     <img src="/images/search.png" width="17px">
                 </span>
             <label for="search"></label>
-            <input class="input" type="text" required="" placeholder="제목,내용 검색하기" id="search" name="keyword">
+            <input class="input" type="text" required="" placeholder="제목,작성자 검색하기" id="search"
+                   name="keyword">
         </div>
     </form>
 
@@ -59,7 +49,9 @@
                     <a th:href="@{'/quiz/board?id=' + ${quiz.id}}" th:text="${quiz.title}">게시글 제목</a>
                 </div>
                 <div class="author" th:text="${quiz.userId}">작성자</div>
-                <div class="create_time" th:text="${#dates.format(quiz.createdAt, 'yyyy/MM/dd HH:mm')}">작성일</div>
+                <div class="create_time" th:text="${#dates.format(quiz.createdAt, 'yyyy/MM/dd HH:mm')}">
+                    작성일
+                </div>
                 <div class="likes" th:text="${quiz.likeCount}"></div>
             </li>
 
@@ -91,16 +83,6 @@
 
 <div th:replace="~{fragments/footer.html::footer}"></div>
 
-<script>
-    // 비회원은 퀴즈 출제하기와 게시판의 게시글 제목을 클릭시 로그인이 필요합니다! 알람이 뜬다
-    // const selectors = ['.quiz_question', '.title a'];
-    //
-    // document.querySelectorAll(selectors).forEach(element => {
-    //     element.addEventListener('click', function (e) {
-    //         e.preventDefault();
-    //         alert("로그인이 필요합니다!");
-    //     })
-    // })
-</script>
+<script src="../../static/Js/header.js" th:src="@{/Js/header.js}"></script>
 </body>
 </html>

@@ -56,21 +56,21 @@
   <nav class="page">
     <ul class="page_list" th:unless="${cotes.isEmpty()}">
       <li class="page_link" th:unless="${startIdx == 1}">
-        <a th:href="@{/codingtest/search(keyword = ${keyword}, page = 1)}">처음</a>
+        <a th:href="@{/templates/codingTest/search(keyword = ${keyword}, page = 1)}">처음</a>
       </li>
       <li class="page_link" th:unless="${startIdx == 1}">
-        <a th:href="@{/codingtest/search(keyword = ${keyword}, page = ${startIdx - 1})}"><<</a>
+        <a th:href="@{/templates/codingTest/search(keyword = ${keyword}, page = ${startIdx - 1})}"><<</a>
       </li>
       <li th:each="page : ${#numbers.sequence(startIdx, endIdx)}"
           th:class="${page == currentPage} ? 'page_current' : 'page_link'">
-        <a th:href="@{/codingtest/search(keyword = ${keyword}, page = ${page})}"
+        <a th:href="@{/templates/codingTest/search(keyword = ${keyword}, page = ${page})}"
            th:text="${page}"></a>
       </li>
       <li class="page_link" th:unless="${endIdx == totalPages}">
-        <a th:href="@{/codingtest/search(keyword = ${keyword}, page = ${endIdx + 1})}">>></a>
+        <a th:href="@{/templates/codingTest/search(keyword = ${keyword}, page = ${endIdx + 1})}">>></a>
       </li>
       <li class="page_link" th:unless="${endIdx == totalPages}">
-        <a th:href="@{/codingtest/search(keyword = ${keyword}, page = ${totalPages})}">마지막</a>
+        <a th:href="@{/templates/codingTest/search(keyword = ${keyword}, page = ${totalPages})}">마지막</a>
       </li>
     </ul>
   </nav>
@@ -79,4 +79,5 @@
 <div th:replace="~{fragments/footer.html::footer}"></div>
 
 </body>
+<script src="../../static/Js/header.js" th:src="@{/Js/header.js}"></script>
 </html>

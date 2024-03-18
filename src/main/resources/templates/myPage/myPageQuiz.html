@@ -6,7 +6,7 @@
   <div class="like">추천</div>
 </li>
 
-<ul th:fragment="list_of_quiz" class="list_of_quiz" th:each="quiz:${quizList}">
+<ul th:fragment="list_of_quiz" class="list_of_quiz" th:each="quiz:${contents}">
   <li class="quiz_container">
     <div class="sequence" th:text="${quiz.id}"></div>
     <div class="title">
@@ -19,3 +19,24 @@
     <div class="likes" th:text="${quiz.likeCount}"></div>
   </li>
 </ul>
+
+<nav class="page">
+  <ul class="page_list" th:unless="${contents.isEmpty()}">
+    <li class="page_link" th:unless="${startIdx == 1}">
+      <a th:href="@{'/user/'+${userId}+'/quiz/posts?page=1'}">처음</a>
+    </li>
+    <li class="page_link" th:unless="${startIdx == 1}">
+      <a th:href="@{'/user/' + ${userId} + '/quiz/posts(page=' + (${startIdx - 1}) + ')'}"><<</a>
+    </li>
+    <li th:each="page : ${#numbers.sequence(startIdx, endIdx)}"
+        th:class="${page == currentPage} ? 'page_current' : 'page_link'">
+      <a th:href="@{'/user/' + ${userId} + '/quiz/posts?page=' + ${page}}" th:text="${page}"></a>
+    </li>
+    <li class="page_link" th:unless="${endIdx == totalPages}">
+      <a th:href="@{'/user/' + ${userId} + '/quiz/posts?page=' + (${endIdx + 1})}">>></a>
+    </li>
+    <li class="page_link" th:unless="${endIdx == totalPages}">
+      <a th:href="@{'/user/' + ${userId} + '/quiz/posts?page=' + ${totalPages}}">마지막</a>
+    </li>
+  </ul>
+</nav>

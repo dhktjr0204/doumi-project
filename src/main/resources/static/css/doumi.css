@@ -14,7 +14,7 @@ html {
   display: flex;
   justify-content: right;
   align-items: center;
-  margin-right: 20vw;
+  margin-right: 10vw;
   padding-top: 50px;
   gap: 20px;
 }

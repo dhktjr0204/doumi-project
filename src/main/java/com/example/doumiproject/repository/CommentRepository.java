@@ -7,12 +7,14 @@ import org.springframework.jdbc.core.RowMapper;
 import java.util.List;
 
 public interface CommentRepository {
-    public List<CommentDto> getAllComment(long postId, long userId);
-    public List<CommentDto> getAllCommentOrderByLikeCount(long postId, long userId);
-    public List<ReCommentDto> getAllReComment(long parentCommentId, long userId);
-    public void saveComment(Comment comment, long userId);
-    public void updateComment(Comment comment, long commentId);
-    public void deleteComment(long commentId);
+    List<CommentDto> getAllComment(long postId, long userId);
+    List<CommentDto> getAllCommentOrderByLikeCount(long postId, long userId);
+    List<ReCommentDto> getAllReComment(long parentCommentId, long userId);
+    void saveComment(Comment comment, long userId);
+    void updateComment(Comment comment, long commentId);
+    void deleteComment(long commentId);
+    List<CommentDto> findByUserId(long userId, int page, int pageSize);
+    int getTotalPagesForMyPage(long userId, int pageSize);
 
     default RowMapper<CommentDto> commentRowMapper(){
         return (rs,rowNum)->{
@@ -45,6 +47,22 @@ public interface CommentRepository {
                     .isLiked(rs.getString("is_liked").equals("Y") ? true : false).build();
 
             return reCommentDto;
+        };
+    }
+
+    default RowMapper<CommentDto> makeMyPageCommentList() {
+        return (rs, rowNum) -> {
+
+            CommentDto commentDto = CommentDto.builder()
+                    .userId(rs.getLong("user_id"))
+                    .postId(rs.getLong("post_id"))
+                    .type(rs.getString("type"))
+                    .contents(rs.getString("contents"))
+                    .updatedAt(rs.getTimestamp("updated_at"))
+                    .likeCount(rs.getLong("like_count"))
+                    .build();
+
+            return commentDto;
         };
     }
 }

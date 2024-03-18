@@ -1,7 +1,26 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.doumi_header {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: white;
+}
+
+.shadow {
+  box-shadow: 0px 8px 6px -6px rgba(0, 0, 0, 0.05);
+}
+
 .box-header {
   display: flex;
   align-items: center;
-  width: 100%;
+  width: 900px;
 }
 
 .logo {
@@ -12,14 +31,14 @@
 .navbar-menu {
   display: flex;
   justify-content: space-between;
-  margin-left: 5vw;
+  margin-left: 3vw;
   width: 100%;
 }
 
 .navbar-left, .navbar-right {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 20px;
 }
 
 
@@ -40,7 +59,7 @@
   gap: 50px;
 }
 
-.move_to_algorithm:hover, .move_to_quiz:hover {
+.move_to_algorithm:hover, .move_to_quiz:hover, .move_to_codingtest:hover {
   color: #04B45F;
   font-weight: 700;
 }
@@ -51,7 +70,8 @@
 }
 
 .logout_btn:hover {
-  background-color: #05d380;
+  background-color: #04B45F;
+  filter: brightness(90%);
 }
 
 .user_info strong:hover {
