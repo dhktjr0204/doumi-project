@@ -40,17 +40,6 @@ public class CodingTestController {
 
     private int pageSize = 10;
 
-    @GetMapping("/doumiAlgorithm")
-    @Operation(summary = "알고리즘 메인 페이지를 조회할 수 있는 API")
-    @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "알고리즘 메인 HTML을 반환",
-            content = @Content(mediaType = "text/html"))
-    })
-    public String index() {
-
-        return "codingTest/doumiAlgorithm";
-    }
-
     @GetMapping("/codingtest/index")
     @Operation(summary = "코딩테스트 질문 메인페이지 조회 API", description =
         "코딩테스트 질문 메인페이지를 조회하는 API며, 페이징을 포함합니다."
