@@ -48,7 +48,7 @@ public class CodingTestController {
     })
     public String index() {
 
-        return "codingtest/doumiAlgorithm";
+        return "codingTest/doumiAlgorithm";
     }
 
     @GetMapping("/codingtest/index")
@@ -65,7 +65,7 @@ public class CodingTestController {
             codingTestService.getTotalPages(pageSize),
             codingTestService.getAllCodingTest(page, pageSize));
 
-        return "codingtest/index";
+        return "codingTest/index";
     }
 
     @GetMapping("/codingtest/search")
@@ -84,7 +84,7 @@ public class CodingTestController {
             codingTestService.getSearchCodingTest(keyword, page, pageSize));
         model.addAttribute("keyword", keyword);
 
-        return "codingtest/search";
+        return "codingTest/search";
     }
 
     @GetMapping("/codingtest/board")
@@ -107,13 +107,13 @@ public class CodingTestController {
         model.addAttribute("comments", comments);
         model.addAttribute("newComment", new Comment("COTE"));
 
-        return "codingtest/board";
+        return "codingTest/board";
     }
 
     @GetMapping("/codingtest/timecomplexity")
     public String timecomplexity() {
 
-        return "codingtest/timeComplexity";
+        return "codingTest/timeComplexity";
     }
 
     @GetMapping("/codingtest/post")
@@ -126,7 +126,7 @@ public class CodingTestController {
 
         model.addAttribute("cote", new CodingTestRequestDto());
 
-        return "codingtest/form";
+        return "codingTest/form";
     }
 
     @PostMapping("/codingtest/post")
@@ -174,7 +174,7 @@ public class CodingTestController {
 
         model.addAttribute("cote", cote);
 
-        return "codingtest/edit";
+        return "codingTest/edit";
     }
 
     @PutMapping("/codingtest/edit")
