@@ -149,7 +149,8 @@ public class JdbcTemplatePostRepository implements PostRepository {
                 + "ON p.id = l.post_id "
                 + "WHERE p.user_id = ? AND p.type = 'COTE' "
                 + "GROUP BY p.id "
-                + "ORDER BY p.created_at DESC";
+                + "ORDER BY p.created_at DESC "
+                + "limit ? offset ? ";
 
         return jdbcTemplate.query(sql, postDtoRowMapper(), userId, pageSize, offset);
     }

@@ -1,10 +1,11 @@
 package com.example.doumiproject.controller;
 
+import com.example.doumiproject.dto.CommentDto;
 import com.example.doumiproject.dto.PostDto;
 import com.example.doumiproject.entity.Comment;
 import com.example.doumiproject.entity.User;
-import com.example.doumiproject.repository.JdbcTemplatePostRepository;
 import com.example.doumiproject.service.CodingTestService;
+import com.example.doumiproject.service.CommentService;
 import com.example.doumiproject.service.QuizService;
 import com.example.doumiproject.service.UserService;
 
@@ -34,6 +35,7 @@ public class UserController {
     private final UserService userService;
     private final QuizService quizService;
     private final CodingTestService codingTestService;
+    private final CommentService commentService;
 
     private final int pageSize = 10;
     @PostMapping("/user/signup")
@@ -88,23 +90,11 @@ public class UserController {
     public String getCodingTestPost(@PathVariable("userId") Long userId, HttpSession session,
                                     @RequestParam(defaultValue = "1", value = "page") int page, Model model) {
 
-        if (page < 1) {
-            page = 1;
-        }
-
         int totalPages = codingTestService.getTotalPagesForMyPage(userId, "COTE", pageSize);
-
-        int startIdx = PaginationUtil.calculateStartIndex(page);
-        int endIdx = PaginationUtil.calculateEndIndex(page, totalPages);
 
         List<PostDto> userCoteList = codingTestService.findByUserId(userId, page, pageSize);
 
-        model.addAttribute("coteList", userCoteList);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("startIdx", startIdx);
-        model.addAttribute("endIdx", endIdx);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("userId", userId);
+        setPaginationAttributes(model, page, totalPages, userId, userCoteList);
 
         return "myPage/myPageCodingTest";
     }
@@ -113,35 +103,42 @@ public class UserController {
     public String getQuizPost(@PathVariable("userId") Long userId, HttpSession session,
                               @RequestParam(defaultValue = "1", value = "page") int page, Model model) {
 
-        if (page < 1) {
-            page = 1;
-        }
-
         int totalPages = quizService.getTotalPagesForMyPage(userId, "QUIZ", pageSize);
-
-        int startIdx = PaginationUtil.calculateStartIndex(page);
-        int endIdx = PaginationUtil.calculateEndIndex(page, totalPages);
 
         List<PostDto> userQuizList = quizService.findByUserId(userId, page, pageSize);
 
-        model.addAttribute("quizList", userQuizList);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("startIdx", startIdx);
-        model.addAttribute("endIdx", endIdx);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("userId", userId);
+        setPaginationAttributes(model, page, totalPages, userId, userQuizList);
 
         return "myPage/myPageQuiz";
     }
 
     @GetMapping("/user/{userId}/comment/posts")
-    public String getCommentPost(@PathVariable("userId") Long userId, Model model,
-        HttpSession session) {
+    public String getCommentPost(@PathVariable("userId") Long userId, HttpSession session,
+                                 @RequestParam(defaultValue = "1", value = "page") int page, Model model) {
 
-        List<Comment> userCommentList = userService.getAllUserCommentPosts(userId);
+        int totalPages = commentService.getTotalPagesForMyPage(userId, pageSize);
 
-        model.addAttribute("commentList", userCommentList);
+        List<CommentDto> userCommentList = commentService.getCommentList(userId, page, pageSize);
+
+        setPaginationAttributes(model, page, totalPages, userId, userCommentList);
 
         return "myPage/myPageComment";
+    }
+
+    private void setPaginationAttributes(Model model, int page, int totalPages, Long userId, List<?> contents) {
+
+        if (page < 1) {
+            page = 1;
+        }
+
+        int startIdx = PaginationUtil.calculateStartIndex(page);
+        int endIdx = PaginationUtil.calculateEndIndex(page, totalPages);
+
+        model.addAttribute("contents", contents);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("startIdx", startIdx);
+        model.addAttribute("endIdx", endIdx);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("userId", userId);
     }
 }

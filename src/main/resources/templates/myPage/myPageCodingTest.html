@@ -6,7 +6,7 @@
   <div class="like">추천</div>
 </li>
 
-<ul th:fragment="list_of_codingtest" class="list_of_codingtest" th:each="cote:${coteList}">
+<ul th:fragment="list_of_codingtest" class="list_of_codingtest" th:each="cote:${contents}">
   <li class="quiz_container">
     <div class="sequence" th:text="${cote.id}"></div>
     <div class="title">
@@ -21,7 +21,7 @@
 </ul>
 
 <nav class="page">
-  <ul class="page_list" th:unless="${coteList.isEmpty()}">
+  <ul class="page_list" th:unless="${contents.isEmpty()}">
     <li class="page_link" th:unless="${startIdx == 1}">
       <a th:href="@{'/user/'+${userId}+'/codingtest/posts?page=1'}">처음</a>
     </li>
