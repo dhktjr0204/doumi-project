@@ -14,7 +14,8 @@ public class WebMvcConfig implements WebMvcConfigurer {//인터셉터는 Spring 
             .addPathPatterns("/**")//모든 요청에 대해서 인터셉터를 적용한다
             .excludePathPatterns("/user/login", "/user/signup", "/"
                 , "/Js/**", "/css/**", "/images/**", "/error",
-                "/favicon.ico"); //제외할 경로를 설정 , css Js를 따로 적어주지 않으면 css,JS가 적용이 안된다
+                "/favicon.ico", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**",
+                "/webjars/**"); //제외할 경로를 설정 , css Js를 따로 적어주지 않으면 css,JS가 적용이 안된다
     }
 
 }

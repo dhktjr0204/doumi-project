@@ -1,7 +1,13 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 main {
   display: flex;
   justify-content: center;
-  margin-top: 25vh;
+  align-items: center;
+  height: 100%;
 }
 
 .signup {
