@@ -41,9 +41,6 @@ public class CodingTestController {
 
     @GetMapping("/codingtest/index")
     public String board(@RequestParam(defaultValue = "1") int page, Model model) {
-        if (page < 1) {
-            page = 1;
-        }
 
         setPaginationAttributes(model, page,
                 codingTestService.getTotalPages(pageSize), codingTestService.getAllCodingTest(page, pageSize));
@@ -54,10 +51,6 @@ public class CodingTestController {
     @GetMapping("/codingtest/search")
     public String search(@RequestParam(value = "keyword") String keyword,
                          @RequestParam(defaultValue = "1", value = "page") int page, Model model) {
-
-        if (page < 1) {
-            page = 1;
-        }
 
         setPaginationAttributes(model, page,
                 codingTestService.getTotalPagesForSearch(pageSize, keyword), codingTestService.getSearchCodingTest(keyword, page, pageSize));
@@ -157,6 +150,10 @@ public class CodingTestController {
     }
 
     private void setPaginationAttributes(Model model, int page, int totalPages, List<PostDto> cotes) {
+
+        if (page < 1) {
+            page = 1;
+        }
 
         int startIdx = PaginationUtil.calculateStartIndex(page);
         int endIdx = PaginationUtil.calculateEndIndex(page, totalPages);

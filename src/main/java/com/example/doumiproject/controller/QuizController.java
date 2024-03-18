@@ -31,11 +31,7 @@ public class QuizController {
     private int pageSize = 10;
 
     @GetMapping("")
-    public String index(@RequestParam(defaultValue = "1") int page, Model model) {
-
-        if (page < 1) {
-            page = 1;
-        }
+    public String index(@RequestParam(defaultValue = "1", value = "page") int page, Model model) {
 
         setPaginationAttributes(model, page,
                 quizService.getTotalPages(pageSize), quizService.getAllQuiz(page, pageSize));
@@ -46,10 +42,6 @@ public class QuizController {
     @GetMapping("/search")
     public String search(@RequestParam(value = "keyword") String keyword,
                          @RequestParam(defaultValue = "1", value = "page") int page, Model model) {
-
-        if (page < 1) {
-            page = 1;
-        }
 
         setPaginationAttributes(model, page,
                 quizService.getTotalPagesForSearch(pageSize, keyword), quizService.getSearchQuiz(keyword, page, pageSize));
@@ -62,10 +54,6 @@ public class QuizController {
     public String searchTags(@RequestParam(value = "name") String tag,
                              @RequestParam(defaultValue = "1", value = "page") int page, Model model) {
 
-        if (page < 1) {
-            page = 1;
-        }
-
         setPaginationAttributes(model, page,
                 quizService.getTotalPagesForSelectedTag(pageSize, tag),
                 quizService.getQuizForSelectedTag(tag, page, pageSize));
@@ -75,6 +63,10 @@ public class QuizController {
     }
 
     private void setPaginationAttributes(Model model, int page, int totalPages, List<PostDto> quizs) {
+
+        if (page < 1) {
+            page = 1;
+        }
 
         int startIdx = PaginationUtil.calculateStartIndex(page);
         int endIdx = PaginationUtil.calculateEndIndex(page, totalPages);

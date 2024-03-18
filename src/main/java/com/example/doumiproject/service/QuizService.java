@@ -9,17 +9,31 @@ import org.springframework.validation.BindingResult;
 import java.util.List;
 
 public interface QuizService {
-    public List<PostDto> getAllQuiz(int page, int pageSize);
-    public int getTotalPages(int pageSize);
-    public QuizDto getQuiz(long postId);
-    public QuizDto getQuiz(long postId, long userId);
-    public List<TagDto> getAllTags();
-    public Long saveQuiz(QuizRequestDto quiz, Long userId);
-    public int getTotalPagesForSearch(int pageSize, String keyword);
-    public List<PostDto> getSearchQuiz(String keyword, int page, int pageSize);
-    public void updateQuiz(QuizRequestDto quiz, Long postId);
-    public void deleteQuiz(long postId);
-    public int getTotalPagesForSelectedTag(int pageSize, String tag);
-    public List<PostDto> getQuizForSelectedTag(String tag, int page, int pageSize);
+    List<PostDto> getAllQuiz(int page, int pageSize);
+
+    int getTotalPages(int pageSize);
+
+    QuizDto getQuiz(long postId);
+
+    QuizDto getQuiz(long postId, long userId);
+
+    List<TagDto> getAllTags();
+
+    Long saveQuiz(QuizRequestDto quiz, Long userId);
+
+    int getTotalPagesForSearch(int pageSize, String keyword);
+
+    List<PostDto> getSearchQuiz(String keyword, int page, int pageSize);
+
+    void updateQuiz(QuizRequestDto quiz, Long postId);
+
+    void deleteQuiz(long postId);
+
+    int getTotalPagesForSelectedTag(int pageSize, String tag);
+
+    List<PostDto> getQuizForSelectedTag(String tag, int page, int pageSize);
+
+    int getTotalPagesForMyPage(Long userId, String type, int pageSize);
+    List<PostDto> findByUserId(Long userId, int page, int pageSize);
 }
 

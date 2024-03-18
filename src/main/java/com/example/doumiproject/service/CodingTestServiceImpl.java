@@ -73,4 +73,16 @@ public class CodingTestServiceImpl implements CodingTestService {
 
         codingTestRepository.deleteCodingTest(postId);
     }
+
+    @Override
+    public int getTotalPagesForMyPage(Long userId, String type, int pageSize) {
+
+        return postRepository.getTotalPagesForMyPage(userId, type, pageSize);
+    }
+
+    @Override
+    public List<PostDto> findByUserId(Long userId, int page, int pageSize) {
+
+        return postRepository.findAllUserCodingTestPosts(userId, page, pageSize);
+    }
 }

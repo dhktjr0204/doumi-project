@@ -13,21 +13,22 @@
         rel="stylesheet" type="text/css"/>
 </head>
 <body>
-
 <div th:replace="~{fragments/header.html::header}"></div>
 
 <main class="doumi_main">
-  <a href="/codingtest/post" class="cote_question">코딩테스트 질문하기 ➡</a>
+  <a href="/codingtest/post" class="cote_question">코딩테스트 질문하기 ></a>
+
   <form class="form" action="/codingtest/search">
     <div class="search_form">
                 <span class="search_image">
                     <img src="/images/search.png" width="17px">
                 </span>
       <label for="search"></label>
-      <input class="input" type="text" required="" placeholder="제목,내용 검색하기" id="search"
+      <input class="input" type="text" required="" placeholder="제목,작성자 검색하기" id="search"
              name="keyword">
     </div>
   </form>
+
   <div class="table_container">
     <li class="cote_container_header">
       <div class="sequence">번호</div>
@@ -55,21 +56,20 @@
   <nav class="page">
     <ul class="page_list" th:unless="${cotes.isEmpty()}">
       <li class="page_link" th:unless="${startIdx == 1}">
-        <a th:href="@{/codingtest/search(keyword = ${keyword}, page = 1)}">처음</a>
+        <a th:href="@{/templates/codingTest/index?page=1}">처음</a>
       </li>
       <li class="page_link" th:unless="${startIdx == 1}">
-        <a th:href="@{/codingtest/search(keyword = ${keyword}, page = ${startIdx - 1})}"><<</a>
+        <a th:href="@{/templates/codingTest/index(page = ${startIdx - 1})}"><<</a>
       </li>
       <li th:each="page : ${#numbers.sequence(startIdx, endIdx)}"
           th:class="${page == currentPage} ? 'page_current' : 'page_link'">
-        <a th:href="@{/codingtest/search(keyword = ${keyword}, page = ${page})}"
-           th:text="${page}"></a>
+        <a th:href="@{/templates/codingTest/index(page = ${page})}" th:text="${page}"></a>
       </li>
       <li class="page_link" th:unless="${endIdx == totalPages}">
-        <a th:href="@{/codingtest/search(keyword = ${keyword}, page = ${endIdx + 1})}">>></a>
+        <a th:href="@{/templates/codingTest/index(page = ${endIdx + 1})}">>></a>
       </li>
       <li class="page_link" th:unless="${endIdx == totalPages}">
-        <a th:href="@{/codingtest/search(keyword = ${keyword}, page = ${totalPages})}">마지막</a>
+        <a th:href="@{/templates/codingTest/index(page = ${totalPages})}">마지막</a>
       </li>
     </ul>
   </nav>

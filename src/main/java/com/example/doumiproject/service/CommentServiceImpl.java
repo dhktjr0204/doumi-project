@@ -56,4 +56,16 @@ public class CommentServiceImpl implements CommentService{
         commentRepository.deleteComment(commentId);
 
     }
+
+    @Override
+    public int getTotalPagesForMyPage(long userId, int pageSize) {
+
+        return commentRepository.getTotalPagesForMyPage(userId, pageSize);
+    }
+
+    @Override
+    public List<CommentDto> getCommentList(long userId, int page, int pageSize) {
+
+        return commentRepository.findByUserId(userId, page, pageSize);
+    }
 }

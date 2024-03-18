@@ -101,4 +101,29 @@ public class JdbcTemplateCommentRepository implements CommentRepository {
 
         jdbcTemplate.update(sql, commentId, commentId);
     }
+
+    @Override
+    public List<CommentDto> findByUserId(long userId, int page, int pageSize) {
+
+        int offset = (page - 1) * pageSize;
+
+        String sql = "SELECT user_id, post_id, type, contents, updated_at, " +
+                "(select count(*) from likes l where post_id = c.id and l.type = 'COMMENT') as like_count " +
+                "FROM comment c " +
+                "WHERE c.user_id = ? " +
+                "ORDER BY c.updated_at DESC " +
+                "limit ? offset ? ";
+
+        return jdbcTemplate.query(sql, makeMyPageCommentList(), userId, pageSize, offset);
+    }
+
+    @Override
+    public int getTotalPagesForMyPage(long userId, int pageSize) {
+
+        String sql = "select ceil(count(*) / ?) " +
+                "from comment c " +
+                "where user_id = ? ";
+
+        return jdbcTemplate.queryForObject(sql, Integer.class, pageSize, userId);
+    }
 }
