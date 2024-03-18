@@ -37,9 +37,9 @@ p {
   display: none;
 }
 
-.liked {
-  content: url("../images/icon_like_act.png");
-}
+/*.liked {*/
+/*  content: url("../images/icon_like_act.png");*/
+/*}*/
 
 
 .btn:hover {
@@ -152,6 +152,14 @@ p {
 .content-likes > img {
   width: 55px;
   height: 55px;
+}
+
+.problem_list a {
+  color: #04B45F;
+}
+
+.problem_list a:hover {
+  font-weight: bold;
 }
 
 

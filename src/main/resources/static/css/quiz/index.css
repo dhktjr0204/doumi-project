@@ -11,12 +11,12 @@ ul, ol {
 
 body {
   max-width: 900px;
-  margin: 40px auto 0 auto;
+  margin: 0 auto 0 auto;
 }
 
 /*header 파트*/
 .move_to_quiz {
-  color: #04B45F
+  /*color: #04B45F*/
 }
 
 /*main 파트*/
@@ -36,7 +36,8 @@ body {
 }
 
 .quiz_question:hover {
-  background-color: #05d380;
+  background-color: #04B45F;
+  filter: brightness(90%);
 }
 
 
@@ -94,6 +95,10 @@ body {
   display: flex;
 }
 
+.quiz_container_header .title {
+  /*margin-right: 10px;*/
+}
+
 .sequence {
   width: 10%;
 }
@@ -101,6 +106,7 @@ body {
 .title {
   width: 40%;
   margin-right: 10px;
+  
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

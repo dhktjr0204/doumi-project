@@ -41,7 +41,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UserIdMismatchException.class)
     public ErrorForm UserIdMismatchException(UserIdMismatchException ex) {
         // 개발자에게 알려줄 수 있는 수단 필요
-        return new ErrorForm("아이디는 5글자 이상이며 영문자와 숫자만 가능합니다.", HttpStatus.BAD_REQUEST.value());
+        return new ErrorForm("아이디는 최소 5자 이상 최대 20자 이하이며 영문자와 숫자만 가능합니다.",
+            HttpStatus.BAD_REQUEST.value());
     }
 
     @ExceptionHandler(UserPwMismatchException.class)
@@ -59,8 +60,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(NotValidateUserException.class)
-    public ResponseEntity<String> NotValidateUserException(NotValidateUserException ex){
-        return new ResponseEntity<>("인증되지 않은 사용자입니다.",HttpStatus.UNAUTHORIZED);
+    public ResponseEntity<String> NotValidateUserException(NotValidateUserException ex) {
+        return new ResponseEntity<>("인증되지 않은 사용자입니다.", HttpStatus.UNAUTHORIZED);
     }
 
     // User 관련 예외 끝
@@ -82,7 +83,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(OverContentLengthLimitException.class)
-    public ResponseEntity<String> OverContentLengthLimitException(OverContentLengthLimitException ex) {
+    public ResponseEntity<String> OverContentLengthLimitException(
+        OverContentLengthLimitException ex) {
         return new ResponseEntity<>("본문 길이가 최대 길이를 초과하였습니다.", HttpStatus.BAD_REQUEST);
     }
 
@@ -92,19 +94,20 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(NoContentException.class)
-    public ResponseEntity<String>NoContentException(NoContentException ex, Model model){
+    public ResponseEntity<String> NoContentException(NoContentException ex, Model model) {
         return ResponseEntity.notFound().build();
     }
     // Quiz 관련 예외 끝
 
     //comment 예외
     @ExceptionHandler(OverCommentLengthLimitException.class)
-    public ResponseEntity<String> OverCommentLengthLimitException(OverCommentLengthLimitException ex){
+    public ResponseEntity<String> OverCommentLengthLimitException(
+        OverCommentLengthLimitException ex) {
         return new ResponseEntity<>("댓글 길이가 최대 길이를 초과하였습니다.", HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(EmptyCommentContentException.class)
-    public ResponseEntity<String> EmptyCommentContentException(EmptyCommentContentException ex){
+    public ResponseEntity<String> EmptyCommentContentException(EmptyCommentContentException ex) {
         return new ResponseEntity<>("댓글 내용이 비어있습니다.", HttpStatus.BAD_REQUEST);
     }
 

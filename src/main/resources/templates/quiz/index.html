@@ -56,6 +56,52 @@
       </li>
 
     </ul>
+
+    <ul th:each="quiz:${quizs}">
+      <li class="quiz_container">
+        <div class="sequence" th:text="${quiz.id}"></div>
+        <div class="title">
+          <!--                    href에 무슨링크를 넣어야하지?-->
+          <a th:href="@{'/quiz/board?id=' + ${quiz.id}}" th:text="${quiz.title}">게시글 제목</a>
+        </div>
+        <div class="author" th:text="${quiz.userId}">작성자</div>
+        <div class="create_time" th:text="${#dates.format(quiz.createdAt, 'yyyy/MM/dd HH:mm')}">
+          작성일
+        </div>
+        <div class="likes" th:text="${quiz.likeCount}"></div>
+      </li>
+
+    </ul>
+    <ul th:each="quiz:${quizs}">
+      <li class="quiz_container">
+        <div class="sequence" th:text="${quiz.id}"></div>
+        <div class="title">
+          <!--                    href에 무슨링크를 넣어야하지?-->
+          <a th:href="@{'/quiz/board?id=' + ${quiz.id}}" th:text="${quiz.title}">게시글 제목</a>
+        </div>
+        <div class="author" th:text="${quiz.userId}">작성자</div>
+        <div class="create_time" th:text="${#dates.format(quiz.createdAt, 'yyyy/MM/dd HH:mm')}">
+          작성일
+        </div>
+        <div class="likes" th:text="${quiz.likeCount}"></div>
+      </li>
+
+    </ul>
+    <ul th:each="quiz:${quizs}">
+      <li class="quiz_container">
+        <div class="sequence" th:text="${quiz.id}"></div>
+        <div class="title">
+          <!--                    href에 무슨링크를 넣어야하지?-->
+          <a th:href="@{'/quiz/board?id=' + ${quiz.id}}" th:text="${quiz.title}">aldfkjadlfhahcafhakejflkajlkdfjklwejflkehfkahkfhdfsdf</a>
+        </div>
+        <div class="author" th:text="${quiz.userId}">작성자</div>
+        <div class="create_time" th:text="${#dates.format(quiz.createdAt, 'yyyy/MM/dd HH:mm')}">
+          작성일
+        </div>
+        <div class="likes" th:text="${quiz.likeCount}"></div>
+      </li>
+
+    </ul>
   </div>
 
   <!--        페이지 링크-->
@@ -83,5 +129,6 @@
 <footer>
 
 </footer>
+<script src="../../static/Js/header.js" th:src="@{/Js/header.js}"></script>
 </body>
 </html>
