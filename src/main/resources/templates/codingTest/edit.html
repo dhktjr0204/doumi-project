@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>퀴즈 수정</title>
+  <link href="../../static/css/fragments/footer.css" th:href="@{/css/fragments/footer.css}" rel="stylesheet" type="text/css"/>
   <link href="../../static/css/form.css" th:href="@{/css/form.css}" rel="stylesheet"
         type="text/css"/>
   <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/>
   <link href="../../static/css/fragments/header.css" th:href="@{/css/fragments/header.css}"
         rel="stylesheet"
         type="text/css"/>
+  <link href="../../static/css/codingtest/header.css" th:href="@{/css/codingtest/header.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div th:replace="~{fragments/header.html::header}"></div>
@@ -37,7 +39,7 @@
     </div>
   </form>
 </main>
-<footer></footer>
+<div th:replace="~{fragments/footer.html::footer}"></div>
 
 <script src="../../static/Js/header.js" th:src="@{/Js/header.js}"></script>
 <script th:inline="javascript">
