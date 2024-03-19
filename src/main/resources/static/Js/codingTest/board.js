@@ -154,8 +154,10 @@ function editContent(){
 
 function clickHistoryBack() {
     if (document.referrer.includes('/codingtest/post') || document.referrer.includes('/codingtest/edit')) {
-        window.location.href = '/codingtest/index'; // 원하는 페이지로 이동
-    }else{
+        location.replace('/codingtest/index');
+    }else if(document.referrer.includes('/codingtest') || document.referrer.includes('/quiz') || document.referrer.includes('/doumiAlgorithm')){
         window.history.back();
+    }else{
+        location.replace('/codingtest/index');
     }
 }

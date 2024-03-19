@@ -165,8 +165,10 @@ function editContent() {
 
 function clickHistoryBack() {
     if (document.referrer.includes('/quiz/post') || document.referrer.includes('/quiz/edit')) {
-        window.location.href = '/quiz'; // 원하는 페이지로 이동
-    }else{
+        location.replace('/quiz'); // 원하는 페이지로 이동
+    }else if(document.referrer.includes('/codingtest') || document.referrer.includes('/quiz') || document.referrer.includes('/doumiAlgorithm')){
         window.history.back();
+    }else{
+        location.replace('/quiz');
     }
 }
