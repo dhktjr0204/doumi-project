@@ -40,7 +40,8 @@ public class JdbcTemplateCodingTestRepository implements CodingTestRepository {
                 "left join user u on p.user_id = u.id " +
                 "left join likes l on p.id = l.post_id " +
                 "where " +
-                "p.id = ? and p.type='COTE';";
+                "p.id = ? and p.type='COTE' " +
+                "group by p.id ";
 
         try {
             return Optional.of(jdbcTemplate.queryForObject(sql, codingTestDtoRowMapper(), user_id, post_id));
