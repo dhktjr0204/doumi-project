@@ -15,11 +15,11 @@ function clickLike(button, type) {
             postId: postId,
             type: type
         },
-        success: function(response) {
+        success: function (response) {
 
             likeNumber.textContent = response;
         },
-        error: function(error) {
+        error: function (error) {
 
             console.error(error);
         }
@@ -80,22 +80,22 @@ function clickLike(button){
 }*/
 
 // 댓글 정답 보기
-function clickComment(commentContainer){
-        commentContainer.classList.toggle('hide-place');
-        const comment = commentContainer.querySelector('.comment-item');
-        comment.classList.toggle('hide-text');
+function clickComment(commentContainer) {
+    commentContainer.classList.toggle('hide-place');
+    const comment = commentContainer.querySelector('.comment-item');
+    comment.classList.toggle('hide-text');
 }
 
 //정답 댓글 작성
 // 홍길동님,답변을 작성해보세요를 누르면 댓글 입력칸이 나온다.
-function clickCommentEditorOpener(commentEditorOpener){
+function clickCommentEditorOpener(commentEditorOpener) {
     const commentEditor = document.querySelector('.comment-editor');
     commentEditorOpener.classList.toggle('hidden');
     commentEditor.classList.toggle('hidden');
 }
 
 //대댓글 작성
-function clickReCommentEditorOpener(button){
+function clickReCommentEditorOpener(button) {
     let commentContainer = button.closest('.comment-item-container');
     const reCommentEditor = commentContainer.querySelector('.re-comment-editor');
     reCommentEditor.classList.toggle('hidden');
@@ -103,7 +103,7 @@ function clickReCommentEditorOpener(button){
 
 
 // 취소 버튼을 누르면 사라진다.
-function clickCommentCancel(){
+function clickCommentCancel() {
     const commentEditorOpener = document.querySelector('.comment-editor-opener');
     const commentEditor = document.querySelector('.comment-editor');
     commentEditorOpener.classList.toggle('hidden');
@@ -111,7 +111,7 @@ function clickCommentCancel(){
 }
 
 //대댓글 취소 버튼 사라짐
-function clickReCommentCancel(button){
+function clickReCommentCancel(button) {
     const reCommentEditor = button.closest('.re-comment-editor');
     reCommentEditor.classList.toggle('hidden');
 }
@@ -129,14 +129,14 @@ recent.addEventListener('click', () => {
     recommend.classList.toggle('sorted');
 })
 
-function deleteContent(){
-    const confirmed= window.confirm("정말 삭제하시겠습니까?");
+function deleteContent() {
+    const confirmed = window.confirm("정말 삭제하시겠습니까?");
     let userId = document.querySelector('.board-writer-name').getAttribute("value");
     let postId = document.querySelector(".post-id").value;
-    if(confirmed) {
+    if (confirmed) {
         $.ajax({
             type: 'DELETE',
-            url: "/quiz/delete?postId="+postId+"&userId="+userId,
+            url: "/quiz/delete?postId=" + postId + "&userId=" + userId,
             contentType: false,
             processData: false,
             success: function (redirectUrl) {
@@ -144,21 +144,30 @@ function deleteContent(){
             },
             error: function (error) {
                 if (error.status === 400) {
-                    alert("Bad Request: "+ error.responseText);
-                }else if(error.status===401){
-                    alert("Unauthorized: "+error.responseText);
+                    alert("Bad Request: " + error.responseText);
+                } else if (error.status === 401) {
+                    alert("Unauthorized: " + error.responseText);
                     location.replace("/quiz");
-                }else{
-                    alert("error: "+error.responseText);
+                } else {
+                    alert("error: " + error.responseText);
                 }
             }
         });
-    }else{
+    } else {
         alert("삭제가 취소 되었습니다.");
     }
 }
 
-function editContent(){
+function editContent() {
     let postId = document.querySelector(".post-id").value;
-    location.href="/quiz/edit?id="+postId;
+    location.href = "/quiz/edit?id=" + postId;
+}
+
+function clickHistoryBack() {
+    if (document.referrer.includes('/quiz/post') || document.referrer.includes('/quiz/edit')) {
+        event.preventDefault(); // 기존 뒤로 가기 기능을 막음
+        window.location.href = '/quiz'; // 원하는 페이지로 이동
+    }else{
+        window.history.back();
+    }
 }
