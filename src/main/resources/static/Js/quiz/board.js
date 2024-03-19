@@ -165,7 +165,6 @@ function editContent() {
 
 function clickHistoryBack() {
     if (document.referrer.includes('/quiz/post') || document.referrer.includes('/quiz/edit')) {
-        event.preventDefault(); // 기존 뒤로 가기 기능을 막음
         window.location.href = '/quiz'; // 원하는 페이지로 이동
     }else{
         window.history.back();

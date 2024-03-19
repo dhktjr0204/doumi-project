@@ -154,7 +154,6 @@ function editContent(){
 
 function clickHistoryBack() {
     if (document.referrer.includes('/codingtest/post') || document.referrer.includes('/codingtest/edit')) {
-        event.preventDefault(); // 기존 뒤로 가기 기능을 막음
         window.location.href = '/codingtest/index'; // 원하는 페이지로 이동
     }else{
         window.history.back();
