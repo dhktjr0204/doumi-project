@@ -19,7 +19,7 @@
     <input class="type hidden" th:value="${quiz.postType}"/>
 
     <section class="content-header">
-        <a class="back-button" href="javascript:history.back();">< 목록으로 </a>
+        <button class="back-button" onclick="clickHistoryBack()">< 목록으로 </button>
         <h1 class="title" th:text="${quiz.title}"></h1>
         <div class="content-info-container">
             <div class="content-info">
