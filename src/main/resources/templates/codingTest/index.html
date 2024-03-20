@@ -6,7 +6,8 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>DoumiCoteMain</title>
-  <link href="../../static/css/fragments/footer.css" th:href="@{/css/fragments/footer.css}" rel="stylesheet" type="text/css"/>
+  <link href="../../static/css/fragments/footer.css" th:href="@{/css/fragments/footer.css}"
+        rel="stylesheet" type="text/css"/>
   <link href="../../static/css/fragments/header.css" th:href="@{/css/fragments/header.css}"
         rel="stylesheet"
         type="text/css"/>
@@ -57,20 +58,20 @@
   <nav class="page">
     <ul class="page_list" th:unless="${cotes.isEmpty()}">
       <li class="page_link" th:unless="${startIdx == 1}">
-        <a th:href="@{/templates/codingTest/index?page=1}">처음</a>
+        <a th:href="@{/codingtest/index?page=1}">처음</a>
       </li>
       <li class="page_link" th:unless="${startIdx == 1}">
-        <a th:href="@{/templates/codingTest/index(page = ${startIdx - 1})}"><<</a>
+        <a th:href="@{/codingtest/index(page = ${startIdx - 1})}"><<</a>
       </li>
       <li th:each="page : ${#numbers.sequence(startIdx, endIdx)}"
           th:class="${page == currentPage} ? 'page_current' : 'page_link'">
-        <a th:href="@{/templates/codingTest/index(page = ${page})}" th:text="${page}"></a>
+        <a th:href="@{/codingtest/index(page = ${page})}" th:text="${page}"></a>
       </li>
       <li class="page_link" th:unless="${endIdx == totalPages}">
-        <a th:href="@{/templates/codingTest/index(page = ${endIdx + 1})}">>></a>
+        <a th:href="@{/codingtest/index(page = ${endIdx + 1})}">>></a>
       </li>
       <li class="page_link" th:unless="${endIdx == totalPages}">
-        <a th:href="@{/templates/codingTest/index(page = ${totalPages})}">마지막</a>
+        <a th:href="@{/codingtest/index(page = ${totalPages})}">마지막</a>
       </li>
     </ul>
   </nav>

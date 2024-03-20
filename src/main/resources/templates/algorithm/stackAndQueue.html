@@ -1,178 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Doumi</title>
-    <link href="../../static/css/fragments/footer.css" th:href="@{/css/fragments/footer.css}" rel="stylesheet"
-          type="text/css"/>
-    <link href="../../static/css/board.css"
-          th:href="@{/css/board.css}"
-          rel="stylesheet" type="text/css"/>
-    <link href="../../static/css/fragments/header.css" th:href="@{/css/fragments/header.css}"
-          rel="stylesheet"
-          type="text/css"/>
-    <link href="../../static/css/algorithm/header.css" th:href="@{/css/algorithm/header.css}" rel="stylesheet" type="text/css"/>
-    <link href="../../static/css/algorithm/stackAndQueue.css" th:href="@{/css/algorithm/stackAndQueue.css}"
-          rel="stylesheet"/>
+  <meta charset="UTF-8">
+  <title>Doumi</title>
+  <link href="../../static/css/fragments/footer.css" th:href="@{/css/fragments/footer.css}"
+        rel="stylesheet"
+        type="text/css"/>
+  <link href="../../static/css/board.css"
+        th:href="@{/css/board.css}"
+        rel="stylesheet" type="text/css"/>
+  <link href="../../static/css/fragments/header.css" th:href="@{/css/fragments/header.css}"
+        rel="stylesheet"
+        type="text/css"/>
+  <link href="../../static/css/algorithm/header.css" th:href="@{/css/algorithm/header.css}"
+        rel="stylesheet" type="text/css"/>
+  <link href="../../static/css/algorithm/stackAndQueue.css"
+        th:href="@{/css/algorithm/stackAndQueue.css}"
+        rel="stylesheet"/>
 
-    <link rel="stylesheet"
-          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
-    <!-- 구문 강조 CSS호출 -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
-    <!-- 구문 강조 js 호출 -->
-    <script>hljs.highlightAll();</script> <!-- 코드 구문 강조 호출 -->
+  <link rel="stylesheet"
+        href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+  <!-- 구문 강조 CSS호출 -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+  <!-- 구문 강조 js 호출 -->
+  <script>hljs.highlightAll();</script> <!-- 코드 구문 강조 호출 -->
 </head>
 <div th:replace="~{fragments/header.html::header}"></div>
 <body>
 <main class="cont-main">
-    <section class="content-header">
-        <button class="back-button"><a href="/doumiAlgorithm">< 목록으로</a></button>
-        <h1 class="title">스택과 큐</h1>
-        <div class="content-info">
-            <a href="" class="board-writer-name">도우미</a>
-            <p class="content-createdAt">24.03.16 16:42 작성</p>
-        </div>
-    </section>
-    <section class="content-main">
-        <h2 class="a11y">알고리즘 게시판 본문 내용</h2>
-        <div class="content-detail">
-            <ul class="stack-and-queue-contents">
-                <li class="stack-and-queue-list"><a href="#stack">- stack</a></li>
-                <li class="stack-and-queue-list"><a href="#queue">- Queue</a></li>
-                <li class="stack-and-queue-list"><a href="#priority-queue">- Priority Queue</a></li>
-                <li class="stack-and-queue-list"><a href="#deque">- Deque</a></li>
-                <li class="stack-and-queue-list"><a href="#exercise">- 예제</a></li>
-            </ul>
-            <br><br>
+  <section class="content-header">
+    <button class="back-button"><a href="/doumiAlgorithm">< 목록으로</a></button>
+    <h1 class="title">스택과 큐</h1>
+    <div class="content-info">
+      <a href="" class="board-writer-name">도우미</a>
+      <p class="content-createdAt">24.03.16 16:42 작성</p>
+    </div>
+  </section>
+  <section class="content-main">
+    <h2 class="a11y">알고리즘 게시판 본문 내용</h2>
+    <div class="content-detail">
+      <ul class="stack-and-queue-contents">
+        <li class="stack-and-queue-list"><a href="#stack">- stack</a></li>
+        <li class="stack-and-queue-list"><a href="#queue">- Queue</a></li>
+        <li class="stack-and-queue-list"><a href="#priority-queue">- Priority Queue</a></li>
+        <li class="stack-and-queue-list"><a href="#deque">- Deque</a></li>
+        <li class="stack-and-queue-list"><a href="#exercise">- 예제</a></li>
+      </ul>
+      <br><br>
 
-            안녕하세요! 도우미입니다!<br>
-            오늘은 스택과 큐 개념 및 스택, 큐 알고리즘을 이용한 문제 예제들을 소개해드릴까 합니다.<br>
-            스택과 큐는 코딩테스트에서 굉장히 자주 쓰이는 자료구조입니다.
-            <br><br>
-            우선 스택과 큐의 개념에 대해서 설명해드릴게요.<br><br>
+      안녕하세요! 도우미입니다!<br>
+      오늘은 스택과 큐 개념 및 스택, 큐 알고리즘을 이용한 문제 예제들을 소개해드릴까 합니다.<br>
+      스택과 큐는 코딩테스트에서 굉장히 자주 쓰이는 자료구조입니다.
+      <br><br>
+      우선 스택과 큐의 개념에 대해서 설명해드릴게요.<br><br>
 
-            <h1 id="stack">Stack</h1>
-            <img src="/images/algorithm/stack_img.png" alt="스택 알고리즘 그림" class="stack-and-queue-img">
-            <br>스택(stack)이란 쌓아 올린다는 것을 의미합니다.<br><br>
-            스택은 <strong>가장 마지막에 저장된 데이터가 가정 먼저 삭제되는 후입선물(LIFO, Last In First Out)구조</strong> 입니다. 그렇기 때문에 한쪽 방향에서만 데이터의
-            삽입과 삭제가 가능합니다. <br><br>
+      <h1 id="stack">Stack</h1>
+      <img src="/images/algorithm/stack_img.png" alt="스택 알고리즘 그림" class="stack-and-queue-img">
+      <br>스택(stack)이란 쌓아 올린다는 것을 의미합니다.<br><br>
+      스택은 <strong>가장 마지막에 저장된 데이터가 가정 먼저 삭제되는 후입선물(LIFO, Last In First Out)구조</strong> 입니다. 그렇기 때문에
+      한쪽 방향에서만 데이터의
+      삽입과 삭제가 가능합니다. <br><br>
 
-            간단한 예시로는 포개 둔 일회용 종이컵을 하나하나 꺼내서 사용하는 것으로 예시를 들 수 있을 것 같네요.<br><br><br>
+      간단한 예시로는 포개 둔 일회용 종이컵을 하나하나 꺼내서 사용하는 것으로 예시를 들 수 있을 것 같네요.<br><br><br>
 
-            <h2>Stack의 메서드</h2><br>
-            <table>
-                <tr>
-                    <th>메서드</th>
-                    <th>설명</th>
-                </tr>
-                <tr>
-                    <td>Boolean empty()</td>
-                    <td>Stack이 비어있는지 알려줍니다.</td>
-                </tr>
-                <tr>
-                    <td>Object peek()</td>
-                    <td>스택의 맨 위에 저장된 객체를 반환합니다. 그림상에서는 요소 4가 해당됩니다. (비었다면 EmptyStackException발생)</td>
-                </tr>
-                <tr>
-                    <td>Object push(Object o)</td>
-                    <td>데이터를 삽입하는 연산입니다. 삽입된 데이터는 삭제 시 가장 먼저 삭제 될 데이터가 됩니다. (비었다면 EmptyStackException발생)</td>
-                </tr>
-                <tr>
-                    <td>Object pop()</td>
-                    <td>데이터를 삭제하는 연산입니다. 가장 최근에 저장된 데이터가 삭제됩니다.</td>
-                </tr>
-                <tr>
-                    <td>Int search(Object o)</td>
-                    <td>스택에 주어진 객체(o)를 찾아서 그 위치를 반환합니다. 못 찾으면 -1을 반환합니다. (배열과 달리 위치는 0이 아닌 1부터 시작합니다.)</td>
-                </tr>
-            </table>
+      <h2>Stack의 메서드</h2><br>
+      <table>
+        <tr>
+          <th>메서드</th>
+          <th>설명</th>
+        </tr>
+        <tr>
+          <td>Boolean empty()</td>
+          <td>Stack이 비어있는지 알려줍니다.</td>
+        </tr>
+        <tr>
+          <td>Object peek()</td>
+          <td>스택의 맨 위에 저장된 객체를 반환합니다. 그림상에서는 요소 4가 해당됩니다. (비었다면 EmptyStackException발생)</td>
+        </tr>
+        <tr>
+          <td>Object push(Object o)</td>
+          <td>데이터를 삽입하는 연산입니다. 삽입된 데이터는 삭제 시 가장 먼저 삭제 될 데이터가 됩니다. (비었다면 EmptyStackException발생)</td>
+        </tr>
+        <tr>
+          <td>Object pop()</td>
+          <td>데이터를 삭제하는 연산입니다. 가장 최근에 저장된 데이터가 삭제됩니다.</td>
+        </tr>
+        <tr>
+          <td>Int search(Object o)</td>
+          <td>스택에 주어진 객체(o)를 찾아서 그 위치를 반환합니다. 못 찾으면 -1을 반환합니다. (배열과 달리 위치는 0이 아닌 1부터 시작합니다.)</td>
+        </tr>
+      </table>
 
-            <br><br><br>
-            <h1 id="queue">Queue</h1>
-            <img src="/images/algorithm/queue_img.png" alt="큐 알고리즘 그림" class="stack-and-queue-img">
-            <br>Queue의 사전적 의미는 줄, 또는 줄을 서서 기다리는 것을 의미합니다.<br><br>
-            일상생활에서 맛집에 줄을 서서 기다리는 것, 은행에서 먼저 온 순서대로 업무를 처리하는 것과 같이 <strong>선입선출(FIFO)방식</strong>의 자료구조를 말합니다.<br>
-            스택과 달리 한 쪽에서는 데이터 삽입, 다른 한쪽에서는 데이터의 삭제만 가능합니다.<br><br>
-            큐는 데이터의 추가/삭제가 쉬운 LinkedList로 구현하는 것이 더 적합합니다.<br>
-            <pre><code class="language-java">Queue queue=new LinkedList();</code></pre>
-            <br><br>
-            <h2>Queue의 메서드</h2><br>
-            <table>
-                <tr>
-                    <th>메서드</th>
-                    <th>설명</th>
-                </tr>
-                <tr>
-                    <td>Boolean add(Object o)</td>
-                    <td>저장된 객체를 Queue에 추가합니다. (저장공간이 부족하면 IllegalStateException 발생)</td>
-                </tr>
-                <tr>
-                    <td>Object remove()</td>
-                    <td>Queue에서 객체를 꺼내 반환합니다. 그림상에서는 1이 반환됩니다. (비었으면 NoSuchElementException 발생)</td>
-                </tr>
-                <tr>
-                    <td>Object element()</td>
-                    <td>삭제 없이 요소를 읽어옵니다. (peek와 달리 Queue가 비었을 때 NoSuchElementException 발생)</td>
-                </tr>
-                <tr>
-                    <td>Boolean offer(Object o)</td>
-                    <td>Queue에 객체를 저장합니다.</td>
-                </tr>
-                <tr>
-                    <td>Object poll()</td>
-                    <td>Queue에서 객체를 꺼내서 반환합니다. (저장된 건 삭제) 비어 있으면 null이 반환됩니다.</td>
-                </tr>
-                <tr>
-                    <td>Object peek()</td>
-                    <td>삭제 없이 요소를 읽어옵니다. 비어있으면 null이 반환됩니다.</td>
-                </tr>
-            </table>
-            <br>
-            이 메서드를 보면 서로 비슷한데 뭔 차이지 싶을 겁니다.<br>
-            자세히 정리해보자면 다음과 같습니다.<br><br>
+      <br><br><br>
+      <h1 id="queue">Queue</h1>
+      <img src="/images/algorithm/queue_img.png" alt="큐 알고리즘 그림" class="stack-and-queue-img">
+      <br>Queue의 사전적 의미는 줄, 또는 줄을 서서 기다리는 것을 의미합니다.<br><br>
+      일상생활에서 맛집에 줄을 서서 기다리는 것, 은행에서 먼저 온 순서대로 업무를 처리하는 것과 같이 <strong>선입선출(FIFO)방식</strong>의 자료구조를
+      말합니다.<br>
+      스택과 달리 한 쪽에서는 데이터 삽입, 다른 한쪽에서는 데이터의 삭제만 가능합니다.<br><br>
+      큐는 데이터의 추가/삭제가 쉬운 LinkedList로 구현하는 것이 더 적합합니다.<br>
+      <pre><code class="language-java">Queue queue=new LinkedList();</code></pre>
+      <br><br>
+      <h2>Queue의 메서드</h2><br>
+      <table>
+        <tr>
+          <th>메서드</th>
+          <th>설명</th>
+        </tr>
+        <tr>
+          <td>Boolean add(Object o)</td>
+          <td>저장된 객체를 Queue에 추가합니다. (저장공간이 부족하면 IllegalStateException 발생)</td>
+        </tr>
+        <tr>
+          <td>Object remove()</td>
+          <td>Queue에서 객체를 꺼내 반환합니다. 그림상에서는 1이 반환됩니다. (비었으면 NoSuchElementException 발생)</td>
+        </tr>
+        <tr>
+          <td>Object element()</td>
+          <td>삭제 없이 요소를 읽어옵니다. (peek와 달리 Queue가 비었을 때 NoSuchElementException 발생)</td>
+        </tr>
+        <tr>
+          <td>Boolean offer(Object o)</td>
+          <td>Queue에 객체를 저장합니다.</td>
+        </tr>
+        <tr>
+          <td>Object poll()</td>
+          <td>Queue에서 객체를 꺼내서 반환합니다. (저장된 건 삭제) 비어 있으면 null이 반환됩니다.</td>
+        </tr>
+        <tr>
+          <td>Object peek()</td>
+          <td>삭제 없이 요소를 읽어옵니다. 비어있으면 null이 반환됩니다.</td>
+        </tr>
+      </table>
+      <br>
+      이 메서드를 보면 서로 비슷한데 뭔 차이지 싶을 겁니다.<br>
+      자세히 정리해보자면 다음과 같습니다.<br><br>
 
-            <table class="queue-exception-table">
-                <tr>
-                    <th>예외발생</th>
-                    <th>메서드</th>
-                    <th>값출력</th>
-                </tr>
-                <tr>
-                    <td>추가</td>
-                    <td>add()</td>
-                    <td>offer()</td>
-                </tr>
-                <tr>
-                    <td>삭제</td>
-                    <td>remove()</td>
-                    <td>poll()</td>
-                </tr>
-                <tr>
-                    <td>읽기</td>
-                    <td>element()</td>
-                    <td>peek()</td>
-                </tr>
-            </table>
-            <br>
-            두 비슷한 메서드들은 <strong>문제가 발생했을 시 예외를 발생시키느냐, null 또는 false를 반환하느냐</strong>의 차이입니다.<br>
-            큐에 값을 추가하는데 큐가 꽉 찼을 시 add()는 예외를 발생시키고, offer는 추가 실패를 의미하는 false를 반환합니다.
-            <br><br>
-            큐와 스택은 삽입과 삭제에는 O(1), 탐색에는 O(n)의 시간 복잡도를 가집니다.<br><br><br><br>
+      <table class="queue-exception-table">
+        <tr>
+          <th>예외발생</th>
+          <th>메서드</th>
+          <th>값출력</th>
+        </tr>
+        <tr>
+          <td>추가</td>
+          <td>add()</td>
+          <td>offer()</td>
+        </tr>
+        <tr>
+          <td>삭제</td>
+          <td>remove()</td>
+          <td>poll()</td>
+        </tr>
+        <tr>
+          <td>읽기</td>
+          <td>element()</td>
+          <td>peek()</td>
+        </tr>
+      </table>
+      <br>
+      두 비슷한 메서드들은 <strong>문제가 발생했을 시 예외를 발생시키느냐, null 또는 false를 반환하느냐</strong>의 차이입니다.<br>
+      큐에 값을 추가하는데 큐가 꽉 찼을 시 add()는 예외를 발생시키고, offer는 추가 실패를 의미하는 false를 반환합니다.
+      <br><br>
+      큐와 스택은 삽입과 삭제에는 O(1), 탐색에는 O(n)의 시간 복잡도를 가집니다.<br><br><br><br>
 
-            <h1 id="priority-queue">우선순위 큐(Priority Queue)</h1>
-            <img src="/images/algorithm/priority_queue_img.png" alt="우선 순위 큐 알고리즘 그림" class="stack-and-queue-img"><br>
-            우선 순위 큐의 각 요소는 값과 우선 순위, 총 2개의 데이터를 가지고 있습니다.<br>
-            선형 큐와는 달리 <strong>저장한 순서에 관계없이 우선순위(priority)가 높은 요소일수록 먼저 삭제</strong>되는 특징을 가지고 있습니다.<br>
-            우선순위가 같은 데이터일 경우 삽입 순서를 따릅니다.<br><br>
+      <h1 id="priority-queue">우선순위 큐(Priority Queue)</h1>
+      <img src="/images/algorithm/priority_queue_img.png" alt="우선 순위 큐 알고리즘 그림"
+           class="stack-and-queue-img"><br>
+      우선 순위 큐의 각 요소는 값과 우선 순위, 총 2개의 데이터를 가지고 있습니다.<br>
+      선형 큐와는 달리 <strong>저장한 순서에 관계없이 우선순위(priority)가 높은 요소일수록 먼저 삭제</strong>되는 특징을 가지고 있습니다.<br>
+      우선순위가 같은 데이터일 경우 삽입 순서를 따릅니다.<br><br>
 
-            PriorityQueue는 null은 저장할 수 없으며, null을 저장할 시 NullPointerException이 발생합니다<br>
-            PrioryityQueue는 저장공간을 배열을 사용하며, 각 요소를 “힙(heap)”이라는 자료구조의 형태로 저장합니다.<br>
-            힙(heap)은 가장 큰 값이나 가장 작은 값을 빠르게 찾을 수 있다는 특징을 가집니다.<br><br>
+      PriorityQueue는 null은 저장할 수 없으며, null을 저장할 시 NullPointerException이 발생합니다<br>
+      PrioryityQueue는 저장공간을 배열을 사용하며, 각 요소를 “힙(heap)”이라는 자료구조의 형태로 저장합니다.<br>
+      힙(heap)은 가장 큰 값이나 가장 작은 값을 빠르게 찾을 수 있다는 특징을 가집니다.<br><br>
 
-            우선순위 큐는 어떻게 구현하느냐에 따라 시간복잡도가 달라지지만 힙을 기준으로 한다면 삽입과 삭제에는 O(logn), 우선순위가 가장 높은 요소를 탐색할 때는 O(1)만큼의 시간복잡도를 가집니다.<br><br>
-            <pre><code class="language-java">Queue pq=new PriorityQueue();</code></pre>
-            <br><br>
-            <pre><code class="language-java">class PriorityQueueEx {
+      우선순위 큐는 어떻게 구현하느냐에 따라 시간복잡도가 달라지지만 힙을 기준으로 한다면 삽입과 삭제에는 O(logn), 우선순위가 가장 높은 요소를 탐색할 때는
+      O(1)만큼의 시간복잡도를 가집니다.<br><br>
+      <pre><code class="language-java">Queue pq=new PriorityQueue();</code></pre>
+      <br><br>
+      <pre><code class="language-java">class PriorityQueueEx {
 	public static void main(String[] args) {
 		Queue pq = new PriorityQueue();
 		pq.offer(3);
@@ -191,140 +198,141 @@
 	}
 }
 </code></pre>
-            poll로 값을 가져오면 숫자가 작은 것이 우선순위를 가져, 1 2 3 4 5 순으로 출력됩니다.<br><br><br><br>
+      poll로 값을 가져오면 숫자가 작은 것이 우선순위를 가져, 1 2 3 4 5 순으로 출력됩니다.<br><br><br><br>
 
 
-            <h1 id="deque">Deque(Double-Ended Queue)</h1>
-            Deque는 양쪽 끝에 추가, 삭제가 가능합니다.<br>
-            Deque의 조상은 Queue이고, 구현체는 ArrayDeque, LinkedList등이 있습니다.<br><br>
-            <pre><code class="language-java">Deque deque = new LinkedList();
+      <h1 id="deque">Deque(Double-Ended Queue)</h1>
+      Deque는 양쪽 끝에 추가, 삭제가 가능합니다.<br>
+      Deque의 조상은 Queue이고, 구현체는 ArrayDeque, LinkedList등이 있습니다.<br><br>
+      <pre><code class="language-java">Deque deque = new LinkedList();
 Deque deque = new ArrayDeque();
 </code></pre>
-            <br>
-            스택, 큐와 같이 데이터의 삽입과 삭제에 O(1)의 시간복잡도를 가집니다.<br>
+      <br>
+      스택, 큐와 같이 데이터의 삽입과 삭제에 O(1)의 시간복잡도를 가집니다.<br>
 
-            <br>
-            <h2>Deque의 값 삽입</h2><br>
-            <img src="/images/algorithm/deque_insert_img.png" alt="덱 알고리즘 그림" class="deque-img"><br>
-            <table>
-                <tr>
-                    <th>메서드</th>
-                    <th>설명</th>
-                </tr>
-                <tr>
-                    <td>add()</td>
-                    <td>마지막에 원소 삽입 용량 초과 시 예외 발생</td>
-                </tr>
-                <tr>
-                    <td>addFirst()</td>
-                    <td>맨 앞에 원소 삽입 용량 초과 시 예외 발생</td>
-                </tr>
-                <tr>
-                    <td>addLast()</td>
-                    <td>마지막에 원소 삽입 용량 초과 시 예외 발생</td>
-                </tr>
-                <tr>
-                    <td>offer()</td>
-                    <td>마지막에 원소 삽입, 삽입 성공 시 true, 용량 제한에 걸리는 경우 false 반환</td>
-                </tr>
-                <tr>
-                    <td>offerFirst()</td>
-                    <td>맨 앞에 원소 삽입, 삽입 성공 시 true, 용량 제한에 걸리는 경우 false 반환</td>
-                </tr>
-                <tr>
-                    <td>offerLast()</td>
-                    <td>마지막에 원소 삽입, 삽입 성공 시 true, 용량 제한에 걸리는 경우 false 반환</td>
-                </tr>
-            </table>
-            <br><br>
+      <br>
+      <h2>Deque의 값 삽입</h2><br>
+      <img src="/images/algorithm/deque_insert_img.png" alt="덱 알고리즘 그림" class="deque-img"><br>
+      <table>
+        <tr>
+          <th>메서드</th>
+          <th>설명</th>
+        </tr>
+        <tr>
+          <td>add()</td>
+          <td>마지막에 원소 삽입 용량 초과 시 예외 발생</td>
+        </tr>
+        <tr>
+          <td>addFirst()</td>
+          <td>맨 앞에 원소 삽입 용량 초과 시 예외 발생</td>
+        </tr>
+        <tr>
+          <td>addLast()</td>
+          <td>마지막에 원소 삽입 용량 초과 시 예외 발생</td>
+        </tr>
+        <tr>
+          <td>offer()</td>
+          <td>마지막에 원소 삽입, 삽입 성공 시 true, 용량 제한에 걸리는 경우 false 반환</td>
+        </tr>
+        <tr>
+          <td>offerFirst()</td>
+          <td>맨 앞에 원소 삽입, 삽입 성공 시 true, 용량 제한에 걸리는 경우 false 반환</td>
+        </tr>
+        <tr>
+          <td>offerLast()</td>
+          <td>마지막에 원소 삽입, 삽입 성공 시 true, 용량 제한에 걸리는 경우 false 반환</td>
+        </tr>
+      </table>
+      <br><br>
 
-            <h2>Deque의 값 삭제</h2><br>
-            <img src="/images/algorithm/deque_remove_img.png" alt="덱 알고리즘 그림" class="deque-img"><br>
-            <table>
-                <tr>
-                    <th>메서드</th>
-                    <th>설명</th>
-                </tr>
-                <tr>
-                    <td>remove()</td>
-                    <td>맨 앞의 원소 제거 후 해당 원소를 리턴, 덱이 비어있는 경우 예외 발생</td>
-                </tr>
-                <tr>
-                    <td>removeFirst()</td>
-                    <td>맨 앞의 원소 제거 후 해당 원소를 리턴, 덱이 비어있는 경우 예외 발생</td>
-                </tr>
-                <tr>
-                    <td>removeLast()</td>
-                    <td>마지막 원소 제거 후 해당 원소를 리턴, 덱이 비어있는 경우 예외 발생</td>
-                </tr>
-                <tr>
-                    <td>poll()</td>
-                    <td>맨 앞의 원소 제거 후 해당 원소를 리턴, 덱이 비어있는 경우 null 리턴</td>
-                </tr>
-                <tr>
-                    <td>pollFirst()</td>
-                    <td>맨 앞의 원소 제거 후 해당 원소를 리턴, 덱이 비어있는 경우 null 리턴</td>
-                </tr>
-                <tr>
-                    <td>pollLast()</td>
-                    <td>마지막 원소 제거 후 해당 원소를 리턴, 덱이 비어있는 경우 null 리턴</td>
-                </tr>
-            </table>
-            <br><br>
+      <h2>Deque의 값 삭제</h2><br>
+      <img src="/images/algorithm/deque_remove_img.png" alt="덱 알고리즘 그림" class="deque-img"><br>
+      <table>
+        <tr>
+          <th>메서드</th>
+          <th>설명</th>
+        </tr>
+        <tr>
+          <td>remove()</td>
+          <td>맨 앞의 원소 제거 후 해당 원소를 리턴, 덱이 비어있는 경우 예외 발생</td>
+        </tr>
+        <tr>
+          <td>removeFirst()</td>
+          <td>맨 앞의 원소 제거 후 해당 원소를 리턴, 덱이 비어있는 경우 예외 발생</td>
+        </tr>
+        <tr>
+          <td>removeLast()</td>
+          <td>마지막 원소 제거 후 해당 원소를 리턴, 덱이 비어있는 경우 예외 발생</td>
+        </tr>
+        <tr>
+          <td>poll()</td>
+          <td>맨 앞의 원소 제거 후 해당 원소를 리턴, 덱이 비어있는 경우 null 리턴</td>
+        </tr>
+        <tr>
+          <td>pollFirst()</td>
+          <td>맨 앞의 원소 제거 후 해당 원소를 리턴, 덱이 비어있는 경우 null 리턴</td>
+        </tr>
+        <tr>
+          <td>pollLast()</td>
+          <td>마지막 원소 제거 후 해당 원소를 리턴, 덱이 비어있는 경우 null 리턴</td>
+        </tr>
+      </table>
+      <br><br>
 
-            <h2>Deque의 원소 확인</h2><br>
-            <img src="/images/algorithm/deque_peek_img.png" alt="덱 알고리즘 그림" class="deque-img"><br>
-            <table>
-                <tr>
-                    <th>메서드</th>
-                    <th>설명</th>
-                </tr>
-                <tr>
-                    <td>getFirst()</td>
-                    <td>맨 앞의 원소를 리턴, 덱이 비어있는 경우 예외 발생</td>
-                </tr>
-                <tr>
-                    <td>getLast()</td>
-                    <td>마지막 원소를 리턴, 덱이 비어있는 경우 예외 발생</td>
-                </tr>
-                <tr>
-                    <td>removeLast()</td>
-                    <td>마지막 원소 제거 후 해당 원소를 리턴, 덱이 비어있는 경우 예외 발생</td>
-                </tr>
-                <tr>
-                    <td>peek()</td>
-                    <td>맨 앞의 원소를 리턴, 덱이 비어있는 경우 null 리턴</td>
-                </tr>
-                <tr>
-                    <td>peekFirst()</td>
-                    <td>맨 앞의 원소를 리턴, 덱이 비어있는 경우 null 리턴</td>
-                </tr>
-                <tr>
-                    <td>peekLast()</td>
-                    <td>마지막 원소를 리턴, 덱이 비어있는 경우 null 리턴</td>
-                </tr>
-            </table>
-            <br><br>
+      <h2>Deque의 원소 확인</h2><br>
+      <img src="/images/algorithm/deque_peek_img.png" alt="덱 알고리즘 그림" class="deque-img"><br>
+      <table>
+        <tr>
+          <th>메서드</th>
+          <th>설명</th>
+        </tr>
+        <tr>
+          <td>getFirst()</td>
+          <td>맨 앞의 원소를 리턴, 덱이 비어있는 경우 예외 발생</td>
+        </tr>
+        <tr>
+          <td>getLast()</td>
+          <td>마지막 원소를 리턴, 덱이 비어있는 경우 예외 발생</td>
+        </tr>
+        <tr>
+          <td>removeLast()</td>
+          <td>마지막 원소 제거 후 해당 원소를 리턴, 덱이 비어있는 경우 예외 발생</td>
+        </tr>
+        <tr>
+          <td>peek()</td>
+          <td>맨 앞의 원소를 리턴, 덱이 비어있는 경우 null 리턴</td>
+        </tr>
+        <tr>
+          <td>peekFirst()</td>
+          <td>맨 앞의 원소를 리턴, 덱이 비어있는 경우 null 리턴</td>
+        </tr>
+        <tr>
+          <td>peekLast()</td>
+          <td>마지막 원소를 리턴, 덱이 비어있는 경우 null 리턴</td>
+        </tr>
+      </table>
+      <br><br>
 
-            <br>
-            <h1 id="exercise">예제 문제</h1><br>
-            스택, 큐 개념에 대해서 배웠으니 예제로 넘어가겠습니다.<br><br>
-            <a href="https://school.programmers.co.kr/learn/courses/30/lessons/12906" class="exercise-problem">
-                1. 같은 숫자는 싫어
-            </a>
-            <details class="exercise-answer">
-                <summary>정답 보기</summary>
-                <div class="explanation">
-                    자바 스택과 그 메소드를 활용하는 문제입니다.<br><br>
-                    <ol>
-                        <li>1. Integer 타입으로 스택을 선언합니다.</li>
-                        <li>2. Stack의 값이 존재하지 않는 경우 (Stack.isEmpty())는 처음 배열의 요소 값을 삽입합니다.</li>
-                        <li>3. Stack의 값이 추가되어서 이를 통해 다음 배열의 요소와 비교하여 같으면 넣지 않고, 같지 않는 경우 Stack에 추가합니다.</li>
-                        <li>4. 최종적으로 Stack에서 후입선출(FIFO)에 의해 마지막 값이 먼저 출력이 되어 배열을 역순으로 순회하며 요소 값을 채워 넣습니다.</li>
-                    </ol>
-                    <br>
+      <br>
+      <h1 id="exercise">예제 문제</h1><br>
+      스택, 큐 개념에 대해서 배웠으니 예제로 넘어가겠습니다.<br><br>
+      <a href="https://school.programmers.co.kr/learn/courses/30/lessons/12906"
+         class="exercise-problem">
+        1. 같은 숫자는 싫어
+      </a>
+      <details class="exercise-answer">
+        <summary>정답 보기</summary>
+        <div class="explanation">
+          자바 스택과 그 메소드를 활용하는 문제입니다.<br><br>
+          <ol>
+            <li>1. Integer 타입으로 스택을 선언합니다.</li>
+            <li>2. Stack의 값이 존재하지 않는 경우 (Stack.isEmpty())는 처음 배열의 요소 값을 삽입합니다.</li>
+            <li>3. Stack의 값이 추가되어서 이를 통해 다음 배열의 요소와 비교하여 같으면 넣지 않고, 같지 않는 경우 Stack에 추가합니다.</li>
+            <li>4. 최종적으로 Stack에서 후입선출(FIFO)에 의해 마지막 값이 먼저 출력이 되어 배열을 역순으로 순회하며 요소 값을 채워 넣습니다.</li>
+          </ol>
+          <br>
 
-<pre><code class="language-java">public class Solution {
+          <pre><code class="language-java">public class Solution {
     public int[] solution(int[] arr) {
        Stack&lt;Integer&gt; stack = new Stack&lt;&gt;();
        for (int i : arr) {
@@ -345,27 +353,32 @@ Deque deque = new ArrayDeque();
     }
 }
 </code></pre>
-                    <br>
-                </div>
-            </details>
-            <br>
+          <br>
+        </div>
+      </details>
+      <br>
 
 
-            <a href="https://school.programmers.co.kr/learn/courses/30/lessons/42586" class="exercise-problem">
-                2. 기능개발
-            </a>
-            <details class="exercise-answer">
-                <summary>정답 보기</summary>
-                <div class="explanation">
-                    자바 큐와 그 메소드를 활용하는 문제입니다.<br><br>
-                    <ol>
-                        <li>1. Integer 타입의 LinkedList로 큐를 선언합니다.</li>
-                        <li>2. 해당 큐에 기능 구현에 필요한 작업 일 수 (Math.ceil((100.0 - progresses[i]) / speeds[i])))를 삽입합니다.</li>
-                        <li>3. 큐에 있는 요소(작업 일 수)를 꺼내서(poll) 남은 큐의 맨앞 값(peek)과 비교합니다. 뒤에 있는 기능이 먼저 개발 완료된다 하더라도 앞에 있는 기능이 먼저 완료되어야만 함께 배포가 가능하기 때문입니다.</li>
-                        <li>4. 비교를 하여 크다면 배포 가능 기능 개수를 증가하고(cnt++) 작다면 해당 개수를 정답 리스트에 담습니다.</li>
-                    </ol>
-                    <br>
-<pre><code class="language-java">public int[] solution(int[] progresses, int[] speeds) {
+      <a href="https://school.programmers.co.kr/learn/courses/30/lessons/42586"
+         class="exercise-problem">
+        2. 기능개발
+      </a>
+      <details class="exercise-answer">
+        <summary>정답 보기</summary>
+        <div class="explanation">
+          자바 큐와 그 메소드를 활용하는 문제입니다.<br><br>
+          <ol>
+            <li>1. Integer 타입의 LinkedList로 큐를 선언합니다.</li>
+            <li>2. 해당 큐에 기능 구현에 필요한 작업 일 수 (Math.ceil((100.0 - progresses[i]) / speeds[i])))를
+              삽입합니다.
+            </li>
+            <li>3. 큐에 있는 요소(작업 일 수)를 꺼내서(poll) 남은 큐의 맨앞 값(peek)과 비교합니다. 뒤에 있는 기능이 먼저 개발 완료된다 하더라도 앞에
+              있는 기능이 먼저 완료되어야만 함께 배포가 가능하기 때문입니다.
+            </li>
+            <li>4. 비교를 하여 크다면 배포 가능 기능 개수를 증가하고(cnt++) 작다면 해당 개수를 정답 리스트에 담습니다.</li>
+          </ol>
+          <br>
+          <pre><code class="language-java">public int[] solution(int[] progresses, int[] speeds) {
     Queue&lt;Integer&gt; queue = new LinkedList&lt;&gt;();
     List&lt;Integer&gt; answer = new ArrayList&lt;&gt;();
 
@@ -387,28 +400,29 @@ Deque deque = new ArrayDeque();
 }
 </code></pre>
 
-                </div>
-            </details>
-            <br>
+        </div>
+      </details>
+      <br>
 
 
-            <a href="https://school.programmers.co.kr/learn/courses/30/lessons/138477" class="exercise-problem">
-                3. 명예의 전당
-            </a>
-            <details class="exercise-answer">
-                <summary>정답 보기</summary>
-                <div class="explanation">
-                    자바 우선순위 큐와 그 메소드를 활용하는 문제입니다.<br><br>
-                    <ol>
-                        <li>1. 데이터 처리를 수행하려는 배열을 순회합니다.</li>
-                        <li>2. 우선순위 큐에 값을 넣습니다. : pg.add(score[j]) (* 우선순위(값)에 따라 정렬이 됩니다)</li>
-                        <li>3. k 값이 우선순위 큐의 사이즈보다 작은 경우 맨 앞의 요소를 결과값으로 반환합니다. (제거 X) : pg.peek()</li>
-                        <li>4. k 값이 우선순위 큐의 사이즈보다 큰 경우에는 배열에 값을 넣고, 배열 안에서 제일 작은 값을 제거합니다 : pg.poll()</li>
-                        <li>5. 배열의 작은 값을 반환합니다. pg:peek()</li>
-                        <li>6. 해당 작업들을 통해서 최종적으로 배열을 구성합니다.</li>
-                    </ol>
-                    <br>
-<pre><code class="language-java">class Solution {
+      <a href="https://school.programmers.co.kr/learn/courses/30/lessons/138477"
+         class="exercise-problem">
+        3. 명예의 전당
+      </a>
+      <details class="exercise-answer">
+        <summary>정답 보기</summary>
+        <div class="explanation">
+          자바 우선순위 큐와 그 메소드를 활용하는 문제입니다.<br><br>
+          <ol>
+            <li>1. 데이터 처리를 수행하려는 배열을 순회합니다.</li>
+            <li>2. 우선순위 큐에 값을 넣습니다. : pg.add(score[j]) (* 우선순위(값)에 따라 정렬이 됩니다)</li>
+            <li>3. k 값이 우선순위 큐의 사이즈보다 작은 경우 맨 앞의 요소를 결과값으로 반환합니다. (제거 X) : pg.peek()</li>
+            <li>4. k 값이 우선순위 큐의 사이즈보다 큰 경우에는 배열에 값을 넣고, 배열 안에서 제일 작은 값을 제거합니다 : pg.poll()</li>
+            <li>5. 배열의 작은 값을 반환합니다. pg:peek()</li>
+            <li>6. 해당 작업들을 통해서 최종적으로 배열을 구성합니다.</li>
+          </ol>
+          <br>
+          <pre><code class="language-java">class Solution {
     public int[] solution(int k, int[] score) {
     int[] answer = new int[score.length];
 
@@ -428,23 +442,25 @@ Deque deque = new ArrayDeque();
     }
 }
 </code></pre>
-                </div>
-            </details>
-            <br>
-            예제를 풀어보니 스택과 큐를 어떻게 활용해야할 지 조금 감이 오지 않나요?<br><br>
-            끝으로, 오르미 여러분들의 실력을 더욱 향상 시킬 수 있는 스택, 큐 관련 문제들 추천해드리겠습니다.<br><br>
-            <ul class="recommend-list">
-                <li><a href="https://www.acmicpc.net/problem/2504">1. 괄호의 값</a></li>
-                <li><a href="https://www.acmicpc.net/problem/1655">2. 가운데를 말해요</a></li>
-                <li><a href="https://www.acmicpc.net/problem/11866">3. 요세푸스 문제 0</a></li>
-                <li><a href="https://school.programmers.co.kr/learn/courses/30/lessons/76502">4. 괄호 회전하기</a></li>
-                <li><a href="https://school.programmers.co.kr/learn/courses/30/lessons/42587">5. 프로세스</a></li>
-
-            </ul>
         </div>
-    </section>
-</main>
+      </details>
+      <br>
+      예제를 풀어보니 스택과 큐를 어떻게 활용해야할 지 조금 감이 오지 않나요?<br><br>
+      끝으로, 오르미 여러분들의 실력을 더욱 향상 시킬 수 있는 스택, 큐 관련 문제들 추천해드리겠습니다.<br><br>
+      <ul class="recommend-list">
+        <li><a href="https://www.acmicpc.net/problem/2504">1. 괄호의 값</a></li>
+        <li><a href="https://www.acmicpc.net/problem/1655">2. 가운데를 말해요</a></li>
+        <li><a href="https://www.acmicpc.net/problem/11866">3. 요세푸스 문제 0</a></li>
+        <li><a href="https://school.programmers.co.kr/learn/courses/30/lessons/76502">4. 괄호 회전하기</a>
+        </li>
+        <li><a href="https://school.programmers.co.kr/learn/courses/30/lessons/42587">5. 프로세스</a>
+        </li>
 
+      </ul>
+    </div>
+  </section>
+</main>
+<script src="../../static/Js/header.js" th:src="@{/Js/header.js}"></script>
 <div th:replace="~{fragments/footer.html::footer}"></div>
 </body>
 </html>
