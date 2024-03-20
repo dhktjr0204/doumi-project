@@ -52,3 +52,7 @@ http://bend-doumi.com:8080/
 - toast UI API
 
 ## ✅ 기능 구현 목록
+
+
+## 🗂 DB 구성도
+<img src="src/main/resources/static/images/readMe/doumi_erd.png">
