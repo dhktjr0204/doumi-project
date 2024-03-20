@@ -61,7 +61,7 @@ public class JdbcTemplateUserRepository implements UserRepository {
     public List<User> findAllUser() {
         return null;
     }
-    
+
     @Override
     public List<Comment> findAllUserCommentPosts(Long userId) {
         String sql = "SELECT user_id,post_id,type,contents,updated_at FROM comment WHERE user_id = ?";
@@ -75,6 +75,13 @@ public class JdbcTemplateUserRepository implements UserRepository {
                 .updatedAt(rs.getTimestamp("updated_at"))
                 .build();
         });
+    }
+
+    @Override
+    public void deleteUser(Long userId) {
+        String sql = "DELETE FROM user WHERE id = ?";
+
+        jdbcTemplate.update(sql, userId);
     }
 
 }

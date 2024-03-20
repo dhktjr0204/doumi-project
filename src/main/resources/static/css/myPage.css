@@ -40,6 +40,28 @@ body {
   cursor: pointer;
 }
 
+.user_delete_btn {
+  padding: 10px;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #363636;
+  cursor: pointer;
+  text-align: center;
+  background-color: #FFFFFF;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+}
+
+.user_delete_btn {
+  color: #FFFFFF;
+  background-color: #04B45F;
+}
+
+.user_delete_btn:hover {
+  background-color: #04B45F;
+  filter: brightness(90%);
+}
+
 /*게시판*/
 .show_user_wrote {
   padding: 1.0rem 0.75rem;

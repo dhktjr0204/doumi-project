@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class AlgorithmController {
+
     @GetMapping("/doumiAlgorithm")
     @Operation(summary = "알고리즘 메인 페이지를 조회할 수 있는 API")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "알고리즘 메인 HTML을 반환",
-                    content = @Content(mediaType = "text/html"))
+        @ApiResponse(responseCode = "200", description = "알고리즘 메인 HTML을 반환",
+            content = @Content(mediaType = "text/html"))
     })
     public String index() {
 
@@ -29,7 +30,17 @@ public class AlgorithmController {
     }
 
     @GetMapping("/codingtest/stack")
-    public String stack(){
+    public String stack() {
         return "algorithm/stackAndQueue";
+    }
+
+//    @GetMapping("/codingtest/bruteforce")
+//    public String bruteforce() {
+//        return "algorithm/bruteforce";
+//    }
+
+    @GetMapping("/codingtest/sets&maps")
+    public String setsAndMaps() {
+        return "algorithm/setsAndMaps";
     }
 }

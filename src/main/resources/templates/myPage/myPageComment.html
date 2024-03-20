@@ -1,44 +1,154 @@
-<li class="quiz_container_header">
-  <div class="sequence">번호</div>
-  <div class="contents">댓글 내용</div>
-  <div class="author">작성자</div>
-  <div class="update_time">최근 수정일</div>
-</li>
+<!--<div class="show_user_wrote">-->
+<!--  <div class="table_container">-->
 
-<ul th:fragment="list_of_comment" class="list_of_comment" th:each="comment:${contents}">
-  <li class="quiz_container">
-    <div class="sequence" th:text="${comment.postId}"></div>
-    <div class="contents">
-      <!--      -->
-      <a th:if="${comment.type eq 'QUIZ'}" th:href="@{'/quiz/board?id=' + ${comment.postId}}"
-         th:text="${comment.contents}">댓글 내용</a>
-      <a th:if="${comment.type eq 'COTE'}" th:href="@{'/codingtest/board?id=' + ${comment.postId}}"
-         th:text="${comment.contents}">댓글 내용</a>
-    </div>
-    <div class="author" th:text="${userName}">작성자</div>
-    <div class="update_time" th:text="${#dates.format(comment.updatedAt, 'yyyy/MM/dd HH:mm')}">
-      최근 수정일
-    </div>
-  </li>
-</ul>
+<!--    <li class="quiz_container_header">-->
+<!--      <div class="sequence">번호</div>-->
+<!--      <div class="contents">댓글 내용</div>-->
+<!--      <div class="author">작성자</div>-->
+<!--      <div class="update_time">최근 수정일</div>-->
+<!--    </li>-->
 
-<nav class="page">
-  <ul class="page_list" th:unless="${contents.isEmpty()}">
-    <li class="page_link" th:unless="${startIdx == 1}">
-      <a th:href="@{'/user/'+${userId}+'/comment/posts?page=1'}">처음</a>
-    </li>
-    <li class="page_link" th:unless="${startIdx == 1}">
-      <a th:href="@{'/user/' + ${userId} + '/comment/posts(page=' + (${startIdx - 1}) + ')'}"><<</a>
-    </li>
-    <li th:each="page : ${#numbers.sequence(startIdx, endIdx)}"
-        th:class="${page == currentPage} ? 'page_current' : 'page_link'">
-      <a th:href="@{'/user/' + ${userId} + '/comment/posts?page=' + ${page}}" th:text="${page}"></a>
-    </li>
-    <li class="page_link" th:unless="${endIdx == totalPages}">
-      <a th:href="@{'/user/' + ${userId} + '/comment/posts?page=' + (${endIdx + 1})}">>></a>
-    </li>
-    <li class="page_link" th:unless="${endIdx == totalPages}">
-      <a th:href="@{'/user/' + ${userId} + '/comment/posts?page=' + ${totalPages}}">마지막</a>
-    </li>
-  </ul>
-</nav>
+<!--    <ul th:fragment="list_of_comment" class="list_of_comment" th:each="comment:${contents}">-->
+<!--      <li class="quiz_container">-->
+<!--        <div class="sequence" th:text="${comment.postId}"></div>-->
+<!--        <div class="contents">-->
+<!--          &lt;!&ndash;      &ndash;&gt;-->
+<!--          <a th:if="${comment.type eq 'QUIZ'}" th:href="@{'/quiz/board?id=' + ${comment.postId}}"-->
+<!--             th:text="${comment.contents}">댓글 내용</a>-->
+<!--          <a th:if="${comment.type eq 'COTE'}"-->
+<!--             th:href="@{'/codingtest/board?id=' + ${comment.postId}}"-->
+<!--             th:text="${comment.contents}">댓글 내용</a>-->
+<!--        </div>-->
+<!--        <div class="author" th:text="${userName}">작성자</div>-->
+<!--        <div class="update_time" th:text="${#dates.format(comment.updatedAt, 'yyyy/MM/dd HH:mm')}">-->
+<!--          최근 수정일-->
+<!--        </div>-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </div>-->
+
+<!--  <nav class="page">-->
+<!--    <ul class="page_list" th:unless="${contents.isEmpty()}">-->
+<!--      <li class="page_link" th:unless="${startIdx == 1}">-->
+<!--        <a th:href="@{'/user/'+${userId}+'/comment/posts?page=1'}">처음</a>-->
+<!--      </li>-->
+<!--      <li class="page_link" th:unless="${startIdx == 1}">-->
+<!--        <a th:href="@{'/user/' + ${userId} + '/comment/posts(page=' + (${startIdx - 1}) + ')'}"><<</a>-->
+<!--      </li>-->
+<!--      <li th:each="page : ${#numbers.sequence(startIdx, endIdx)}"-->
+<!--          th:class="${page == currentPage} ? 'page_current' : 'page_link'">-->
+<!--        <a th:href="@{'/user/' + ${userId} + '/comment/posts?page=' + ${page}}"-->
+<!--           th:text="${page}"></a>-->
+<!--      </li>-->
+<!--      <li class="page_link" th:unless="${endIdx == totalPages}">-->
+<!--        <a th:href="@{'/user/' + ${userId} + '/comment/posts?page=' + (${endIdx + 1})}">>></a>-->
+<!--      </li>-->
+<!--      <li class="page_link" th:unless="${endIdx == totalPages}">-->
+<!--        <a th:href="@{'/user/' + ${userId} + '/comment/posts?page=' + ${totalPages}}">마지막</a>-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </nav>-->
+<!--</div>-->
+
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>MyPage</title>
+  <link href="../../static/css/fragments/footer.css" th:href="@{/css/fragments/footer.css}"
+        rel="stylesheet" type="text/css"/>
+  <link href="/css/fragments/header.css" th:href="@{/css/fragments/header.css}"
+        rel="stylesheet"
+        type="text/css"/>
+  <link href="/css/myPage.css" th:href="@{/css/myPage.css}" rel="stylesheet"
+        type="text/css"/>
+</head>
+<body>
+
+<div th:replace="~{fragments/header.html::header}"></div>
+
+<main class="myPage_main">
+  <aside class="myPage_leftSide">
+
+    <nav>
+      <h2 id="myPage_userName" th:text="${userName}" th:data-userId="${userId}">
+        userIdUnder20character</h2>
+      <ul class="user_wrote_list">
+        <li class="cote_question">
+          <span class="dot">•</span>
+          <a class="cote_type" id="coteType"
+             th:href="@{/user/{userId}/codingtest/posts(userId =${userId})}">코딩 테스트 질문</a>
+        </li>
+        <li class="quiz_question">
+          <span class="dot">•</span>
+          <a class="quiz_type" id="quizType"
+             th:href="@{/user/{userId}/quiz/posts(userId =${userId})}">퀴즈 게시물</a>
+        </li>
+        <li class="comment">
+          <span class="dot">•</span>
+          <a class="comment_type" id="commentType"
+             th:href="@{/user/{userId}/comment/posts(userId =${userId})}"
+             style="color:#04B45F">댓글</a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+  <div class="show_user_wrote">
+    <div class="table_container">
+
+      <li class="quiz_container_header">
+        <div class="sequence">번호</div>
+        <div class="contents">댓글 내용</div>
+        <div class="author">작성자</div>
+        <div class="update_time">최근 수정일</div>
+      </li>
+
+      <ul th:fragment="list_of_comment" class="list_of_comment" th:each="comment:${contents}">
+        <li class="quiz_container">
+          <div class="sequence" th:text="${comment.postId}"></div>
+          <div class="contents">
+            <!--      -->
+            <a th:if="${comment.type eq 'QUIZ'}" th:href="@{'/quiz/board?id=' + ${comment.postId}}"
+               th:text="${comment.contents}">댓글 내용</a>
+            <a th:if="${comment.type eq 'COTE'}"
+               th:href="@{'/codingtest/board?id=' + ${comment.postId}}"
+               th:text="${comment.contents}">댓글 내용</a>
+          </div>
+          <div class="author" th:text="${userName}">작성자</div>
+          <div class="update_time"
+               th:text="${#dates.format(comment.updatedAt, 'yyyy/MM/dd HH:mm')}">
+            최근 수정일
+          </div>
+        </li>
+      </ul>
+    </div>
+    <nav class="page">
+      <ul class="page_list" th:unless="${contents.isEmpty()}">
+        <li class="page_link" th:unless="${startIdx == 1}">
+          <a th:href="@{'/user/'+${userId}+'/comment/posts?page=1'}">처음</a>
+        </li>
+        <li class="page_link" th:unless="${startIdx == 1}">
+          <a th:href="@{'/user/' + ${userId} + '/comment/posts?page=' + ${startIdx - 1}}"><<</a>
+        </li>
+        <li th:each="page : ${#numbers.sequence(startIdx, endIdx)}"
+            th:class="${page == currentPage} ? 'page_current' : 'page_link'">
+          <a th:href="@{'/user/' + ${userId} + '/comment/posts?page=' + ${page}}"
+             th:text="${page}"></a>
+        </li>
+        <li class="page_link" th:unless="${endIdx == totalPages}">
+          <a th:href="@{'/user/' + ${userId} + '/comment/posts?page=' + ${endIdx + 1}}">>></a>
+        </li>
+        <li class="page_link" th:unless="${endIdx == totalPages}">
+          <a th:href="@{'/user/' + ${userId} + '/comment/posts?page=' + ${totalPages}}">마지막</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</main>
+
+<div th:replace="~{fragments/footer.html::footer}"></div>
+
+<script src="../../static/Js/header.js" th:src="@{/Js/header.js}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+</html>

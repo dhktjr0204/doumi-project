@@ -1,42 +1,98 @@
-<li class="quiz_container_header">
-  <div class="sequence">번호</div>
-  <div class="title">제목</div>
-  <div class="author">작성자</div>
-  <div class="create_time">작성일</div>
-  <div class="like">추천</div>
-</li>
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>MyPage</title>
+  <link href="../../static/css/fragments/footer.css" th:href="@{/css/fragments/footer.css}"
+        rel="stylesheet" type="text/css"/>
+  <link href="/css/fragments/header.css" th:href="@{/css/fragments/header.css}"
+        rel="stylesheet"
+        type="text/css"/>
+  <link href="/css/myPage.css" th:href="@{/css/myPage.css}" rel="stylesheet"
+        type="text/css"/>
+</head>
+<body>
 
-<ul th:fragment="list_of_codingtest" class="list_of_codingtest" th:each="cote:${contents}">
-  <li class="quiz_container">
-    <div class="sequence" th:text="${cote.id}"></div>
-    <div class="title">
-      <a th:href="@{'/codingtest/board?id=' + ${cote.id}}" th:text="${cote.title}">게시글 제목</a>
-    </div>
-    <div class="author" th:text="${userName}">작성자</div>
-    <div class="create_time" th:text="${#dates.format(cote.createdAt, 'yyyy/MM/dd HH:mm')}">
-      작성일
-    </div>
-    <div class="likes" th:text="${cote.likeCount}"></div>
-  </li>
-</ul>
+<div th:replace="~{fragments/header.html::header}"></div>
 
-<nav class="page">
-  <ul class="page_list" th:unless="${contents.isEmpty()}">
-    <li class="page_link" th:unless="${startIdx == 1}">
-      <a th:href="@{'/user/'+${userId}+'/codingtest/posts?page=1'}">처음</a>
-    </li>
-    <li class="page_link" th:unless="${startIdx == 1}">
-      <a th:href="@{'/user/' + ${userId} + '/codingtest/posts(page=' + (${startIdx - 1}) + ')'}"><<</a>
-    </li>
-    <li th:each="page : ${#numbers.sequence(startIdx, endIdx)}"
-        th:class="${page == currentPage} ? 'page_current' : 'page_link'">
-      <a th:href="@{'/user/' + ${userId} + '/codingtest/posts?page=' + ${page}}" th:text="${page}"></a>
-    </li>
-    <li class="page_link" th:unless="${endIdx == totalPages}">
-      <a th:href="@{'/user/' + ${userId} + '/codingtest/posts?page=' + (${endIdx + 1})}">>></a>
-    </li>
-    <li class="page_link" th:unless="${endIdx == totalPages}">
-      <a th:href="@{'/user/' + ${userId} + '/codingtest/posts?page=' + ${totalPages}}">마지막</a>
-    </li>
-  </ul>
-</nav>
+<main class="myPage_main">
+  <aside class="myPage_leftSide">
+
+    <nav>
+      <h2 id="myPage_userName" th:text="${userName}" th:data-userId="${userId}">
+        userIdUnder20character</h2>
+      <ul class="user_wrote_list">
+        <li class="cote_question">
+          <span class="dot">•</span>
+          <a class="cote_type" id="coteType"
+             th:href="@{/user/{userId}/codingtest/posts(userId =${userId})}" style="color:#04B45F">코딩
+            테스트 질문</a>
+        </li>
+        <li class="quiz_question">
+          <span class="dot">•</span>
+          <a class="quiz_type" id="quizType"
+             th:href="@{/user/{userId}/quiz/posts(userId =${userId})}">퀴즈 게시물</a>
+        </li>
+        <li class="comment">
+          <span class="dot">•</span>
+          <a class="comment_type" id="commentType"
+             th:href="@{/user/{userId}/comment/posts(userId =${userId})}">댓글</a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+  <div class="show_user_wrote">
+    <div class="table_container">
+
+      <li class="quiz_container_header">
+        <div class="sequence">번호</div>
+        <div class="title">제목</div>
+        <div class="author">작성자</div>
+        <div class="create_time">작성일</div>
+        <div class="like">추천</div>
+      </li>
+
+      <ul th:fragment="list_of_codingtest" class="list_of_codingtest" th:each="cote:${contents}">
+        <li class="quiz_container">
+          <div class="sequence" th:text="${cote.id}"></div>
+          <div class="title">
+            <a th:href="@{'/codingtest/board?id=' + ${cote.id}}" th:text="${cote.title}">게시글 제목</a>
+          </div>
+          <div class="author" th:text="${userName}">작성자</div>
+          <div class="create_time" th:text="${#dates.format(cote.createdAt, 'yyyy/MM/dd HH:mm')}">
+            작성일
+          </div>
+          <div class="likes" th:text="${cote.likeCount}"></div>
+        </li>
+      </ul>
+    </div>
+    <nav class="page">
+      <ul class="page_list" th:unless="${contents.isEmpty()}">
+        <li class="page_link" th:unless="${startIdx == 1}">
+          <a th:href="@{'/user/'+${userId}+'/codingtest/posts?page=1'}">처음</a>
+        </li>
+        <li class="page_link" th:unless="${startIdx == 1}">
+          <a th:href="@{'/user/' + ${userId} + '/codingtest/posts?page=' + ${startIdx - 1}}"><<</a>
+        </li>
+        <li th:each="page : ${#numbers.sequence(startIdx, endIdx)}"
+            th:class="${page == currentPage} ? 'page_current' : 'page_link'">
+          <a th:href="@{'/user/' + ${userId} + '/codingtest/posts?page=' + ${page}}"
+             th:text="${page}"></a>
+        </li>
+        <li class="page_link" th:unless="${endIdx == totalPages}">
+          <a th:href="@{'/user/' + ${userId} + '/codingtest/posts?page=' + ${endIdx + 1}}">>></a>
+        </li>
+        <li class="page_link" th:unless="${endIdx == totalPages}">
+          <a th:href="@{'/user/' + ${userId} + '/codingtest/posts?page=' + ${totalPages}}">마지막</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</main>
+
+<div th:replace="~{fragments/footer.html::footer}"></div>
+
+<script src="../../static/Js/header.js" th:src="@{/Js/header.js}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+</html>
