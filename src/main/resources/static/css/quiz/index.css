@@ -16,7 +16,7 @@ body {
 
 /*header 파트*/
 .move_to_quiz {
-  /*color: #04B45F*/
+  color: #04B45F
 }
 
 /*main 파트*/
@@ -106,7 +106,7 @@ body {
 .title {
   width: 40%;
   margin-right: 10px;
-  
+
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
