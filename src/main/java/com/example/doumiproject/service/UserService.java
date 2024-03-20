@@ -66,4 +66,9 @@ public class UserService {
         List<Comment> userCommentPosts = userRepository.findAllUserCommentPosts(userId);
         return userCommentPosts;
     }
+
+
+    public void deleteUser(Long userId) {
+        userRepository.deleteUser(userId);
+    }
 }

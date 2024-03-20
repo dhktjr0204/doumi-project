@@ -29,4 +29,7 @@ public interface UserRepository {
             return user;
         });
     }
+
+    void deleteUser(Long userId);
+    
 }

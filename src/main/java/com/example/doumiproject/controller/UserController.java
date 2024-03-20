@@ -4,6 +4,7 @@ import com.example.doumiproject.dto.CommentDto;
 import com.example.doumiproject.dto.PostDto;
 import com.example.doumiproject.entity.Comment;
 import com.example.doumiproject.entity.User;
+import com.example.doumiproject.exception.user.NotValidateUserException;
 import com.example.doumiproject.service.CodingTestService;
 import com.example.doumiproject.service.CommentService;
 import com.example.doumiproject.service.QuizService;
@@ -31,6 +32,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -158,7 +160,7 @@ public class UserController {
             content = @Content(mediaType = "text/html"))
     })
     public String getCodingTestPost(@PathVariable("userId") Long userId, HttpSession session,
-                                    @RequestParam(defaultValue = "1", value = "page") int page, Model model) {
+        @RequestParam(defaultValue = "1", value = "page") int page, Model model) {
         int totalPages = codingTestService.getTotalPagesForMyPage(userId, "COTE", pageSize);
 
         List<PostDto> userCoteList = codingTestService.findByUserId(userId, page, pageSize);
@@ -175,7 +177,7 @@ public class UserController {
             content = @Content(mediaType = "text/html"))
     })
     public String getQuizPost(@PathVariable("userId") Long userId, HttpSession session,
-                              @RequestParam(defaultValue = "1", value = "page") int page, Model model) {
+        @RequestParam(defaultValue = "1", value = "page") int page, Model model) {
 
         int totalPages = quizService.getTotalPagesForMyPage(userId, "QUIZ", pageSize);
 
@@ -193,7 +195,7 @@ public class UserController {
             content = @Content(mediaType = "text/html"))
     })
     public String getCommentPost(@PathVariable("userId") Long userId, HttpSession session,
-                                 @RequestParam(defaultValue = "1", value = "page") int page, Model model) {
+        @RequestParam(defaultValue = "1", value = "page") int page, Model model) {
 
         int totalPages = commentService.getTotalPagesForMyPage(userId, pageSize);
 
@@ -204,7 +206,8 @@ public class UserController {
         return "myPage/myPageComment";
     }
 
-    private void setPaginationAttributes(Model model, int page, int totalPages, Long userId, List<?> contents) {
+    private void setPaginationAttributes(Model model, int page, int totalPages, Long userId,
+        List<?> contents) {
 
         if (page < 1) {
             page = 1;
@@ -219,5 +222,18 @@ public class UserController {
         model.addAttribute("endIdx", endIdx);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("userId", userId);
+    }
+
+    @DeleteMapping("/user/{id}/delete")
+    public ResponseEntity<Void> withdraw(@PathVariable Long id, HttpSession session) {
+        long userId = (long) session.getAttribute("userId");
+
+        if (userId != id) {
+            throw new NotValidateUserException();
+        }
+
+        userService.deleteUser(userId);
+
+        return ResponseEntity.ok().build();
     }
 }
