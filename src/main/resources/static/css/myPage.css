@@ -23,6 +23,10 @@ body {
 
 .myPage_leftSide {
   min-width: 225px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   /*border: 1px solid blue;*/
 }
 
@@ -41,30 +45,25 @@ body {
 }
 
 .user_delete_btn {
+  width: 40%;
   padding: 10px;
   font-size: 1rem;
   line-height: 1.5;
-  color: #363636;
+  color: #464141;
   cursor: pointer;
-  text-align: center;
   background-color: #FFFFFF;
-  border: 1px solid #dbdbdb;
+  border: 1px solid #ededed;
   border-radius: 10px;
 }
 
-.user_delete_btn {
-  color: #FFFFFF;
-  background-color: #04B45F;
-}
-
 .user_delete_btn:hover {
-  background-color: #04B45F;
-  filter: brightness(90%);
+  font-weight: bold;
 }
 
 /*게시판*/
 .show_user_wrote {
-  padding: 1.0rem 0.75rem;
+  padding-left: 1.5rem;
+  /*padding: 1.0rem 0.75rem;*/
   flex-grow: 1;
 }
 

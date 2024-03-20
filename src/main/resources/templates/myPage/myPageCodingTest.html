@@ -40,6 +40,10 @@
         </li>
       </ul>
     </nav>
+    <div class="user_delete_btn"
+         onclick="clickToGoLeaveMembership(event)">
+      <span class="dot">•</span> 회원 탈퇴
+    </div>
   </aside>
   <div class="show_user_wrote">
     <div class="table_container">
@@ -91,7 +95,7 @@
 </main>
 
 <div th:replace="~{fragments/footer.html::footer}"></div>
-
+<script src="../../static/Js/myPage.js" th:src="@{/Js/myPage.js}"></script>
 <script src="../../static/Js/header.js" th:src="@{/Js/header.js}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </body>
