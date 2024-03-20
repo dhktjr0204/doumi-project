@@ -3,14 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <title>Doumi</title>
-  <link href="../../static/css/codingtest/timeComplexity.css"
-        th:href="@{/css/codingtest/timeComplexity.css}"
+  <link href="../../static/css/fragments/footer.css" th:href="@{/css/fragments/footer.css}"
+        rel="stylesheet"
+        type="text/css"/>
+  <link href="../../static/css/board.css"
+        th:href="@{/css/board.css}"
         rel="stylesheet" type="text/css"/>
+  <link href="../../static/css/fragments/header.css" th:href="@{/css/fragments/header.css}"
+        rel="stylesheet"
+        type="text/css"/>
+  <link href="../../static/css/algorithm/header.css" th:href="@{/css/algorithm/header.css}"
+        rel="stylesheet" type="text/css"/>
+
   <link rel="stylesheet"
         href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
 </head>
+<div th:replace="~{fragments/header.html::header}"></div>
 <body>
-<header></header>
 <main class="cont-main">
   <section class="content-header">
     <button class="back-button"><a href="/doumiAlgorithm">< 목록으로</a></button>
@@ -50,7 +59,7 @@ import java.util.Set;
 
 public class SetExample {
     public static void main(String[] args) {
-        Set&lt;Integer&gt; numberSet = new HashSet<>();
+        Set&lt;Integer&gt; numberSet = new HashSet&lt;&gt;();
         numberSet.add(1);
         numberSet.add(2);
         numberSet.add(3);
@@ -88,7 +97,7 @@ import java.util.Map;
 
 public class MapExample {
     public static void main(String[] args) {
-        Map&lt;String, Integer&gt; ageMap = new HashMap<>();
+        Map&lt;String, Integer&gt; ageMap = new HashMap&lt;&gt;();
         ageMap.put("Alice", 30);
         ageMap.put("Bob", 25);
         ageMap.put("Charlie", 35);
@@ -157,7 +166,7 @@ public class NumberCard {
 
         // 상근이가 가지고 있는 숫자 카드의 개수 N
         int N = scanner.nextInt();
-        Set&lt;Integer&gt; cardSet = new HashSet<>();
+        Set&lt;Integer&gt; cardSet = new HashSet&lt;&gt;();
 
         // 상근이의 숫자 카드 입력 받기
         for (int i = 0; i < N; i++) {
@@ -222,6 +231,7 @@ public class NumberCard {
 
   </section>
 </main>
+<div th:replace="~{fragments/footer.html::footer}"></div>
 <script src="../../static/Js/header.js" th:src="@{/Js/header.js}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
