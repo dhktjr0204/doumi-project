@@ -8,19 +8,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const passwordConfirm = document.getElementById('passwordConfirm').value;
 
     // 닉네임 유효성 검사
-    const idRegex = /^[a-zA-Z0-9]{4,20}$/;
+    const idRegex = /^[a-zA-Z0-9]{5,20}$/;
     if (!idRegex.test(id)) {
       alert('아이디는 최소 5자 이상 최대 20자 이하이며 영문자와 숫자만 가능합니다.');
       return;
     }
 
     // 비밀번호 유효성 검사
-    // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,20}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
+    // const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,20}$/;
     if (!passwordRegex.test(password)) {
-      // alert(
-      //     '비밀번호는 최소 8자 이상 최대 20자 이하, 하나 이상의 대문자, 하나의 소문자, 하나의 숫자, 하나의 특수 문자를 포함해야 합니다.');
-      alert('비밀번호는 최소 4자 이상 최대 20자 이하, 하나 이상의 문자와 하나의 숫자를 포함해야 합니다.');
+      alert(
+          '비밀번호는 최소 8자 이상 최대 20자 이하, 하나 이상의 대문자, 하나의 소문자, 하나의 숫자, 하나의 특수 문자를 포함해야 합니다.');
+      // alert('비밀번호는 최소 4자 이상 최대 20자 이하, 하나 이상의 문자와 하나의 숫자를 포함해야 합니다.');
       return;
     }
 
