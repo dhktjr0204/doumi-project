@@ -12,8 +12,8 @@ public class UserValidator implements Validator {
     //아이디,비밀번호 정규식 , 테스트용 정규식이라 나중에 바꿔야합니다
     //^[a-zA-Z0-9]{5,20}$
     //^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,20}$
-    private static final String ID_REGEEXP = "^[a-zA-Z0-9]{4,20}$";
-    private static final String PW_REGEXP = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{4,20}$";
+    private static final String ID_REGEEXP = "^[a-zA-Z0-9]{5,20}$";
+    private static final String PW_REGEXP = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,20}$";
 
     @Override
     public boolean supports(Class<?> clazz) {//검증하려는 클래스를 체크하는 메소드

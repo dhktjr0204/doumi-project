@@ -43,4 +43,10 @@ public class AlgorithmController {
     public String setsAndMaps() {
         return "algorithm/setsAndMaps";
     }
+
+    @GetMapping("/codingtest/dfsandbfs")
+    public String dfsAndBfs() {
+
+        return "algorithm/dfsAndBfs";
+    }
 }
