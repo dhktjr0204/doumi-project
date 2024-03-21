@@ -36,13 +36,13 @@ public class JdbcTemplateLikeRepository implements LikeRepository{
     }
 
     @Override
-    public long countLike(long post_id) {
+    public long countLike(long post_id, String type) {
 
         String sql = "select count(*) " +
                 "from likes " +
-                "where post_id = ?";
+                "where post_id = ? and type = ? ";
 
-        return jdbcTemplate.queryForObject(sql, Long.class, post_id);
+        return jdbcTemplate.queryForObject(sql, Long.class, post_id, type);
     }
 
     @Override

@@ -23,9 +23,9 @@ public class LikeServiceImpl implements LikeService{
     }
 
     @Override
-    public long getCountLike(long post_id) {
+    public long getCountLike(long post_id, String type) {
 
-        return likeRepository.countLike(post_id);
+        return likeRepository.countLike(post_id, type);
     }
 
     @Override
