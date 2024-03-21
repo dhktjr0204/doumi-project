@@ -1,36 +1,46 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Doumi</title>
-    <link href="../../static/css/codingtest/timeComplexity.css"
-          th:href="@{/css/codingtest/timeComplexity.css}"
-          rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet"
-          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
-</head>
-<body>
-<header></header>
-<main class="cont-main">
-    <section class="content-header">
-        <button class="back-button"><a href="/doumiAlgorithm">< 목록으로</a></button>
-        <h1 class="title">DFS와 BFS(DFS & BFS)</h1>
-        <div class="content-info">
-            <a href="" class="board-writer-name">도우미</a>
-            <p class="content-createdAt">24.03.20 21:30 작성</p>
-        </div>
-    </section>
+  <meta charset="UTF-8">
+  <title>Doumi</title>
+  <link href="../../static/css/fragments/footer.css" th:href="@{/css/fragments/footer.css}"
+        rel="stylesheet"
+        type="text/css"/>
+  <link href="../../static/css/board.css"
+        th:href="@{/css/board.css}"
+        rel="stylesheet" type="text/css"/>
+  <link href="../../static/css/fragments/header.css" th:href="@{/css/fragments/header.css}"
+        rel="stylesheet"
+        type="text/css"/>
+  <link href="../../static/css/algorithm/header.css" th:href="@{/css/algorithm/header.css}"
+        rel="stylesheet" type="text/css"/>
 
-    <section class="content-main">
-        <h2>DFS (Dept-First Search)</h2>
-        <br>
-        <p>깊이 우선 탐색이라고 부르며, 그래프에서 깊은 부분을 우선적으로 탐색하는 알고리즘이다.</p>
-        <p>이것은 스택이나 재귀 호출을 이용하여 구현할 수 있다.</p>
-        <p>
-            <img src="/images/algorithm/dfs.gif" alt="dfs.gif"></p>
-        <p>재귀함수를 사용하여 구현할 때는 종료 조건을 명확히 해줘야 한다. 그렇지 않으면 무한 루프에 빠지게 된다.</p>
-        <h3>재귀를 활용한 DFS</h3>
-        <pre>
+
+  <link rel="stylesheet"
+        href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+</head>
+<div th:replace="~{fragments/header.html::header}"></div>
+<body>
+<main class="cont-main">
+  <section class="content-header">
+    <button class="back-button"><a href="/doumiAlgorithm">< 목록으로</a></button>
+    <h1 class="title">DFS와 BFS(DFS & BFS)</h1>
+    <div class="content-info">
+      <a href="" class="board-writer-name">도우미</a>
+      <p class="content-createdAt">24.03.20 21:30 작성</p>
+    </div>
+  </section>
+
+  <section class="content-main">
+    <h2>DFS (Dept-First Search)</h2>
+    <br>
+    <p>깊이 우선 탐색이라고 부르며, 그래프에서 깊은 부분을 우선적으로 탐색하는 알고리즘이다.</p>
+    <p>이것은 스택이나 재귀 호출을 이용하여 구현할 수 있다.</p>
+    <p>
+      <img src="/images/algorithm/dfs.gif" alt="dfs.gif"></p>
+    <p>재귀함수를 사용하여 구현할 때는 종료 조건을 명확히 해줘야 한다. 그렇지 않으면 무한 루프에 빠지게 된다.</p>
+    <h3>재귀를 활용한 DFS</h3>
+    <pre>
           <code class="lang-java">
             class Solution {
 
@@ -54,21 +64,21 @@
             }
           </code>
         </pre>
-        <h3>DFS를 활용하여 풀 수 있는 문제</h3>
-        <ul>
-            <li>모든 경우의 수를 구해야 하는 문제</li>
-            <li>검색 대상의 규모가 큰 문제</li>
-            <li>경로의 특징을 저장해야 하는 문제</li>
-        </ul>
-        <br><br>
-        <h2>BFS (Breadth-Firsh Search)</h2>
-        <br>
-        <p>너비 우선 탐색이라고 부르며, 그래프에서 인접한 노드를 모두 탐색하고 다음 노드를 탐색하는 알고리즘이다. 이것은
-            큐와 반복문을 이용하여 구현할 수 있다.</p>
-        <p>
-            <img src="/images/algorithm/bfs.gif" alt="bfs.gif"></p>
-        <p>큐를 활용한 BFS</p>
-        <pre>
+    <h3>DFS를 활용하여 풀 수 있는 문제</h3>
+    <ul>
+      <li>모든 경우의 수를 구해야 하는 문제</li>
+      <li>검색 대상의 규모가 큰 문제</li>
+      <li>경로의 특징을 저장해야 하는 문제</li>
+    </ul>
+    <br><br>
+    <h2>BFS (Breadth-Firsh Search)</h2>
+    <br>
+    <p>너비 우선 탐색이라고 부르며, 그래프에서 인접한 노드를 모두 탐색하고 다음 노드를 탐색하는 알고리즘이다. 이것은
+      큐와 반복문을 이용하여 구현할 수 있다.</p>
+    <p>
+      <img src="/images/algorithm/bfs.gif" alt="bfs.gif"></p>
+    <p>큐를 활용한 BFS</p>
+    <pre>
           <code class="lang-java">
 
             public static void bfs(int start) {
@@ -95,21 +105,22 @@
           </code>
         </pre>
 
-        <h3> 활용하여 풀 수 있는 문제</h3>
-        최단 경로 찾는 문제
+    <h3> 활용하여 풀 수 있는 문제</h3>
+    최단 경로 찾는 문제
 
-        <h3>연습 문제</h3>
-        <p><a href="https://programmers.co.kr/learn/courses/30/lessons/1844#">프로그래머스 - 게임 맵 찾기</a></p>
-        <p><a href="https://programmers.co.kr/learn/courses/30/lessons/49994#">프로그래머스 - 방문 길이</a></p>
-        <p><a href="https://programmers.co.kr/learn/courses/30/lessons/84512">프로그래머스 - 모음 사전</a></p>
-        <p><a href="https://programmers.co.kr/learn/courses/30/lessons/87946#">프로그래머스 - 피로도</a></p>
-        <p><a href="https://programmers.co.kr/learn/courses/30/lessons/43165#">프로그래머스 - 타겟 넘버</a></p>
-        <p><a href="https://programmers.co.kr/learn/courses/30/lessons/72411">프로그래머스 - 메뉴 리뉴얼</a></p>
-        <p><a href="https://programmers.co.kr/learn/courses/30/lessons/42839">프로그래머스 - 소수 찾기</a></p>
-        <p><a href="https://programmers.co.kr/learn/courses/30/lessons/12977">프로그래머스 - 소수 만들기</a></p>
+    <h3>연습 문제</h3>
+    <p><a href="https://programmers.co.kr/learn/courses/30/lessons/1844#">프로그래머스 - 게임 맵 찾기</a></p>
+    <p><a href="https://programmers.co.kr/learn/courses/30/lessons/49994#">프로그래머스 - 방문 길이</a></p>
+    <p><a href="https://programmers.co.kr/learn/courses/30/lessons/84512">프로그래머스 - 모음 사전</a></p>
+    <p><a href="https://programmers.co.kr/learn/courses/30/lessons/87946#">프로그래머스 - 피로도</a></p>
+    <p><a href="https://programmers.co.kr/learn/courses/30/lessons/43165#">프로그래머스 - 타겟 넘버</a></p>
+    <p><a href="https://programmers.co.kr/learn/courses/30/lessons/72411">프로그래머스 - 메뉴 리뉴얼</a></p>
+    <p><a href="https://programmers.co.kr/learn/courses/30/lessons/42839">프로그래머스 - 소수 찾기</a></p>
+    <p><a href="https://programmers.co.kr/learn/courses/30/lessons/12977">프로그래머스 - 소수 만들기</a></p>
 
-    </section>
+  </section>
 </main>
+<div th:replace="~{fragments/footer.html::footer}"></div>
 <script src="../../static/Js/header.js" th:src="@{/Js/header.js}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>

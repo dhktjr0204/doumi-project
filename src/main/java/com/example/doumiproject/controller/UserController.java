@@ -2,7 +2,6 @@ package com.example.doumiproject.controller;
 
 import com.example.doumiproject.dto.CommentDto;
 import com.example.doumiproject.dto.PostDto;
-import com.example.doumiproject.entity.Comment;
 import com.example.doumiproject.entity.User;
 import com.example.doumiproject.exception.user.NotValidateUserException;
 import com.example.doumiproject.service.CodingTestService;
@@ -13,11 +12,8 @@ import com.example.doumiproject.service.UserService;
 import com.example.doumiproject.util.PaginationUtil;
 import com.example.doumiproject.validate.UserValidator;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -233,6 +229,7 @@ public class UserController {
         }
 
         userService.deleteUser(userId);
+        session.invalidate();
 
         return ResponseEntity.ok().build();
     }

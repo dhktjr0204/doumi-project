@@ -42,7 +42,7 @@ public class LikeController {
 
             ))})
     public ResponseEntity<?> getLikeInfo(HttpServletRequest request,
-        @RequestParam(value = "postId") long postId) {
+        @RequestParam(value = "postId") long postId, @RequestParam(value = "type") String type) {
 
         try {
 
@@ -50,7 +50,7 @@ public class LikeController {
             long userId = (long) session.getAttribute("userId");
 
             boolean exists = likeService.existsByUserIdAndPostId(userId, postId);
-            long likeCount = likeService.getCountLike(postId);
+            long likeCount = likeService.getCountLike(postId, type);
 
             LikesDto likesDto = new LikesDto();
             likesDto.setExists(exists);
@@ -86,7 +86,7 @@ public class LikeController {
             long userId = (long) session.getAttribute("userId");
 
             likeService.addLike(userId, postId, type);
-            long likeCount = likeService.getCountLike(postId);
+            long likeCount = likeService.getCountLike(postId, type);
 
             return ResponseEntity.ok(likeCount);
         } catch (Exception e) {
@@ -118,7 +118,7 @@ public class LikeController {
             long userId = (long) session.getAttribute("userId");
 
             likeService.cancelLike(userId, postId, type);
-            long likeCount = likeService.getCountLike(postId);
+            long likeCount = likeService.getCountLike(postId, type);
 
             return ResponseEntity.ok(likeCount);
         } catch (Exception e) {
