@@ -23,8 +23,12 @@ GitHub을 활용하여 프로젝트를 관리하고 코드를 공유하며, 코�
 
 <br><br>
 
-## 👨🏻‍💻 개발 인원 : 3명
-강한주, 강성훈, 정지원
+## 👨🏻‍💻 개발 인원 및 역할
+| 이름  | 역할                                                                                                                               |
+|-----|----------------------------------------------------------------------------------------------------------------------------------|
+| 강한주 |                                                                                                                                  |
+| 강성훈 | 프로젝트 구조 설계<br/> 페이징 처리 <br/> Toast API Image Upload (Base64 -> ImageLink)<br/> 게시글 및 댓글 좋아요 기능<br/> CI/CD 파이프 라인 구축<br/> 프로젝트 배포 |
+| 정지원 |                                                                                                                                  |
 
 <br><br>
 
@@ -55,10 +59,10 @@ http://bend-doumi.com:8080/
 
 
 ## 🗂 DB 구성도
-<img src="src/main/resources/static/images/readMe/doumi_erd.png">
+![ERD](/src/main/resources/static/images/readMe/doumi_erd.png)
 
 ## CI/CD
 ![CI/CD](/src/main/resources/static/images/readMe/GitAction%20Deploy%20Flow.png)
 
 ## Architecture
-![CI/CD](/src/main/resources/static/images/readMe/Architecture.png)
+![Architecture](/src/main/resources/static/images/readMe/Architecture.png)
