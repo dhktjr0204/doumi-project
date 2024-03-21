@@ -56,3 +56,9 @@ http://bend-doumi.com:8080/
 
 ## 🗂 DB 구성도
 <img src="src/main/resources/static/images/readMe/doumi_erd.png">
+
+## CI/CD
+![CI/CD](/src/main/resources/static/images/readMe/GitAction%20Deploy%20Flow.png)
+
+## Architecture
+![CI/CD](/src/main/resources/static/images/readMe/Architecture.png)
