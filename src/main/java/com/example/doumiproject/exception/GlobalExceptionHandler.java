@@ -48,8 +48,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UserPwMismatchException.class)
     public ErrorForm UserPwMismatchException(UserPwMismatchException ex) {
         // 개발자에게 알려줄 수 있는 수단 필요
-        return new ErrorForm("비밀번호는 최소 8자 이상 최대 20자 이하, 하나 이상의 대문자, " +
-            "하나의 소문자, 하나의 숫자, 하나의 특수 문자를 포함해야 합니다.", HttpStatus.BAD_REQUEST.value());
+        return new ErrorForm("비밀번호는 최소 8자 이상 최대 20자 이하, 하나 이상의 문자, " +
+            "하나의 숫자, 하나의 특수 문자를 포함해야 합니다.", HttpStatus.BAD_REQUEST.value());
     }
 
     @ExceptionHandler(UserLoginFailedException.class)

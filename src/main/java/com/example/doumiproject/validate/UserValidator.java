@@ -13,7 +13,7 @@ public class UserValidator implements Validator {
     //^[a-zA-Z0-9]{5,20}$
     //^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,20}$
     private static final String ID_REGEEXP = "^[a-zA-Z0-9]{5,20}$";
-    private static final String PW_REGEXP = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,20}$";
+    private static final String PW_REGEXP = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{8,20}$";
 
     @Override
     public boolean supports(Class<?> clazz) {//검증하려는 클래스를 체크하는 메소드
