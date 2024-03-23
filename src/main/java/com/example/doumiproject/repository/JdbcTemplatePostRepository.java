@@ -81,9 +81,23 @@ public class JdbcTemplatePostRepository implements PostRepository {
 
         int offset = (page - 1) * pageSize;
 
-        String sql = "select p.id, p.title, p.user_id as author, p.contents, p.created_at, " +
+//        String sql = "select p.id, p.title, p.user_id as author, p.contents, p.created_at, " +
+//            "(select count(*) from likes where post_id = p.id and type = 'POST') as like_count " +
+//            "from post p " +
+//            "left join " +
+//            "quiztag qt on p.id = qt.post_id " +
+//            "left join " +
+//            "tag t on qt.tag_id = t.id " +
+//            "where " +
+//            "p.type = ? AND " + sqlSelector +
+//            "order by p.id desc " +
+//            "limit ? offset ?";
+
+        String sql = "select p.id, p.title, u.user_id as author, p.contents, p.created_at, " +
             "(select count(*) from likes where post_id = p.id and type = 'POST') as like_count " +
             "from post p " +
+            "inner join " +
+            "user u on p.user_id = u.id " +
             "left join " +
             "quiztag qt on p.id = qt.post_id " +
             "left join " +
@@ -177,11 +191,11 @@ public class JdbcTemplatePostRepository implements PostRepository {
     public int getTotalPagesForMyPage(Long userId, String type, int pageSize) {
 
         String sql = "select ceil(count(*) / ?) " +
-                "from post p " +
-                "inner join " +
-                "user u on p.user_id = u.id " +
-                "where " +
-                "(p.type = ?) and (u.id = ?)";
+            "from post p " +
+            "inner join " +
+            "user u on p.user_id = u.id " +
+            "where " +
+            "(p.type = ?) and (u.id = ?)";
 
         return jdbcTemplate.queryForObject(sql, Integer.class, pageSize, type, userId);
     }
