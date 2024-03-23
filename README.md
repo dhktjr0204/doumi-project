@@ -72,7 +72,7 @@ https://bend-doumi.com/
 |:----------------------------------------------------------------------------:|:-------------------------------------------------------------------------:|
 |      ![게시글 작성 이미지](/src/main/resources/static/images/readMe/게시글작성.gif)       |     ![게시글 검색 이미지](/src/main/resources/static/images/readMe/게시글검색.gif)     |
 |                                  <b>해시태그 조회                                  |                               <b>댓글, 대댓글 작성                               |
-|                           ![해시태그 조회 이미지](이미지URL3)                            |  ![댓글, 대댓글 작성 이미지](/src/main/resources/static/images/readMe/댓글대댓글작성.gif)  |
+|     ![해시태그 조회 이미지](/src/main/resources/static/images/readMe/해시태그조회.gif)      |  ![댓글, 대댓글 작성 이미지](/src/main/resources/static/images/readMe/댓글대댓글작성.gif)  |
 |                              <b>댓글 최신순, 추천순 조회                               |                              <b>게시글 및 댓글 추천                               |
 | ![댓글 최신순, 추천순 조회 이미지](/src/main/resources/static/images/readMe/댓글좋아요최신순.gif) | ![게시글 및 댓글 추천 이미지](/src/main/resources/static/images/readMe/게시글및댓글추천.gif) |
 
