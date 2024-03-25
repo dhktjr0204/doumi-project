@@ -79,7 +79,12 @@ function createCommentItemBody(commentItemContainer, type){
 
     if(type==="comment"){
         //댓글에 경우 체크박스가 있다.
-        const checked= commentItemContainer.querySelector('.display-check').checked;
+        let checked=false;
+        const checkBoxExist= commentItemContainer.querySelector('.display-check');
+
+        if(checkBoxExist){
+            checked=checkBoxExist.checked;
+        }
 
         //comment-item div 생성
         const commentItem= document.createElement('div');
