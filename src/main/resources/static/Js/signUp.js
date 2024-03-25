@@ -15,11 +15,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // 비밀번호 유효성 검사
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,20}$/;
     // const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,20}$/;
     if (!passwordRegex.test(password)) {
       alert(
-          '비밀번호는 최소 8자 이상 최대 20자 이하, 하나 이상의 대문자, 하나의 소문자, 하나의 숫자, 하나의 특수 문자를 포함해야 합니다.');
+          '비밀번호는 최소 8자 이상 최대 20자 이하, 하나 이상의 문자, 하나의 숫자, 하나의 특수 문자를 포함해야 합니다.');
       // alert('비밀번호는 최소 4자 이상 최대 20자 이하, 하나 이상의 문자와 하나의 숫자를 포함해야 합니다.');
       return;
     }
